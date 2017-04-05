@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -8,6 +9,10 @@ namespace MicroSimulator
 {
     static class Program
     {
+        //get list of commands
+        private static string[] _cmdList;
+
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -16,7 +21,14 @@ namespace MicroSimulator
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Simulator_Form());
+            var simForm = new SimulatorForm();
+ 
+            _cmdList = File.ReadAllLines("C:\\workspace\\MicroSimulator\\sim1.txt");
+            foreach (var cmd in _cmdList)
+            {
+                simForm.CmdInput.Items.Add(cmd);
+            }
+            Application.Run(simForm);
         }
     }
 }

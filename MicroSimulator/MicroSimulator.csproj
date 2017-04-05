@@ -79,6 +79,20 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Tests\TPicSim1.LST" />
+    <Content Include="Tests\TPicSim10.LST" />
+    <Content Include="Tests\TPicSim11.LST" />
+    <Content Include="Tests\TPicSim12.LST" />
+    <Content Include="Tests\TPicSim2.LST" />
+    <Content Include="Tests\TPicSim3.LST" />
+    <Content Include="Tests\TPicSim4.LST" />
+    <Content Include="Tests\TPicSim5.LST" />
+    <Content Include="Tests\TPicSim6.LST" />
+    <Content Include="Tests\TPicSim7.LST" />
+    <Content Include="Tests\TPicSim8.LST" />
+    <Content Include="Tests\TPicSim9.LST" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
