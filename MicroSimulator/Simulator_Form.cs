@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace MicroSimulator
 {
-    public partial class Form1 : Form
+    public partial class Simulator_Form : Form
     {
-        public Form1()
+        public Simulator_Form()
         {
             InitializeComponent();
+        }
+
+        private void Simulator_Form_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

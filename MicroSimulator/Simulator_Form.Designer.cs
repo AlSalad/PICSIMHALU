@@ -1,6 +1,6 @@
 ﻿namespace MicroSimulator
 {
-    partial class Form1
+    partial class Simulator_Form
     {
         /// <summary>
         /// Required designer variable.
@@ -28,9 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // Simulator_Form
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(539, 451);
+            this.Name = "Simulator_Form";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Simulator_Form_Load);
+            this.ResumeLayout(false);
+
         }
 
         #endregion
