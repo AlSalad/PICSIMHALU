@@ -1,0 +1,9 @@
+C:\workspace\MicroSimulator\MicroSimulator\bin\Debug\MicroSimulator.exe.config
+C:\workspace\MicroSimulator\MicroSimulator\bin\Debug\MicroSimulator.exe
+C:\workspace\MicroSimulator\MicroSimulator\bin\Debug\MicroSimulator.pdb
+C:\workspace\MicroSimulator\MicroSimulator\obj\Debug\MicroSimulator.csprojResolveAssemblyReference.cache
+C:\workspace\MicroSimulator\MicroSimulator\obj\Debug\MicroSimulator.SimulatorForm.resources
+C:\workspace\MicroSimulator\MicroSimulator\obj\Debug\MicroSimulator.Properties.Resources.resources
+C:\workspace\MicroSimulator\MicroSimulator\obj\Debug\MicroSimulator.csproj.GenerateResource.Cache
+C:\workspace\MicroSimulator\MicroSimulator\obj\Debug\MicroSimulator.exe
+C:\workspace\MicroSimulator\MicroSimulator\obj\Debug\MicroSimulator.pdb
