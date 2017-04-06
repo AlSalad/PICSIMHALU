@@ -23,11 +23,7 @@ namespace MicroSimulator
             Application.SetCompatibleTextRenderingDefault(false);
             var simForm = new SimulatorForm();
  
-            _cmdList = File.ReadAllLines("C:\\workspace\\MicroSimulator\\sim1.txt");
-            foreach (var cmd in _cmdList)
-            {
-                simForm.CmdInput.Items.Add(cmd);
-            }
+
             Application.Run(simForm);
         }
     }
