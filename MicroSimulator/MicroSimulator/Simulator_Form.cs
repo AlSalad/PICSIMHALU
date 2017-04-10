@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MicroSimulator.Properties;
 
 namespace MicroSimulator
 {  
@@ -23,23 +24,17 @@ namespace MicroSimulator
         {
             InitializeComponent();
         }
-
-        private void Simulator_Form_Load(object sender, EventArgs e)
+        private void SimulatorForm_Load(object sender, EventArgs e)
         {
-
-        }
-
-        private void btn_convert_Click(object sender, EventArgs e)
-        {
- 
             
         }
 
-        private void CmdInput_SelectedIndexChanged(object sender, EventArgs e)
+        private void RunLine()
         {
+            
         }
 
-        private string ConvertToText(string cmd)
+        private static string ConvertToText(string cmd)
         {
             var cmdOp = cmd.Substring(0, 2);
             var cmdLit = Convert.ToInt32(cmd.Substring(2, 2),16);
@@ -47,22 +42,22 @@ namespace MicroSimulator
             switch (cmdOp)
             {
                 case "30":
-                    Movlw(cmdLit);
+                    //Movlw(cmdLit);
                     return "movlw";
                 case "38":
-                    Iorlw(cmdLit);
+                    //Iorlw(cmdLit);
                     return "iorlw";
                 case "39":
-                    Andlw(cmdLit);
+                    //Andlw(cmdLit);
                     return "andlw";
                 case "3A":
-                    Xorlw(cmdLit);
+                    //Xorlw(cmdLit);
                     return "xorlw";
                 case "3C":
-                    Sublw(cmdLit);
+                    //Sublw(cmdLit);
                     return "sublw";
                 case "3E":
-                    Addlw(cmdLit);
+                    //Addlw(cmdLit);
                     return "addlw";
                 default:
                     return "ERROR";
@@ -114,38 +109,34 @@ namespace MicroSimulator
         private void btn_Open_Click(object sender, EventArgs e)
         {
             //CmdInput.Items.Clear();
-            Stream customStream = null;
             var openFileDialog = new OpenFileDialog
             {
                 InitialDirectory = "C:\\workspace\\MicroSimulator\\MicroSimulator\\Tests",
-                Filter = "*.LST|",
+                Filter = @"*.LST|",
                 FilterIndex = 2,
                 RestoreDirectory = true
             };
 
 
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            if (openFileDialog.ShowDialog() != DialogResult.OK) return;
+
+            try
             {
-                try
-                {
-                    if ((customStream = openFileDialog.OpenFile()) == null) return;
+                Stream customStream;
+                if ((customStream = openFileDialog.OpenFile()) == null) return;
 
-                    using (customStream)
+                using (customStream)
+                {                
+                    using (var reader = new StreamReader(customStream))
                     {
-                            
-                        using (StreamReader reader = new StreamReader(customStream))
-                        {
-                            CodeList = reader.ReadToEnd().Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-                            RegexCmd();
-                        }
-
+                        dataGridView_prog.Rows.Clear();
+                        text_path.Text = openFileDialog.FileName;
+                        CodeList = reader.ReadToEnd().Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                        RegexCmd();
                     }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
-                }
             }
+            catch (Exception ex){MessageBox.Show(Resources.read_error + ex.Message); }
         }
 
         public IEnumerable<string> ReadLines(Func<Stream> streamProvider,
@@ -164,21 +155,48 @@ namespace MicroSimulator
 
         private void RegexCmd()
         {
-            string pattern = "[0-9A-F]{4} [0-9A-F]{4}";
-            Regex rgx = new Regex(pattern, RegexOptions.IgnoreCase);
-            foreach (string codeLine in CodeList)
+            var rgxCmd = new Regex("[0-9A-F]{4} [0-9A-F]{4}", RegexOptions.IgnoreCase);
+            var rgxLoop = new Regex("[0-9A-F]{5}  [0-9a-zA-Z]*");
+            foreach (var codeLine in CodeList)
             {
-                if (rgx.Match(codeLine).Success)
+                if (rgxLoop.Match(codeLine).Success)
                 {
-                    dataGridView_prog.Rows.Add(rgx.Match(codeLine).Value.Substring(0, 4), rgx.Match(codeLine).Value.Substring(5, 4), "");
-                    //MessageBox.Show(rgx.Match(codeLine).Value);
-                }  
+                    var loop = rgxLoop.Match(codeLine).Value.Substring(7);
+                    if(loop!="")
+                        dataGridView_prog.Rows.Add("", "", loop, "");
+                }
+
+
+                if (rgxCmd.Match(codeLine).Success)
+                {
+                    var cmd = rgxCmd.Match(codeLine).Value.Substring(5, 4);
+                    dataGridView_prog.Rows.Add(rgxCmd.Match(codeLine).Value.Substring(0, 4), cmd, ConvertToText(cmd));
+                }
+
+                
+
+                //MessageBox.Show(rgx.Match(codeLine).Value);
             }
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void btn_Step_Click(object sender, EventArgs e)
         {
+            if (dataGridView_prog.CurrentRow == null) return;             
+            var nrow = dataGridView_prog.CurrentCell.RowIndex;
+            if (nrow >= dataGridView_prog.RowCount) return;
 
+            dataGridView_prog.Rows[nrow].Selected = false;
+            dataGridView_prog.Rows[++nrow].Selected = true;
+        }
+
+        private void btn_execute_Click(object sender, EventArgs e)
+        {
+            if (dataGridView_prog.CurrentRow != null)
+            {
+                var cmd = dataGridView_prog.CurrentRow.Cells[1].Value.ToString();
+
+                MessageBox.Show(cmd);
+            }
         }
     }
 }

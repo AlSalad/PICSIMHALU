@@ -59,5 +59,14 @@ namespace MicroSimulator.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: Could not read file from disk. Original error: .
+        /// </summary>
+        internal static string read_error {
+            get {
+                return ResourceManager.GetString("read_error", resourceCulture);
+            }
+        }
     }
 }
