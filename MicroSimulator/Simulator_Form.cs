@@ -5,12 +5,14 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MicroSimulator.Properties;
+using static System.Convert;
 
 namespace MicroSimulator
 {  
@@ -34,60 +36,83 @@ namespace MicroSimulator
             
         }
 
-        private static string ConvertToText(string cmd)
+        public string Hex2Bin(string value)
         {
-            var cmdOp = cmd.Substring(0, 2);
-            var cmdLit = Convert.ToInt32(cmd.Substring(2, 2),16);
-
-            switch (cmdOp)
-            {
-                case "30":
-                    //Movlw(cmdLit);
-                    return "movlw";
-                case "38":
-                    //Iorlw(cmdLit);
-                    return "iorlw";
-                case "39":
-                    //Andlw(cmdLit);
-                    return "andlw";
-                case "3A":
-                    //Xorlw(cmdLit);
-                    return "xorlw";
-                case "3C":
-                    //Sublw(cmdLit);
-                    return "sublw";
-                case "3E":
-                    //Addlw(cmdLit);
-                    return "addlw";
-                default:
-                    return "ERROR";
-            }
+            return Convert.ToString(Convert.ToInt32(value, 16), 2).PadLeft(value.Length * 4, '0');
         }
 
-        private void Movlw(int cmdLit)
+        public int Bin2Dec(string value)
         {
-            L = cmdLit;
+           return Convert.ToInt32(value, 2);
+        }
+
+        private void CmdHandler(string cmd)
+        {
+            var bin = Hex2Bin(cmd).Substring(2);
+
+            if (bin.StartsWith("1100"))
+                Movlw(bin.Substring(7));
+
+            if (bin.StartsWith("111000"))
+                Iorlw(bin.Substring(7));
+
+            if (bin.StartsWith("111001"))
+                Andlw(bin.Substring(7));
+
+            if(bin.StartsWith("111010"))
+                Xorlw(bin.Substring(7));
+
+
+
+
+
+        }
+        private void Goto(int cmdLit)
+        {
+            var searchValue = ("00" + cmdLit);
+
+            dataGridView_prog.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            try
+            {
+                foreach (DataGridViewRow row in dataGridView_prog.Rows)
+                {
+                    if (row.Cells[0].Value.ToString().Equals(searchValue))
+                    {
+                    
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+
+        }
+
+        private void Movlw(string cmdLit)
+        {        
+            L = Bin2Dec(cmdLit);
             W = L;
             text_W.Text = W.ToString();
         }
 
-        private void Iorlw(int cmdLit)
+        private void Iorlw(string cmdLit)
         {
-            L = cmdLit;
+            L = Bin2Dec(cmdLit);
             W = W | L;
             text_W.Text = W.ToString();
         }
 
-        private void Andlw(int cmdLit)
+        private void Andlw(string cmdLit)
         {
-            L = cmdLit;
+            L = Bin2Dec(cmdLit);
             W = W & L;
             text_W.Text = W.ToString();
         }
 
-        private void Xorlw(int cmdLit)
+        private void Xorlw(string cmdLit)
         {
-            L = cmdLit;
+            L = Bin2Dec(cmdLit);
             W = W ^ L;
             text_W.Text = W.ToString();
         }
@@ -155,7 +180,8 @@ namespace MicroSimulator
 
         private void RegexCmd()
         {
-            var rgxCmd = new Regex("[0-9A-F]{4} [0-9A-F]{4}", RegexOptions.IgnoreCase);
+            var rgxCmd = new Regex("[0-9A-F]{4} [0-9A-F]{4}");
+            var rgxCmdReadable = new Regex("[0-9a-fA-F]{5}[ ]*[a-z]* [0-9a-zA-Z]*");
             var rgxLoop = new Regex("[0-9A-F]{5}  [0-9a-zA-Z]*");
             foreach (var codeLine in CodeList)
             {
@@ -170,7 +196,8 @@ namespace MicroSimulator
                 if (rgxCmd.Match(codeLine).Success)
                 {
                     var cmd = rgxCmd.Match(codeLine).Value.Substring(5, 4);
-                    dataGridView_prog.Rows.Add(rgxCmd.Match(codeLine).Value.Substring(0, 4), cmd, ConvertToText(cmd));
+                    var cmdReadable = rgxCmdReadable.Match(codeLine).Value.Substring(16);
+                    dataGridView_prog.Rows.Add(rgxCmd.Match(codeLine).Value.Substring(0, 4), cmd, cmdReadable);
                 }
 
                 
@@ -181,20 +208,24 @@ namespace MicroSimulator
 
         private void btn_Step_Click(object sender, EventArgs e)
         {
-            if (dataGridView_prog.CurrentRow == null) return;             
-            var nrow = dataGridView_prog.CurrentCell.RowIndex;
-            if (nrow >= dataGridView_prog.RowCount) return;
-
-            dataGridView_prog.Rows[nrow].Selected = false;
-            dataGridView_prog.Rows[++nrow].Selected = true;
+            Execute();
         }
 
-        private void btn_execute_Click(object sender, EventArgs e)
+        private void Execute()
         {
-            if (dataGridView_prog.CurrentRow != null)
-            {
-                var cmd = dataGridView_prog.CurrentRow.Cells[1].Value;
-            }
+            if (dataGridView_prog.CurrentRow == null) return;
+
+            var cmd = dataGridView_prog.CurrentRow.Cells[1].Value.ToString();
+
+            if(cmd!="") CmdHandler(cmd);
+
+            if (dataGridView_prog.CurrentRow == null) return;
+
+            dataGridView_prog.CurrentCell =
+                    dataGridView_prog
+                    .Rows[Math.Min(dataGridView_prog.CurrentRow.Index + 1, dataGridView_prog.Rows.Count - 1)]
+                    .Cells[dataGridView_prog.CurrentCell.ColumnIndex];
+            dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
         }
     }
 }

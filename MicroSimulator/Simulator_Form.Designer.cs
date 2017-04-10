@@ -35,10 +35,6 @@ namespace MicroSimulator
             this.text_path = new System.Windows.Forms.TextBox();
             this.btn_Open = new System.Windows.Forms.Button();
             this.dataGridView_prog = new System.Windows.Forms.DataGridView();
-            this.Column_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column_Cmd = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column_Op = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column_Literal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.text_W = new System.Windows.Forms.TextBox();
             this.a_bit_7 = new System.Windows.Forms.Button();
             this.a_bit_5 = new System.Windows.Forms.Button();
@@ -60,7 +56,12 @@ namespace MicroSimulator
             this.b_bit_7 = new System.Windows.Forms.Button();
             this.label_W = new System.Windows.Forms.Label();
             this.btn_Step = new System.Windows.Forms.Button();
-            this.btn_execute = new System.Windows.Forms.Button();
+            this.Column_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column_Cmd = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_bin = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column_Op = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column_Literal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btn_Start = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_prog)).BeginInit();
             this.SuspendLayout();
             // 
@@ -86,11 +87,13 @@ namespace MicroSimulator
             // 
             // dataGridView_prog
             // 
+            this.dataGridView_prog.AllowUserToAddRows = false;
             this.dataGridView_prog.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView_prog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_prog.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column_ID,
             this.Column_Cmd,
+            this.col_bin,
             this.Column_Op,
             this.Column_Literal});
             this.dataGridView_prog.Location = new System.Drawing.Point(23, 63);
@@ -98,28 +101,6 @@ namespace MicroSimulator
             this.dataGridView_prog.RowTemplate.Height = 28;
             this.dataGridView_prog.Size = new System.Drawing.Size(479, 869);
             this.dataGridView_prog.TabIndex = 8;
-            // 
-            // Column_ID
-            // 
-            this.Column_ID.HeaderText = "ID";
-            this.Column_ID.Name = "Column_ID";
-            this.Column_ID.Width = 40;
-            // 
-            // Column_Cmd
-            // 
-            this.Column_Cmd.HeaderText = "Hex";
-            this.Column_Cmd.Name = "Column_Cmd";
-            this.Column_Cmd.Width = 40;
-            // 
-            // Column_Op
-            // 
-            this.Column_Op.HeaderText = "Operator";
-            this.Column_Op.Name = "Column_Op";
-            // 
-            // Column_Literal
-            // 
-            this.Column_Literal.HeaderText = "Literal";
-            this.Column_Literal.Name = "Column_Literal";
             // 
             // text_W
             // 
@@ -350,7 +331,7 @@ namespace MicroSimulator
             // 
             // btn_Step
             // 
-            this.btn_Step.Location = new System.Drawing.Point(509, 63);
+            this.btn_Step.Location = new System.Drawing.Point(509, 94);
             this.btn_Step.Name = "btn_Step";
             this.btn_Step.Size = new System.Drawing.Size(75, 29);
             this.btn_Step.TabIndex = 32;
@@ -358,15 +339,41 @@ namespace MicroSimulator
             this.btn_Step.UseVisualStyleBackColor = true;
             this.btn_Step.Click += new System.EventHandler(this.btn_Step_Click);
             // 
-            // btn_execute
+            // Column_ID
             // 
-            this.btn_execute.Location = new System.Drawing.Point(509, 98);
-            this.btn_execute.Name = "btn_execute";
-            this.btn_execute.Size = new System.Drawing.Size(75, 29);
-            this.btn_execute.TabIndex = 33;
-            this.btn_execute.Text = "Execute";
-            this.btn_execute.UseVisualStyleBackColor = true;
-            this.btn_execute.Click += new System.EventHandler(this.btn_execute_Click);
+            this.Column_ID.HeaderText = "ID";
+            this.Column_ID.Name = "Column_ID";
+            this.Column_ID.Width = 40;
+            // 
+            // Column_Cmd
+            // 
+            this.Column_Cmd.HeaderText = "Hex";
+            this.Column_Cmd.Name = "Column_Cmd";
+            this.Column_Cmd.Width = 40;
+            // 
+            // col_bin
+            // 
+            this.col_bin.HeaderText = "Binary";
+            this.col_bin.Name = "col_bin";
+            // 
+            // Column_Op
+            // 
+            this.Column_Op.HeaderText = "Operator";
+            this.Column_Op.Name = "Column_Op";
+            // 
+            // Column_Literal
+            // 
+            this.Column_Literal.HeaderText = "Literal";
+            this.Column_Literal.Name = "Column_Literal";
+            // 
+            // btn_Start
+            // 
+            this.btn_Start.Location = new System.Drawing.Point(509, 63);
+            this.btn_Start.Name = "btn_Start";
+            this.btn_Start.Size = new System.Drawing.Size(75, 29);
+            this.btn_Start.TabIndex = 33;
+            this.btn_Start.Text = "Start";
+            this.btn_Start.UseVisualStyleBackColor = true;
             // 
             // SimulatorForm
             // 
@@ -374,7 +381,7 @@ namespace MicroSimulator
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1258, 944);
-            this.Controls.Add(this.btn_execute);
+            this.Controls.Add(this.btn_Start);
             this.Controls.Add(this.btn_Step);
             this.Controls.Add(this.label_W);
             this.Controls.Add(this.label2);
@@ -412,7 +419,6 @@ namespace MicroSimulator
         #endregion
         private System.Windows.Forms.TextBox text_path;
         private System.Windows.Forms.Button btn_Open;
-        private System.Windows.Forms.DataGridView dataGridView_prog;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.TextBox text_W;
@@ -426,10 +432,6 @@ namespace MicroSimulator
         private System.Windows.Forms.Button a_bit_2;
         private System.Windows.Forms.Button a_bit_3;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column_ID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column_Cmd;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column_Op;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column_Literal;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button b_bit_2;
         private System.Windows.Forms.Button b_bit_3;
@@ -441,7 +443,13 @@ namespace MicroSimulator
         private System.Windows.Forms.Button b_bit_7;
         private System.Windows.Forms.Label label_W;
         private System.Windows.Forms.Button btn_Step;
-        private System.Windows.Forms.Button btn_execute;
+        private System.Windows.Forms.DataGridView dataGridView_prog;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column_ID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column_Cmd;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_bin;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column_Op;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column_Literal;
+        private System.Windows.Forms.Button btn_Start;
     }
 }
 
