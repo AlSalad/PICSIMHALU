@@ -20,12 +20,16 @@ namespace MicroSimulator
     {
         public int W = 0;
         public int L = 0;
+        public int ZeroFlag = 0;
+        public int CarryFlag = 0;
+        public int ProgramCounter = 0;
         public string[] CodeList;
 
         public SimulatorForm()
         {
             InitializeComponent();
         }
+
         private void SimulatorForm_Load(object sender, EventArgs e)
         {
             
@@ -38,44 +42,70 @@ namespace MicroSimulator
 
         public string Hex2Bin(string value)
         {
-            return Convert.ToString(Convert.ToInt32(value, 16), 2).PadLeft(value.Length * 4, '0');
+            return Convert.ToString(ToInt32(value, 16), 2).PadLeft(value.Length * 4, '0');
         }
 
         public int Bin2Dec(string value)
         {
-           return Convert.ToInt32(value, 2);
+           return ToInt32(value, 2);
         }
 
-        private void CmdHandler(string cmd)
+        public int Hex2Int(string value)
         {
-            var bin = Hex2Bin(cmd).Substring(2);
-
-            if (bin.StartsWith("1100"))
-                Movlw(bin.Substring(7));
-
-            if (bin.StartsWith("111000"))
-                Iorlw(bin.Substring(7));
-
-            if (bin.StartsWith("111001"))
-                Andlw(bin.Substring(7));
-
-            if(bin.StartsWith("111010"))
-                Xorlw(bin.Substring(7));
-
-            if(bin.StartsWith("11110"))
-                Sublw(bin.Substring(7));
-
-            if(bin.StartsWith("11111"))
-                Addlw(bin.Substring(7));
-
-            if(bin.StartsWith("101"))
-                Goto(bin.Substring(4));
-
-
+            return int.Parse(value, System.Globalization.NumberStyles.HexNumber);
         }
-        private void Goto(string cmdLit)
+
+        private void HandleCmd(string cmdValue)
         {
-            var hexVal = Convert.ToInt32(cmdLit, 2).ToString("X");
+            var cmd = Hex2Int(cmdValue);
+
+            //MOVE
+            if ((cmd & 0b11_1100_0000_0000) == 0b11_0000_0000_0000)
+            {
+                Movlw(cmd & 255);
+            }
+
+            //UND
+            if ((cmd & 0b11_1111_0000_0000) == 0b11_1001_0000_0000)
+            {
+                Andlw(cmd & 255);
+            }
+
+            //Inklusiv ODER
+            if ((cmd & 0b11_1111_0000_0000) == 0b11_1000_0000_0000)
+            {
+                Iorlw(cmd & 255);
+            }
+
+            //Subtrahieren
+            if ((cmd & 0b11_1110_0000_0000) == 0b11_1100_0000_0000)
+            {
+                Sublw(cmd & 255);
+            }
+
+            //Addieren
+            if ((cmd & 0b11_1110_0000_0000) == 0b11_1110_0000_0000)
+            {
+                Addlw(cmd & 255);
+            }
+
+            //XOR
+            if ((cmd & 0b11_1111_0000_0000) == 0b11_1010_0000_0000)
+            {
+                Xorlw(cmd & 255);
+            }
+
+            if ((cmd & 0b11_1000_0000_0000) == 0b10_1000_0000_0000)
+            {
+                Goto(cmd & 0b00011111111111);
+            }
+        }
+      
+
+        #region Commands -------------------
+        private void Goto(int cmdLit)
+        {
+            var hexVal = cmdLit.ToString("X");
             var searchString = hexVal.PadLeft(4, '0');
 
             dataGridView_prog.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -86,9 +116,9 @@ namespace MicroSimulator
                     if (row.Cells[0].Value.ToString().Equals(searchString))
                     {
                         dataGridView_prog.CurrentCell =
-                                            dataGridView_prog
-                                            .Rows[0]
-                                            .Cells[dataGridView_prog.CurrentCell.ColumnIndex];
+                            dataGridView_prog
+                                .Rows[row.Index-2]
+                                .Cells[dataGridView_prog.CurrentCell.ColumnIndex];
                         dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
                     }
                 }
@@ -100,48 +130,55 @@ namespace MicroSimulator
 
         }
 
-        private void Movlw(string cmdLit)
-        {        
-            L = Bin2Dec(cmdLit);
+        private void Movlw(int cmdLit)
+        {
+            L = cmdLit;
             W = L;
             text_W.Text = W.ToString();
         }
 
-        private void Iorlw(string cmdLit)
+        private void Iorlw(int cmdLit)
         {
-            L = Bin2Dec(cmdLit);
+            L = cmdLit;
             W = W | L;
             text_W.Text = W.ToString();
         }
 
-        private void Andlw(string cmdLit)
+        private void Andlw(int cmdLit)
         {
-            L = Bin2Dec(cmdLit);
+            L = cmdLit;
             W = W & L;
             text_W.Text = W.ToString();
         }
 
-        private void Xorlw(string cmdLit)
+        private void Xorlw(int cmdLit)
         {
-            L = Bin2Dec(cmdLit);
+            L = cmdLit;
             W = W ^ L;
             text_W.Text = W.ToString();
         }
 
-        private void Sublw(string cmdLit)
+        private void Sublw(int cmdLit)
         {
-            L = Bin2Dec(cmdLit);
+            L = cmdLit;
             W = L - W;
             text_W.Text = W.ToString();
         }
 
-        private void Addlw(string cmdLit)
+        private void Addlw(int cmdLit)
         {
-            L = Bin2Dec(cmdLit);
+            L = cmdLit;
             W = L + W;
             text_W.Text = W.ToString();
         }
 
+        #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_Open_Click(object sender, EventArgs e)
         {
             //CmdInput.Items.Clear();
@@ -152,7 +189,6 @@ namespace MicroSimulator
                 FilterIndex = 2,
                 RestoreDirectory = true
             };
-
 
             if (openFileDialog.ShowDialog() != DialogResult.OK) return;
 
@@ -174,6 +210,7 @@ namespace MicroSimulator
             }
             catch (Exception ex){MessageBox.Show(Resources.read_error + ex.Message); }
         }
+
 
         public IEnumerable<string> ReadLines(Func<Stream> streamProvider,
                                      Encoding encoding)
@@ -203,7 +240,6 @@ namespace MicroSimulator
                         dataGridView_prog.Rows.Add("", "", loop, "");
                 }
 
-
                 if (rgxCmd.Match(codeLine).Success)
                 {
                     var cmd = rgxCmd.Match(codeLine).Value.Substring(5, 4);
@@ -228,7 +264,7 @@ namespace MicroSimulator
 
             var cmd = dataGridView_prog.CurrentRow.Cells[1].Value.ToString();
 
-            if(cmd!="") CmdHandler(cmd);
+            if(cmd!="") HandleCmd(cmd);
 
             if (dataGridView_prog.CurrentRow == null) return;
 

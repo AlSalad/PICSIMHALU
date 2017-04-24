@@ -10,9 +10,8 @@ namespace MicroSimulator
     static class Program
     {
         //get list of commands
-        private static string[] _cmdList;
 
-
+     
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
