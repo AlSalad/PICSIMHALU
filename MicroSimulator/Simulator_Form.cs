@@ -62,23 +62,34 @@ namespace MicroSimulator
             if(bin.StartsWith("111010"))
                 Xorlw(bin.Substring(7));
 
+            if(bin.StartsWith("11110"))
+                Sublw(bin.Substring(7));
 
+            if(bin.StartsWith("11111"))
+                Addlw(bin.Substring(7));
 
+            if(bin.StartsWith("101"))
+                Goto(bin.Substring(4));
 
 
         }
-        private void Goto(int cmdLit)
+        private void Goto(string cmdLit)
         {
-            var searchValue = ("00" + cmdLit);
+            var hexVal = Convert.ToInt32(cmdLit, 2).ToString("X");
+            var searchString = hexVal.PadLeft(4, '0');
 
             dataGridView_prog.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             try
             {
                 foreach (DataGridViewRow row in dataGridView_prog.Rows)
                 {
-                    if (row.Cells[0].Value.ToString().Equals(searchValue))
+                    if (row.Cells[0].Value.ToString().Equals(searchString))
                     {
-                    
+                        dataGridView_prog.CurrentCell =
+                                            dataGridView_prog
+                                            .Rows[0]
+                                            .Cells[dataGridView_prog.CurrentCell.ColumnIndex];
+                        dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
                     }
                 }
             }
@@ -117,16 +128,16 @@ namespace MicroSimulator
             text_W.Text = W.ToString();
         }
 
-        private void Sublw(int cmdLit)
+        private void Sublw(string cmdLit)
         {
-            L = cmdLit;
+            L = Bin2Dec(cmdLit);
             W = L - W;
             text_W.Text = W.ToString();
         }
 
-        private void Addlw(int cmdLit)
+        private void Addlw(string cmdLit)
         {
-            L = cmdLit;
+            L = Bin2Dec(cmdLit);
             W = L + W;
             text_W.Text = W.ToString();
         }
