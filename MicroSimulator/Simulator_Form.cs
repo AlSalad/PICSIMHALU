@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -23,6 +24,9 @@ namespace MicroSimulator
         public int ZeroFlag = 0;
         public int CarryFlag = 0;
         public int ProgramCounter = 0;
+        public int Wert1 = 0;
+        public int Wert2 = 0;
+        Stack<int> _stack = new Stack<int>();
         public string[] CodeList;
 
         public SimulatorForm()
@@ -32,12 +36,24 @@ namespace MicroSimulator
 
         private void SimulatorForm_Load(object sender, EventArgs e)
         {
-            
-        }
+            dataGridView_RegA.Rows.Add("TRIS", "i", "i", "i", "i", "i", "i", "i", "i");
+            dataGridView_RegA.Rows.Add("Bits", 0, 0, 0, 0, 0, 0, 0, 0);
 
-        private void RunLine()
-        {
-            
+            dataGridView_RegB.Rows.Add("TRIS", "i", "i", "i", "i", "i", "i", "i", "i");
+            dataGridView_RegB.Rows.Add("Bits", 0, 0, 0, 0, 0, 0, 0, 0);
+
+            dataGridView_RegTab.Rows.Add("00h", "INDF", "--------");
+            dataGridView_RegTab.Rows.Add("01h", "TMR0", "xxxxxxxx");
+            dataGridView_RegTab.Rows.Add("02h", "PCL", "00000000");
+            dataGridView_RegTab.Rows.Add("03h", "STATUS", "00011000");
+            dataGridView_RegTab.Rows.Add("04h", "FSR", "xxxxxxxx");
+            dataGridView_RegTab.Rows.Add("05h", "PORTA", "---xxxxx");
+            dataGridView_RegTab.Rows.Add("06h", "PortB", "xxxxxxxx");
+            dataGridView_RegTab.Rows.Add("07h", "-", "-");
+            dataGridView_RegTab.Rows.Add("08h", "EEDATA", "xxxxxxxx");
+            dataGridView_RegTab.Rows.Add("09h", "EEADR", "xxxxxxxx");
+            dataGridView_RegTab.Rows.Add("0Ah", "PCLATH", "---00000");
+            dataGridView_RegTab.Rows.Add("0Bh", "INTCON", "0000000x");
         }
 
         public string Hex2Bin(string value)
@@ -99,10 +115,79 @@ namespace MicroSimulator
             {
                 Goto(cmd & 0b00011111111111);
             }
+
+            if ((cmd & 0b11_1000_0000_0000) == 0b10_0000_0000_0000)
+            {
+                CallSub(cmd & 0b00011111111111);
+            }
+
+            if ((cmd & 0b11_1100_0000_0000) == 0b11_0100_0000_0000)
+            {
+                Retlw(cmd & 255);
+            }
+
+            if (cmd == 0b00_0000_0000_1000)
+            {
+                ReturnToCall();
+            }
+
         }
-      
+
+        private void ReturnToCall()
+        {
+            dataGridView_prog.CurrentCell =
+                dataGridView_prog
+                    .Rows[_stack.Peek()]
+                    .Cells[dataGridView_prog.CurrentCell.ColumnIndex];
+            dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
+
+            _stack.Pop();
+        }
+
+        private void Retlw(int cmdLit)
+        {
+            dataGridView_prog.CurrentCell =
+                dataGridView_prog
+                    .Rows[_stack.Peek()]
+                    .Cells[dataGridView_prog.CurrentCell.ColumnIndex];
+            dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
+
+            L = cmdLit;
+            W = L;
+            text_W.Text = W.ToString("X");
+
+            _stack.Pop();
+        }
 
         #region Commands -------------------
+
+        private void CallSub(int cmdLit)
+        {
+            _stack.Push(ProgramCounter);
+            var hexVal = cmdLit.ToString("X");
+            var searchString = hexVal.PadLeft(4, '0');
+
+            dataGridView_prog.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            try
+            {
+                foreach (DataGridViewRow row in dataGridView_prog.Rows)
+                {
+                    if (row.Cells[0].Value.ToString().Equals(searchString))
+                    {
+                        dataGridView_prog.CurrentCell =
+                            dataGridView_prog
+                                .Rows[row.Index - 1]
+                                .Cells[dataGridView_prog.CurrentCell.ColumnIndex];
+                        dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+        }
+
         private void Goto(int cmdLit)
         {
             var hexVal = cmdLit.ToString("X");
@@ -134,45 +219,89 @@ namespace MicroSimulator
         {
             L = cmdLit;
             W = L;
-            text_W.Text = W.ToString();
+            text_W.Text = W.ToString("X");
         }
 
         private void Iorlw(int cmdLit)
         {
             L = cmdLit;
             W = W | L;
-            text_W.Text = W.ToString();
+            text_W.Text = W.ToString("X");
         }
 
         private void Andlw(int cmdLit)
         {
             L = cmdLit;
             W = W & L;
-            text_W.Text = W.ToString();
+            text_W.Text = W.ToString("X");
         }
 
         private void Xorlw(int cmdLit)
         {
             L = cmdLit;
             W = W ^ L;
-            text_W.Text = W.ToString();
+            text_W.Text = W.ToString("X");
         }
 
         private void Sublw(int cmdLit)
         {
             L = cmdLit;
-            W = L - W;
-            text_W.Text = W.ToString();
+            var b = L - W;
+            if (L - W < 0)
+            {
+                W = 255 - (L - W);
+
+                CarryFlag = 0;
+            }
+            else
+            {
+                W = L - W;
+                CarryFlag = 1;
+            }
+
+            textBox_CarryFlag.Text = CarryFlag.ToString();
+            text_W.Text = W.ToString("X");
         }
 
         private void Addlw(int cmdLit)
         {
             L = cmdLit;
-            W = L + W;
-            text_W.Text = W.ToString();
+            if (L + W > 255)
+            {
+                W = (L-W) - 255;
+                CarryFlag = CarryFlag ^ 1;
+
+                textBox_CarryFlag.Text = CarryFlag.ToString();
+
+            }
+            else if (L + W == 256)
+            {
+                W = 0;
+            }
+            else
+            {
+                W = L + W;
+            }
+            
+
+            text_W.Text = W.ToString("X");
         }
 
         #endregion
+
+
+        private void ResetParam()
+        {
+            W = 0;
+            text_W.Text = W.ToString();
+            ProgramCounter = 0;
+            text_Pc.Text = ProgramCounter.ToString();
+            CarryFlag = 0;
+            textBox_CarryFlag.Text = CarryFlag.ToString();
+            ZeroFlag = 0;
+            textBox_ZeroFlag.Text = CarryFlag.ToString();
+
+        }
 
         /// <summary>
         /// 
@@ -181,6 +310,7 @@ namespace MicroSimulator
         /// <param name="e"></param>
         private void btn_Open_Click(object sender, EventArgs e)
         {
+            ResetParam();
             //CmdInput.Items.Clear();
             var openFileDialog = new OpenFileDialog
             {
@@ -204,13 +334,13 @@ namespace MicroSimulator
                         dataGridView_prog.Rows.Clear();
                         text_path.Text = openFileDialog.FileName;
                         CodeList = reader.ReadToEnd().Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-                        RegexCmd();
+                        FillDataTable();
+                        //RegexCmd();
                     }
                 }
             }
             catch (Exception ex){MessageBox.Show(Resources.read_error + ex.Message); }
         }
-
 
         public IEnumerable<string> ReadLines(Func<Stream> streamProvider,
                                      Encoding encoding)
@@ -226,53 +356,68 @@ namespace MicroSimulator
             }
         }
 
-        private void RegexCmd()
+        private void FillDataTable()
         {
-            var rgxCmd = new Regex("[0-9A-F]{4} [0-9A-F]{4}");
-            var rgxCmdReadable = new Regex("[0-9a-fA-F]{5}[ ]*[a-z]* [0-9a-zA-Z]*");
-            var rgxLoop = new Regex("[0-9A-F]{5}  [0-9a-zA-Z]*");
             foreach (var codeLine in CodeList)
             {
-                if (rgxLoop.Match(codeLine).Success)
-                {
-                    var loop = rgxLoop.Match(codeLine).Value.Substring(7);
-                    if(loop!="")
-                        dataGridView_prog.Rows.Add("", "", loop, "");
-                }
+                var idValue = codeLine.Substring(0, 4).Trim();
 
-                if (rgxCmd.Match(codeLine).Success)
-                {
-                    var cmd = rgxCmd.Match(codeLine).Value.Substring(5, 4);
-                    var cmdReadable = rgxCmdReadable.Match(codeLine).Value.Substring(16);
-                    dataGridView_prog.Rows.Add(rgxCmd.Match(codeLine).Value.Substring(0, 4), cmd, cmdReadable);
-                }
+                var cmdValue = codeLine.Substring(5, 4).Trim();
 
-                
+                var cmdOperatorValue = codeLine.Substring(36);
+                if (cmdOperatorValue.Contains(';'))
+                    cmdOperatorValue = (cmdOperatorValue.Substring(0, cmdOperatorValue.IndexOf(";", StringComparison.Ordinal) + 1)).Trim().TrimEnd(';');
 
-                //MessageBox.Show(rgx.Match(codeLine).Value);
+                var loop = codeLine.Substring(27, 9).Trim();
+
+                if (idValue == "" && cmdValue == "" && cmdOperatorValue == "" && loop == "") continue;
+
+                dataGridView_prog.Rows.Add(idValue, cmdValue, cmdOperatorValue, loop);
             }
         }
 
         private void btn_Step_Click(object sender, EventArgs e)
         {
+
             Execute();
+            dataGridView_prog.CurrentCell =
+                dataGridView_prog
+                    .Rows[Math.Min(dataGridView_prog.CurrentRow.Index + 1, dataGridView_prog.Rows.Count - 1)]
+                    .Cells[dataGridView_prog.CurrentCell.ColumnIndex];
+            dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
+        }
+
+        private void btn_Start_Click(object sender, EventArgs e)
+        {
+            
         }
 
         private void Execute()
         {
+
+
             if (dataGridView_prog.CurrentRow == null) return;
+
+            ProgramCounter = dataGridView_prog.CurrentRow.Index;
+
+            text_Pc.Text = ProgramCounter.ToString();
 
             var cmd = dataGridView_prog.CurrentRow.Cells[1].Value.ToString();
 
             if(cmd!="") HandleCmd(cmd);
 
+            if (W == 0) ZeroFlag = 1;
+            else ZeroFlag = 0;
+
+            textBox_ZeroFlag.Text = ZeroFlag.ToString();
+
             if (dataGridView_prog.CurrentRow == null) return;
 
-            dataGridView_prog.CurrentCell =
-                    dataGridView_prog
-                    .Rows[Math.Min(dataGridView_prog.CurrentRow.Index + 1, dataGridView_prog.Rows.Count - 1)]
-                    .Cells[dataGridView_prog.CurrentCell.ColumnIndex];
-            dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
+        }
+
+        private void text_Pc_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
