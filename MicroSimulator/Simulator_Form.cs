@@ -125,7 +125,13 @@ namespace MicroSimulator
             //Clrf
             if ((cmd & 0b11_1111_0000_0000) == 0b00_0001_0000_0000)
             {
-                Clrf(cmd & 255);
+                Clrf(cmd & 127);
+            }
+
+            //Comf
+            if ((cmd & 0b11_1111_0000_0000) == 0b00_1001_0000_0000)
+            {
+                Comf(cmd & 255);
             }
 
             //GoTo
@@ -143,7 +149,7 @@ namespace MicroSimulator
             //Retlw
             if ((cmd & 0b11_1100_0000_0000) == 0b11_0100_0000_0000)
             {
-                Retlw(cmd & 127);
+                Retlw(cmd & 255);
             }
 
             //return
@@ -152,6 +158,7 @@ namespace MicroSimulator
                 ReturnToCall();
             }
         }
+
 
 
 
@@ -378,17 +385,58 @@ namespace MicroSimulator
             if (cmdReg == 0xC)
             {
                 Wert1 = 0;
-                text_Wert1.Text = Wert1.ToString();
+                text_Wert1.Text = Wert1.ToString("X");
             }
 
             if (cmdReg == 0xD)
             {
                 Wert2 = 0;
-                text_Wert2.Text = Wert2.ToString();
+                text_Wert2.Text = Wert2.ToString("X");
             }
 
             ZeroFlag = 1;
             textBox_ZeroFlag.Text = ZeroFlag.ToString();
+        }
+
+        private void Comf(int cmdReg)
+        {
+            var fReg = cmdReg & 127;
+            var fOpt = cmdReg & 128;
+            int result;
+
+            if (fReg == 0xC)
+            {
+                result = ~Wert1;
+                if (fOpt == 128)
+                {
+                    Wert1 = result;
+                    text_Wert1.Text = Wert1.ToString("X");
+
+                }
+                if (fOpt == 0)
+                {
+                    W = result;
+                    text_W.Text = W.ToString("X");
+                }
+            }
+
+            if (fReg == 0xD)
+            {
+                result = ~Wert2;
+                if (fOpt == 128)
+                {
+                    Wert2 = result;
+                    text_Wert2.Text = Wert2.ToString("X");
+
+                }
+                if (fOpt == 0)
+                {
+                    W = result;
+                    text_W.Text = W.ToString("X");
+                }
+            }
+
+
         }
 
         private void CallSub(int cmdLit)
