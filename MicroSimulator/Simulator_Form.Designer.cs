@@ -76,6 +76,7 @@ namespace MicroSimulator
             this.text_Wert2 = new System.Windows.Forms.TextBox();
             this.text_DC = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.button_Reset = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_prog)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_RegA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_RegB)).BeginInit();
@@ -145,7 +146,7 @@ namespace MicroSimulator
             this.text_W.Name = "text_W";
             this.text_W.Size = new System.Drawing.Size(100, 26);
             this.text_W.TabIndex = 9;
-            this.text_W.Text = "00h";
+            this.text_W.Text = "0";
             // 
             // label_W
             // 
@@ -182,8 +183,7 @@ namespace MicroSimulator
             this.text_Pc.Name = "text_Pc";
             this.text_Pc.Size = new System.Drawing.Size(100, 26);
             this.text_Pc.TabIndex = 34;
-            this.text_Pc.Text = "00h";
-            this.text_Pc.TextChanged += new System.EventHandler(this.text_Pc_TextChanged);
+            this.text_Pc.Text = "0";
             // 
             // RegA_Bit0
             // 
@@ -449,12 +449,23 @@ namespace MicroSimulator
             this.label3.TabIndex = 48;
             this.label3.Text = "DC";
             // 
+            // button_Reset
+            // 
+            this.button_Reset.Location = new System.Drawing.Point(544, 133);
+            this.button_Reset.Name = "button_Reset";
+            this.button_Reset.Size = new System.Drawing.Size(75, 29);
+            this.button_Reset.TabIndex = 49;
+            this.button_Reset.Text = "Reset";
+            this.button_Reset.UseVisualStyleBackColor = true;
+            this.button_Reset.Click += new System.EventHandler(this.button_Reset_Click);
+            // 
             // SimulatorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1258, 944);
+            this.Controls.Add(this.button_Reset);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.text_DC);
             this.Controls.Add(this.text_Wert2);
@@ -535,6 +546,7 @@ namespace MicroSimulator
         private TextBox text_Wert2;
         private TextBox text_DC;
         private Label label3;
+        private Button button_Reset;
     }
 }
 
