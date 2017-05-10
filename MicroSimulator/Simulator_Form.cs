@@ -16,6 +16,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MicroSimulator.Properties;
 using static System.Convert;
+using System.Timers;
+using Timer = System.Timers.Timer;
 
 namespace MicroSimulator
 {  
@@ -71,191 +73,129 @@ namespace MicroSimulator
         {
             var cmd = Hex2Int(cmdValue);
 
-            //movelw
+            //movlw
             if ((cmd & 0b11_1100_0000_0000) == 0b11_0000_0000_0000)
-            {
                 Movlw(cmd & 255);
-            }
 
             //movwf
             if ((cmd & 0b11_1111_1000_0000) == 0b00_0000_1000_0000)
-            {
                 Movwf(cmd & 127);
-            }
 
             //movf
             if ((cmd & 0b11_1111_0000_0000) == 0b00_1000_0000_0000)
-            {
                 Movf(cmd & 255);
-            }
 
             //andlw
             if ((cmd & 0b11_1111_0000_0000) == 0b11_1001_0000_0000)
-            {
                 Andlw(cmd & 255);
-            }
 
             //andwf
             if ((cmd & 0b11_1111_0000_0000) == 0b00_0101_0000_0000)
-            {
                 Andwf(cmd & 255);
-            }
 
             //iorlw
             if ((cmd & 0b11_1111_0000_0000) == 0b11_1000_0000_0000)
-            {
                 Iorlw(cmd & 255);
-            }
 
             //iorwf
             if ((cmd & 0b11_1111_0000_0000) == 0b00_0100_0000_0000)
-            {
                 Iorwf(cmd & 255);
-            }
 
             //sublw
             if ((cmd & 0b11_1110_0000_0000) == 0b11_1100_0000_0000)
-            {
                 Sublw(cmd & 255);
-            }
 
             //sublw
             if ((cmd & 0b11_1111_0000_0000) == 0b00_0010_0000_0000)
-            {
                 Subwf(cmd & 255);
-            }
 
             //addlw
             if ((cmd & 0b11_1110_0000_0000) == 0b11_1110_0000_0000)
-            {
                 Addlw(cmd & 255);
-            }
 
             //addwf
             if ((cmd & 0b11_1111_0000_0000) == 0b00_0111_0000_0000)
-            {
                 Addwf(cmd & 255);
-            }
 
             //Xorlw
             if ((cmd & 0b11_1111_0000_0000) == 0b11_1010_0000_0000)
-            {
                 Xorlw(cmd & 255);
-            }
 
             //Xorwf
             if ((cmd & 0b11_1111_0000_0000) == 0b00_0110_0000_0000)
-            {
                 Xorwf(cmd & 255);
-            }
 
             //Clrf
             if ((cmd & 0b11_1111_0000_0000) == 0b00_0001_1000_0000)
-            {
                 Clrf(cmd & 127);
-            }
 
             //Clrw
             if ((cmd & 0b11_1111_1000_0000) == 0b00_0001_0000_0000)
-            {
                 Clrw();
-            }
 
             //Comf
             if ((cmd & 0b11_1111_0000_0000) == 0b00_1001_0000_0000)
-            {
                 Comf(cmd & 255);
-            }
 
             //Incf
             if ((cmd & 0b11_1111_0000_0000) == 0b00_1010_0000_0000)
-            {
                 Incf(cmd & 255);
-            }
 
             //Incfsz
             if ((cmd & 0b11_1111_0000_0000) == 0b00_1111_0000_0000)
-            {
                 Incfsz(cmd & 255);
-            }
 
             //Decf
             if ((cmd & 0b11_1111_0000_0000) == 0b00_0011_0000_0000)
-            {
                 Decf(cmd & 255);
-            }
 
             //Decf
             if ((cmd & 0b11_1111_0000_0000) == 0b00_1011_0000_0000)
-            {
                 Decfsz(cmd & 255);
-            }
 
             //Swapf
             if ((cmd & 0b11_1111_0000_0000) == 0b00_1110_0000_0000)
-            {
                 Swapf(cmd & 255);
-            }
 
             //Rlf
             if ((cmd & 0b11_1111_0000_0000) == 0b00_1101_0000_0000)
-            {
                 Rlf(cmd & 255);
-            }
 
             //Rrf
             if ((cmd & 0b11_1111_0000_0000) == 0b00_1100_0000_0000)
-            {
                 Rrf(cmd & 255);
-            }
 
             //bcf
             if ((cmd & 0b11_1100_0000_0000) == 0b01_0000_0000_0000)
-            {
                 Bcf(cmd & 0b00_0011_1111_1111);
-            }
 
             //bsf
             if ((cmd & 0b11_1100_0000_0000) == 0b01_0100_0000_0000)
-            {
                 Bsf(cmd & 0b00_0011_1111_1111);
-            }
 
             //btfsc
             if ((cmd & 0b11_1100_0000_0000) == 0b01_1000_0000_0000)
-            {
                 Btfsc(cmd & 0b00_0011_1111_1111);
-            }
 
             //btfss
             if ((cmd & 0b11_1100_0000_0000) == 0b01_1100_0000_0000)
-            {
                 Btfss(cmd & 0b00_0011_1111_1111);
-            }
 
             //GoTo
             if ((cmd & 0b11_1000_0000_0000) == 0b10_1000_0000_0000)
-            {
                 Goto(cmd & 0b00011111111111);
-            }
 
             //Call
             if ((cmd & 0b11_1000_0000_0000) == 0b10_0000_0000_0000)
-            {
                 CallSub(cmd & 0b00011111111111);
-            }
 
             //Retlw
             if ((cmd & 0b11_1100_0000_0000) == 0b11_0100_0000_0000)
-            {
                 Retlw(cmd & 255);
-            }
 
             //return
             if (cmd == 0b00_0000_0000_1000)
-            {
                 ReturnToCall();
-            }
         }
 
         private void SetZeroFlag(int val)
@@ -523,11 +463,11 @@ namespace MicroSimulator
         private void Sublw(int cmdLit)
         {
             L = cmdLit;
-            var highLBits = L & 240;
-            var highWBits = W & 240;
+            var lowLBits = L & 15;
+            var lowWBits = W & 15;
 
             //DigitCarry
-            if (highLBits - highWBits < 16) StatusReg = StatusReg  | 2;
+            if (lowLBits + ((16-lowWBits)) > 15) StatusReg = StatusReg  | 2;
             else StatusReg = StatusReg & ~2 & 0x000000FF;
 
             if (L - W < 0)
@@ -563,11 +503,11 @@ namespace MicroSimulator
                 F = ReadReg(fReg);
 
             var fOpt = cmdReg & 128;
-            var highFBits = F & 240;
-            var highWBits = W & 240;
+            var lowFBits = F & 240;
+            var lowWBits = W & 240;
 
             //DigitCarry
-            if (highFBits - highWBits < 16) StatusReg = StatusReg | 2;
+            if (lowFBits + ((16 - lowWBits)) > 15) StatusReg = StatusReg | 2;
             else StatusReg = StatusReg & ~2 & 0x000000FF;
 
             int result;
@@ -1211,7 +1151,6 @@ namespace MicroSimulator
 
                 dataGridView_prog.Rows.Add(idValue, cmdValue, cmdOperatorValue, loop);
             }
-
         }
 
         private void btn_Step_Click(object sender, EventArgs e)
@@ -1225,22 +1164,38 @@ namespace MicroSimulator
             dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
         }
 
+        private void Timer()
+        {
+            // Create a timer
+            Timer myTimer = new Timer();
+            // Tell the timer what to do when it elapses
+            myTimer.Elapsed += new ElapsedEventHandler(RunEvent);
+            // Set it to go off every five seconds
+            myTimer.Interval = 5000;
+            // And start it        
+            myTimer.Enabled = true;
+        }
+
+        // Implement a call with the right signature for events going off
+        private void RunEvent(object source, ElapsedEventArgs e)
+        {
+            Run();
+        }
+
+        private void Run()
+        {
+            Execute();
+            if (dataGridView_prog.CurrentRow != null)
+                dataGridView_prog.CurrentCell =
+                    dataGridView_prog
+                        .Rows[Math.Min(dataGridView_prog.CurrentRow.Index + 1, dataGridView_prog.Rows.Count - 1)]
+                        .Cells[dataGridView_prog.CurrentCell.ColumnIndex];
+            dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
+        }
+
         private void btn_Start_Click(object sender, EventArgs e)
         {
-            Stop = false;
-
-            while (Stop == false)
-            {
-                Execute();
-                if (dataGridView_prog.CurrentRow != null)
-                    dataGridView_prog.CurrentCell =
-                        dataGridView_prog
-                            .Rows[Math.Min(dataGridView_prog.CurrentRow.Index + 1, dataGridView_prog.Rows.Count - 1)]
-                            .Cells[dataGridView_prog.CurrentCell.ColumnIndex];
-                dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
-
-                Thread.Sleep(1000);
-            } 
+            Timer();
         }
 
         private void Execute()
