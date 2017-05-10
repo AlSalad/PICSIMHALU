@@ -20,7 +20,7 @@ namespace MicroSimulator
 {  
     public partial class SimulatorForm : Form
     {
-        public int W = 0;
+        public int W = 0; //test
         public int L = 0;
         public int F = 0;
 
