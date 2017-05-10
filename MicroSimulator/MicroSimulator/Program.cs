@@ -22,7 +22,6 @@ namespace MicroSimulator
             Application.SetCompatibleTextRenderingDefault(false);
             var simForm = new SimulatorForm();
  
-
             Application.Run(simForm);
         }
     }

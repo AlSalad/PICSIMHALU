@@ -70,16 +70,17 @@ namespace MicroSimulator
             this.textBox_ZeroFlag = new System.Windows.Forms.TextBox();
             this.label_CarryFlag = new System.Windows.Forms.Label();
             this.label_ZeroFlag = new System.Windows.Forms.Label();
-            this.text_Wert1 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.text_Wert2 = new System.Windows.Forms.TextBox();
             this.text_DC = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.button_Reset = new System.Windows.Forms.Button();
+            this.dataGridView_Register = new System.Windows.Forms.DataGridView();
+            this.Column_Register = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column_RegHex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column_Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_prog)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_RegA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_RegB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Register)).BeginInit();
             this.SuspendLayout();
             // 
             // text_path
@@ -142,7 +143,8 @@ namespace MicroSimulator
             // 
             // text_W
             // 
-            this.text_W.Location = new System.Drawing.Point(841, 342);
+            this.text_W.BackColor = System.Drawing.SystemColors.Info;
+            this.text_W.Location = new System.Drawing.Point(841, 374);
             this.text_W.Name = "text_W";
             this.text_W.Size = new System.Drawing.Size(100, 26);
             this.text_W.TabIndex = 9;
@@ -151,7 +153,7 @@ namespace MicroSimulator
             // label_W
             // 
             this.label_W.AutoSize = true;
-            this.label_W.Location = new System.Drawing.Point(816, 345);
+            this.label_W.Location = new System.Drawing.Point(811, 377);
             this.label_W.Name = "label_W";
             this.label_W.Size = new System.Drawing.Size(24, 20);
             this.label_W.TabIndex = 31;
@@ -179,7 +181,7 @@ namespace MicroSimulator
             // 
             // text_Pc
             // 
-            this.text_Pc.Location = new System.Drawing.Point(841, 374);
+            this.text_Pc.Location = new System.Drawing.Point(841, 342);
             this.text_Pc.Name = "text_Pc";
             this.text_Pc.Size = new System.Drawing.Size(100, 26);
             this.text_Pc.TabIndex = 34;
@@ -358,7 +360,7 @@ namespace MicroSimulator
             // label_PC
             // 
             this.label_PC.AutoSize = true;
-            this.label_PC.Location = new System.Drawing.Point(811, 377);
+            this.label_PC.Location = new System.Drawing.Point(811, 345);
             this.label_PC.Name = "label_PC";
             this.label_PC.Size = new System.Drawing.Size(30, 20);
             this.label_PC.TabIndex = 37;
@@ -366,7 +368,7 @@ namespace MicroSimulator
             // 
             // textBox_CarryFlag
             // 
-            this.textBox_CarryFlag.Location = new System.Drawing.Point(841, 406);
+            this.textBox_CarryFlag.Location = new System.Drawing.Point(1030, 342);
             this.textBox_CarryFlag.Name = "textBox_CarryFlag";
             this.textBox_CarryFlag.Size = new System.Drawing.Size(100, 26);
             this.textBox_CarryFlag.TabIndex = 39;
@@ -374,7 +376,7 @@ namespace MicroSimulator
             // 
             // textBox_ZeroFlag
             // 
-            this.textBox_ZeroFlag.Location = new System.Drawing.Point(841, 473);
+            this.textBox_ZeroFlag.Location = new System.Drawing.Point(1030, 406);
             this.textBox_ZeroFlag.Name = "textBox_ZeroFlag";
             this.textBox_ZeroFlag.Size = new System.Drawing.Size(100, 26);
             this.textBox_ZeroFlag.TabIndex = 40;
@@ -383,7 +385,7 @@ namespace MicroSimulator
             // label_CarryFlag
             // 
             this.label_CarryFlag.AutoSize = true;
-            this.label_CarryFlag.Location = new System.Drawing.Point(815, 412);
+            this.label_CarryFlag.Location = new System.Drawing.Point(1004, 345);
             this.label_CarryFlag.Name = "label_CarryFlag";
             this.label_CarryFlag.Size = new System.Drawing.Size(20, 20);
             this.label_CarryFlag.TabIndex = 41;
@@ -392,49 +394,15 @@ namespace MicroSimulator
             // label_ZeroFlag
             // 
             this.label_ZeroFlag.AutoSize = true;
-            this.label_ZeroFlag.Location = new System.Drawing.Point(822, 476);
+            this.label_ZeroFlag.Location = new System.Drawing.Point(1005, 412);
             this.label_ZeroFlag.Name = "label_ZeroFlag";
             this.label_ZeroFlag.Size = new System.Drawing.Size(19, 20);
             this.label_ZeroFlag.TabIndex = 42;
             this.label_ZeroFlag.Text = "Z";
             // 
-            // text_Wert1
-            // 
-            this.text_Wert1.Location = new System.Drawing.Point(841, 505);
-            this.text_Wert1.Name = "text_Wert1";
-            this.text_Wert1.Size = new System.Drawing.Size(100, 26);
-            this.text_Wert1.TabIndex = 43;
-            this.text_Wert1.Text = "0";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(784, 508);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(56, 20);
-            this.label1.TabIndex = 44;
-            this.label1.Text = "Wert 1";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(784, 540);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(56, 20);
-            this.label2.TabIndex = 45;
-            this.label2.Text = "Wert 2";
-            // 
-            // text_Wert2
-            // 
-            this.text_Wert2.Location = new System.Drawing.Point(841, 537);
-            this.text_Wert2.Name = "text_Wert2";
-            this.text_Wert2.Size = new System.Drawing.Size(100, 26);
-            this.text_Wert2.TabIndex = 46;
-            this.text_Wert2.Text = "0";
-            // 
             // text_DC
             // 
-            this.text_DC.Location = new System.Drawing.Point(841, 441);
+            this.text_DC.Location = new System.Drawing.Point(1030, 374);
             this.text_DC.Name = "text_DC";
             this.text_DC.Size = new System.Drawing.Size(100, 26);
             this.text_DC.TabIndex = 47;
@@ -443,7 +411,7 @@ namespace MicroSimulator
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(803, 444);
+            this.label3.Location = new System.Drawing.Point(992, 380);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(32, 20);
             this.label3.TabIndex = 48;
@@ -459,19 +427,52 @@ namespace MicroSimulator
             this.button_Reset.UseVisualStyleBackColor = true;
             this.button_Reset.Click += new System.EventHandler(this.button_Reset_Click);
             // 
+            // dataGridView_Register
+            // 
+            this.dataGridView_Register.AllowUserToAddRows = false;
+            this.dataGridView_Register.AllowUserToDeleteRows = false;
+            this.dataGridView_Register.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_Register.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column_Register,
+            this.Column_RegHex,
+            this.Column_Value});
+            this.dataGridView_Register.Location = new System.Drawing.Point(788, 527);
+            this.dataGridView_Register.Name = "dataGridView_Register";
+            this.dataGridView_Register.ReadOnly = true;
+            this.dataGridView_Register.RowTemplate.Height = 28;
+            this.dataGridView_Register.Size = new System.Drawing.Size(455, 381);
+            this.dataGridView_Register.TabIndex = 50;
+            // 
+            // Column_Register
+            // 
+            this.Column_Register.HeaderText = "Register";
+            this.Column_Register.Name = "Column_Register";
+            this.Column_Register.ReadOnly = true;
+            // 
+            // Column_RegHex
+            // 
+            this.Column_RegHex.HeaderText = "Hex";
+            this.Column_RegHex.Name = "Column_RegHex";
+            this.Column_RegHex.ReadOnly = true;
+            this.Column_RegHex.Width = 50;
+            // 
+            // Column_Value
+            // 
+            this.Column_Value.HeaderText = "Value";
+            this.Column_Value.Name = "Column_Value";
+            this.Column_Value.ReadOnly = true;
+            this.Column_Value.Width = 50;
+            // 
             // SimulatorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1258, 944);
+            this.Controls.Add(this.dataGridView_Register);
             this.Controls.Add(this.button_Reset);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.text_DC);
-            this.Controls.Add(this.text_Wert2);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.text_Wert1);
             this.Controls.Add(this.label_ZeroFlag);
             this.Controls.Add(this.label_CarryFlag);
             this.Controls.Add(this.textBox_ZeroFlag);
@@ -493,6 +494,7 @@ namespace MicroSimulator
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_prog)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_RegA)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_RegB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Register)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -540,13 +542,13 @@ namespace MicroSimulator
         private TextBox textBox_ZeroFlag;
         private System.Windows.Forms.Label label_CarryFlag;
         private System.Windows.Forms.Label label_ZeroFlag;
-        private TextBox text_Wert1;
-        private Label label1;
-        private Label label2;
-        private TextBox text_Wert2;
         private TextBox text_DC;
         private Label label3;
         private Button button_Reset;
+        private DataGridView dataGridView_Register;
+        private DataGridViewTextBoxColumn Column_Register;
+        private DataGridViewTextBoxColumn Column_RegHex;
+        private DataGridViewTextBoxColumn Column_Value;
     }
 }
 

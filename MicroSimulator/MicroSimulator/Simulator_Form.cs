@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -21,9 +22,9 @@ namespace MicroSimulator
     {
         public int W = 0;
         public int L = 0;
-        public int ZeroFlag = 0;
-        public int CarryFlag = 0;
-        public int DigitCarry = 0;
+        public int F = 0;
+
+        public int StatusReg = 0;
         public int ProgramCounter = 0;
         public int Wert1 = 0;
         public int Wert2 = 0;
@@ -58,6 +59,7 @@ namespace MicroSimulator
 
         public int Hex2Int(string value)
         {
+            if (value == null) throw new ArgumentNullException(nameof(value));
             return int.Parse(value, System.Globalization.NumberStyles.HexNumber);
         }
 
@@ -145,9 +147,8 @@ namespace MicroSimulator
                 Xorwf(cmd & 255);
             }
 
-
             //Clrf
-            if ((cmd & 0b11_1111_0000_0000) == 0b00_0001_0000_0000)
+            if ((cmd & 0b11_1111_0000_0000) == 0b00_0001_1000_0000)
             {
                 Clrf(cmd & 127);
             }
@@ -170,10 +171,22 @@ namespace MicroSimulator
                 Incf(cmd & 255);
             }
 
+            //Incfsz
+            if ((cmd & 0b11_1111_0000_0000) == 0b00_1111_0000_0000)
+            {
+                Incfsz(cmd & 255);
+            }
+
             //Decf
             if ((cmd & 0b11_1111_0000_0000) == 0b00_0011_0000_0000)
             {
                 Decf(cmd & 255);
+            }
+
+            //Decf
+            if ((cmd & 0b11_1111_0000_0000) == 0b00_1011_0000_0000)
+            {
+                Decfsz(cmd & 255);
             }
 
             //Swapf
@@ -192,6 +205,30 @@ namespace MicroSimulator
             if ((cmd & 0b11_1111_0000_0000) == 0b00_1100_0000_0000)
             {
                 Rrf(cmd & 255);
+            }
+
+            //bcf
+            if ((cmd & 0b11_1100_0000_0000) == 0b01_0000_0000_0000)
+            {
+                Bcf(cmd & 0b00_0011_1111_1111);
+            }
+
+            //bsf
+            if ((cmd & 0b11_1100_0000_0000) == 0b01_0100_0000_0000)
+            {
+                Bsf(cmd & 0b00_0011_1111_1111);
+            }
+
+            //btfsc
+            if ((cmd & 0b11_1100_0000_0000) == 0b01_1000_0000_0000)
+            {
+                Btfsc(cmd & 0b00_0011_1111_1111);
+            }
+
+            //btfss
+            if ((cmd & 0b11_1100_0000_0000) == 0b01_1100_0000_0000)
+            {
+                Btfss(cmd & 0b00_0011_1111_1111);
             }
 
             //GoTo
@@ -219,7 +256,76 @@ namespace MicroSimulator
             }
         }
 
+        private void SetZeroFlag(int val)
+        {
+            //Zero Flag
+            if (val == 0)
+                StatusReg = StatusReg | 4;
+            else
+                StatusReg = StatusReg & ~4 & 0x000000FF;      
+        }
+
+        private void WriteStatusReg()
+        {
+            foreach (DataGridViewRow row in dataGridView_Register.Rows)
+            {
+                if (!Hex2Int(row.Cells[1].Value.ToString()).Equals(3)) continue;
+                row.Cells[2].Value = StatusReg.ToString("X");
+                return;
+            }
+        }
+
+        private void WriteFlags()
+        {
+            foreach (DataGridViewRow row in dataGridView_Register.Rows)
+            {
+                if (!Hex2Int(row.Cells[1].Value.ToString()).Equals(3)) continue;
+
+                var value = row.Cells[2].Value;
+
+                if (value != null && (string) value != "")
+                {
+                    var status = Hex2Int(value.ToString());
+                    var zeroFlag = (status & 4) == 0 ? 0 : 1;
+                    var digitCarry = (status & 2) == 0 ? 0 : 1;
+                    var carryFlag = (status & 1) == 0 ? 0 : 1;
+
+                    textBox_ZeroFlag.Text = zeroFlag.ToString("X");
+                    text_DC.Text = digitCarry.ToString("X");
+                    textBox_CarryFlag.Text = carryFlag.ToString("X");
+                }                   
+            }
+
+        }
+
+        private void WriteReg(int cmdReg)
+        {
+            foreach (DataGridViewRow row in dataGridView_Register.Rows)
+            {
+                if (Hex2Int(row.Cells[1].Value.ToString()).Equals(cmdReg))
+                {
+                    row.Cells[2].Value = F.ToString("X");
+                    return;
+                }
+            }
+            dataGridView_Register.Rows.Add("", cmdReg.ToString("X"), F.ToString("X"));
+
+        }
+
+        private int ReadReg(int cmdReg)
+        {
+            foreach (DataGridViewRow row in dataGridView_Register.Rows)
+            {
+                if (!Hex2Int(row.Cells[1].Value.ToString()).Equals(cmdReg)) continue;
+                var value = row.Cells[2].Value;
+                if (value != null && (string)value != "") return Hex2Int(value.ToString());
+            }
+            return 0;
+        }
+
         #region Commands -------------------
+
+
 
         private void Goto(int cmdLit)
         {
@@ -257,54 +363,39 @@ namespace MicroSimulator
 
         private void Movwf(int cmdReg)
         {
-            if (cmdReg == 0xC)
-            {
-                Wert1 = W;
-                text_Wert1.Text = Wert1.ToString("X");
-            }
+            if (cmdReg == 0)
+                cmdReg = ReadReg(0x04);
 
-            if (cmdReg == 0xD)
-            {
-                Wert2 = W;
-                text_Wert2.Text = Wert2.ToString("X");
-            }
+            F = W;
+            WriteReg(cmdReg);
         }
 
         private void Movf(int cmdReg)
         {
             var fReg = cmdReg & 127;
-            var fOpt = cmdReg & 128;
             int result;
-
-            if (fReg == 0xC)
+            if (fReg == 0)
             {
-                result = Wert1;
-                if (fOpt == 128)
-                {
-                    Wert1 = result;
-                    text_Wert1.Text = Wert1.ToString("X");
-
-                }
-                if (fOpt == 0)
-                {
-                    W = result;
-                    text_W.Text = W.ToString("X");
-                }
+                result = ReadReg(ReadReg(0x04));
+                fReg = ReadReg(0x04);
             }
+            else
+                result = ReadReg(fReg);
 
-            if (fReg == 0xD)
+            var fOpt = cmdReg & 128;
+
+            SetZeroFlag(result);
+
+            if (fOpt == 128)
             {
-                result = Wert2;
-                if (fOpt == 128)
-                {
-                    Wert2 = result;
-                    text_Wert2.Text = Wert2.ToString("X");
-                }
-                if (fOpt == 0)
-                {
-                    W = result;
-                    text_W.Text = W.ToString("X");
-                }
+                F = result;
+                WriteReg(fReg);
+
+            }
+            if (fOpt == 0)
+            {
+                W = result;
+                text_W.Text = W.ToString("X");
             }
         }
 
@@ -312,44 +403,37 @@ namespace MicroSimulator
         {
             L = cmdLit;
             W = W | L;
+            SetZeroFlag(W);
             text_W.Text = W.ToString("X");
         }
 
         private void Iorwf(int cmdReg)
         {
             var fReg = cmdReg & 127;
-            var fOpt = cmdReg & 128;
-            int result;
 
-            if (fReg == 0xC)
+            if (fReg == 0)
             {
-                result = Wert1 | W;
-                if (fOpt == 128)
-                {
-                    Wert1 = result;
-                    text_Wert1.Text = Wert1.ToString("X");
+                F = ReadReg(ReadReg(0x04));
+                fReg = ReadReg(0x04);
+            }
+            else
+                F = ReadReg(fReg);
 
-                }
-                if (fOpt == 0)
-                {
-                    W = result;
-                    text_W.Text = W.ToString("X");
-                }
+            var fOpt = cmdReg & 128;
+            var result = F | W;
+           
+            SetZeroFlag(result);
+
+            if (fOpt == 128)
+            {
+                F = result;
+                WriteReg(fReg);
             }
 
-            if (fReg == 0xD)
+            if (fOpt == 0)
             {
-                result = Wert2 | W;
-                if (fOpt == 128)
-                {
-                    Wert2 = result;
-                    text_Wert2.Text = Wert2.ToString("X");
-                }
-                if (fOpt == 0)
-                {
-                    W = result;
-                    text_W.Text = W.ToString("X");
-                }
+                W = result;
+                text_W.Text = W.ToString("X");
             }
         }
 
@@ -357,43 +441,34 @@ namespace MicroSimulator
         {
             L = cmdLit;
             W = W & L;
+            SetZeroFlag(W);
             text_W.Text = W.ToString("X");
         }
 
         private void Andwf(int cmdReg)
         {
             var fReg = cmdReg & 127;
+            if (fReg == 0)
+            {
+                F = ReadReg(ReadReg(0x04));
+                fReg = ReadReg(0x04);
+            }
+            else
+                F = ReadReg(fReg);
             var fOpt = cmdReg & 128;
 
-            //Wert 1
-            if (fReg == 0xC)
+            if (fOpt == 128)
             {
-                if (fOpt == 128)
-                {
-                    Wert1 = W & Wert1;
-                    text_Wert1.Text = Wert1.ToString("X");
-                }
-                if (fOpt == 0)
-                {
-                    W = W & Wert1;
-                    text_W.Text = W.ToString("X");
-                }
-
+                F = W & F;
+                SetZeroFlag(F);
+                WriteReg(fReg);
             }
 
-            //Wert 2
-            if (fReg == 0xD)
+            if (fOpt == 0)
             {
-                if (fOpt == 128)
-                {
-                    Wert2 = W & Wert2;
-                    text_Wert2.Text = Wert2.ToString("X");
-                }
-                if (fOpt == 0)
-                {
-                    W = W & Wert2;
-                    text_W.Text = W.ToString("X");
-                }
+                W = W & F;
+                SetZeroFlag(W);
+                text_W.Text = W.ToString("X");
             }
         }
 
@@ -402,158 +477,152 @@ namespace MicroSimulator
             L = cmdLit;
             W = W ^ L;
 
+            SetZeroFlag(W);
+
             text_W.Text = W.ToString("X");
         }
 
         private void Xorwf(int cmdReg)
         {
             var fReg = cmdReg & 127;
-            var fOpt = cmdReg & 128;
-            int result;
-
-            if (fReg == 0xC)
+            if (fReg == 0)
             {
-                result = Wert1 ^ W;
-                if (fOpt == 128)
-                {
-                    Wert1 = result;
-                    text_Wert1.Text = Wert1.ToString("X");
-
-                }
-                if (fOpt == 0)
-                {
-                    W = result;
-                    text_W.Text = W.ToString("X");
-                }
+                F = ReadReg(ReadReg(0x04));
+                fReg = ReadReg(0x04);
             }
+            else
+                F = ReadReg(fReg);
+            var fOpt = cmdReg & 128;
 
-            if (fReg == 0xD)
+            var result = F ^ W;
+            SetZeroFlag(result);
+
+            if (fOpt == 128)
             {
-                result = Wert2 ^ W;
-                if (fOpt == 128)
-                {
-                    Wert2 = result;
-                    text_Wert2.Text = Wert2.ToString("X");
-                }
-                if (fOpt == 0)
-                {
-                    W = result;
-                    text_W.Text = W.ToString("X");
-                }
+                F = result;
+                WriteReg(fReg);
+            }
+            if (fOpt == 0)
+            {
+                W = result;
+                text_W.Text = W.ToString("X");
             }
         }
 
         private void Sublw(int cmdLit)
         {
             L = cmdLit;
-            var b = L - W;
+            var highLBits = L & 240;
+            var highWBits = W & 240;
+
+            //DigitCarry
+            if (highLBits - highWBits < 16) StatusReg = StatusReg  | 2;
+            else StatusReg = StatusReg & ~2 & 0x000000FF;
+
             if (L - W < 0)
             {
-                W = 255 + (L - W);
-                CarryFlag = 0;
+                W = 256 + (L - W);
+                //CarryFlag = 0
+                StatusReg = StatusReg & ~1 & 0x000000FF;
+                //Zero Flag = 0
+                StatusReg = StatusReg & ~4 & 0x000000FF;
             }
             else
             {
                 W = L - W;
-                CarryFlag = 1;
-                DigitCarry = 1;
-                text_DC.Text = DigitCarry.ToString();
+                //CarryFlag = 1;
+                StatusReg = StatusReg | 1;
+                //Zero Flag = 1;
+                if (W == 0)
+                    StatusReg = StatusReg | 4;
             }
 
-            textBox_CarryFlag.Text = CarryFlag.ToString();
             text_W.Text = W.ToString("X");
         }
 
         private void Subwf(int cmdReg)
         {
             var fReg = cmdReg & 127;
+            if (fReg == 0)
+            {
+                F = ReadReg(ReadReg(0x04));
+                fReg = ReadReg(0x04);
+            }
+            else
+                F = ReadReg(fReg);
+
             var fOpt = cmdReg & 128;
+            var highFBits = F & 240;
+            var highWBits = W & 240;
+
+            //DigitCarry
+            if (highFBits - highWBits < 16)
+                StatusReg = StatusReg | 2;
+            else
+                StatusReg = StatusReg & ~2 & 0x000000FF;
 
             int result;
 
-            if (fReg == 0xC)
+            //Berechnung
+            if (F - W < 0)
             {
-                if (Wert1 - W < 0)
-                {
-                    result = 256 + Wert1 - W;
-                    CarryFlag = 0;
-                }
-                else
-                {
-                    result = Wert1 - W;
-                    CarryFlag = 1;
-                    DigitCarry = 1;
-                    text_DC.Text = DigitCarry.ToString();
-                }
-                    
-                if (fOpt == 128)
-                {
-                    Wert1 = result;
-                    text_Wert1.Text = Wert1.ToString("X");
-                }
-                if (fOpt == 0)
-                {
-                    W = result;
-                    text_W.Text = W.ToString("X");
-                }
+                result = 256 + F - W;
+                //CarryFlag = 0
+                StatusReg = StatusReg & ~1 & 0x000000FF;
+                //Zero Flag = 0
+                StatusReg = StatusReg & ~4 & 0x000000FF;
+            }          
+            else
+            {
+                result = F - W;
+                //CarryFlag = 1
+                StatusReg = StatusReg | 1;
+                //Zero Flag = 1
+                if (result == 0)
+                    StatusReg = StatusReg | 4;
             }
 
-            if (fReg == 0xD)
+            //Ausgabe
+            if (fOpt == 128)
             {
-                if (Wert2 - W < 0)
-                {
-                    result = 256 + Wert2 - W;
-                    CarryFlag = 0;
-                }
-                else
-                {
-                    result = Wert2 - W;
-                    CarryFlag = 1;
-                    DigitCarry = 1;
-                    text_DC.Text = DigitCarry.ToString();
-                }
-                    
-
-                if (fOpt == 128)
-                {
-                    Wert2 = result;
-                    text_Wert2.Text = Wert2.ToString("X");
-                }
-                if (fOpt == 0)
-                {
-                    W = result;
-                    text_W.Text = W.ToString("X");
-                }
+                F = result;
+                WriteReg(fReg);
             }
-            textBox_CarryFlag.Text = CarryFlag.ToString();
+            if (fOpt == 0)
+            {
+                W = result;
+                text_W.Text = W.ToString("X");
+            }      
         }
 
         private void Addlw(int cmdLit)
         {
             L = cmdLit;
+            var lowLBits = cmdLit & 15;
+            var lowWBits = W & 15;
+
+            //DigitCarry
+            if (lowLBits + lowWBits > 15) StatusReg = StatusReg | 2; 
+            else StatusReg = StatusReg & ~2 & 0x000000FF; 
+
             if (L + W > 255)
             {
                 W = (L+W) - 256;
-                CarryFlag = 1;
-                textBox_CarryFlag.Text = CarryFlag.ToString();
+
+                //CarryFlag = 1
+                StatusReg = StatusReg | 1;
+                //Zero Flag = 1
+                if (W == 0) 
+                    StatusReg = StatusReg | 4;
             }
-            else if (L + W > 127)
-            {
-                W = L + W;
-                DigitCarry = 1;
-                text_DC.Text = DigitCarry.ToString();
-            }
-            else if (L + W == 255)
-                W = 0;
             else
             {
                 W = L + W;
-                DigitCarry = 0;
-                text_DC.Text = DigitCarry.ToString();
-                CarryFlag = 0;
-                textBox_CarryFlag.Text = CarryFlag.ToString();
+                //CarryFlag = 0
+                StatusReg = StatusReg & ~1 & 0x000000FF;
+                //Zero Flag = 0
+                StatusReg = StatusReg & ~4 & 0x000000FF;
             }
-
 
             text_W.Text = W.ToString("X");
         }
@@ -561,368 +630,425 @@ namespace MicroSimulator
         private void Addwf(int cmdReg)
         {
             var fReg = cmdReg & 127;
+            if (fReg == 0)
+            {
+                F = ReadReg(ReadReg(0x04));
+                fReg = ReadReg(0x04);
+            }             
+            else
+                F = ReadReg(fReg);
+
             var fOpt = cmdReg & 128;
 
+            var lowFBits = F & 15;
+            var lowWBits = W & 15;
             int result;
 
-            if (fReg == 0xC)
-            {
-                if (Wert1 + W > 255)
-                {
-                        result = Wert1 + W - 255;
-                        CarryFlag = 1;
-                }
-                else if (Wert1 + W == 255)
-                    result = 0;
-                else
-                    result = Wert1 + W;
+            //DigitCarry
+            if (lowFBits + lowWBits > 15) StatusReg = StatusReg | 2;
+            else StatusReg = StatusReg & ~2 & 0x000000FF;
 
-                if (fOpt == 128)
-                {
-                    Wert1 = result;
-                    text_Wert1.Text = Wert1.ToString("X");
-                }           
-                if (fOpt == 0)
-                {
-                    W = result;
-                    text_W.Text = W.ToString("X");
-                }
+            //Berechnung
+            if (F + W > 255)
+            {
+                result = F + W - 256;
+                //CarryFlag = 1
+                StatusReg = StatusReg | 1;
+                //Zero Flag = 1
+                if (W == 0)
+                    StatusReg = StatusReg | 4;
+            }
+            else
+            {
+                result = F + W;
+                //CarryFlag = 0
+                StatusReg = StatusReg & ~1 & 0x000000FF;
+                //Zero Flag = 0
+                StatusReg = StatusReg & ~4 & 0x000000FF;
             }
 
-            if (fReg == 0xD)
+            //Speicherort
+            if (fOpt == 128)
             {
-                if (Wert2 + W > 255)
-                {
-                    result = Wert1 + W - 255;
-                    CarryFlag = 1;
-                }
-                else if (Wert2 + W == 255)
-                    result = 0;
-                else
-                    result = Wert2+ W;
-
-                if (fOpt == 128)
-                {
-                    Wert2 = result;
-                    text_Wert2.Text = Wert2.ToString("X");
-                }
-                if (fOpt == 0)
-                {
-                    W = result;
-                    text_W.Text = W.ToString("X");
-                }
+                F = result;
+                WriteReg(fReg);
+            }           
+            if (fOpt == 0)
+            {
+                W = result;
+                text_W.Text = W.ToString("X");
             }
+
         }
 
         private void Clrf(int cmdReg)
         {
-            if (cmdReg == 0xC)
-            {
-                Wert1 = 0;
-                text_Wert1.Text = Wert1.ToString("X");
+            if (cmdReg == 0) { 
+                F = ReadReg(ReadReg(0x04));
+                cmdReg = ReadReg(0x04);
             }
-
-            if (cmdReg == 0xD)
-            {
-                Wert2 = 0;
-                text_Wert2.Text = Wert2.ToString("X");
-            }
-
-            ZeroFlag = 1;
-            textBox_ZeroFlag.Text = ZeroFlag.ToString();
+            else
+                F = ReadReg(cmdReg);
+            F = 0;
+            WriteReg(cmdReg);
+            //Zero Flag = 1
+            StatusReg = StatusReg | 4;
         }
 
         private void Clrw()
+
         {
             W = 0;
+            //Zero Flag = 1
+            StatusReg = StatusReg | 4;
             text_W.Text = W.ToString("X");
         }
 
         private void Comf(int cmdReg)
         {
             var fReg = cmdReg & 127;
+            if (fReg == 0)
+            {
+                F = ReadReg(ReadReg(0x04));
+                fReg = ReadReg(0x04);
+            }
+            else
+                F = ReadReg(fReg);
             var fOpt = cmdReg & 128;
             int result;
 
-            if (fReg == 0xC)
+            result = (int) (~F & 0x000000FF);
+            if (fOpt == 128)
             {
-                result = (int) (~Wert1 & 0x000000FF);
-                if (fOpt == 128)
-                {
-                    Wert1 = result;
-                    text_Wert1.Text = Wert1.ToString("X");
+                F = result;
+                WriteReg(fReg);
 
-                }
-                if (fOpt == 0)
-                {
-                    W = result;
-                    text_W.Text = W.ToString("X");
-                }
             }
-
-            if (fReg == 0xD)
+            if (fOpt == 0)
             {
-                result = (int)(~Wert2 & 0x000000FF);
-                if (fOpt == 128)
-                {
-                    Wert2 = result;
-                    text_Wert2.Text = Wert2.ToString("X");
-
-                }
-                if (fOpt == 0)
-                {
-                    W = result;
-                    text_W.Text = W.ToString("X");
-                }
+                W = result;
+                text_W.Text = W.ToString("X");
             }
-
-
         }
 
         private void Incf(int cmdReg)
         {
             var fReg = cmdReg & 127;
+            if (fReg == 0)
+            {
+                F = ReadReg(ReadReg(0x04));
+                fReg = ReadReg(0x04);
+            }
+            else
+                F = ReadReg(fReg);
+
+            var fOpt = cmdReg & 128;           
+            var result = F + 1;
+            
+            if (result > 255)
+                result = 0;
+
+            SetZeroFlag(result);
+
+            if (fOpt == 128)
+            {
+                F = result;
+                WriteReg(fReg);
+            }
+            if (fOpt == 0)
+            {
+                W = result;
+                text_W.Text = W.ToString("X");
+            }
+        }
+
+        private void Incfsz(int cmdReg)
+        {
+            var fReg = cmdReg & 127;
+            if (fReg == 0)
+            {
+                F = ReadReg(ReadReg(0x04));
+                fReg = ReadReg(0x04);
+            }
+            else
+                F = ReadReg(fReg);
+
             var fOpt = cmdReg & 128;
-            int result;
 
-            if (fReg == 0xC)
+            var result = F + 1;
+
+            if (result > 255)
+                result = 0;
+
+            if (fOpt == 128)
             {
-                result = Wert1 + 1;
-
-                if (result > 255)
-                    result = 1;
-
-                if (fOpt == 128)
-                {
-                    Wert1 = result;
-                    text_Wert1.Text = Wert1.ToString("X");
-
-                }
-                if (fOpt == 0)
-                {
-                    W = result;
-                    text_W.Text = W.ToString("X");
-                }
+                F = result;
+                WriteReg(fReg);
+            }
+            if (fOpt == 0)
+            {
+                W = result;
+                text_W.Text = W.ToString("X");
             }
 
-            if (fReg == 0xD)
-            {
-                result = Wert2 + 1;
-                if (fOpt == 128)
-                {
-                    Wert2 = result;
-                    text_Wert2.Text = Wert2.ToString("X");
+            if (result != 0) return;
 
-                }
-                if (fOpt == 0)
-                {
-                    W = result;
-                    text_W.Text = W.ToString("X");
-                }
-            }
-
+            if (dataGridView_prog.CurrentRow != null)
+                dataGridView_prog.CurrentCell =
+                    dataGridView_prog
+                        .Rows[Math.Min(dataGridView_prog.CurrentRow.Index + 1, dataGridView_prog.Rows.Count - 1)]
+                        .Cells[dataGridView_prog.CurrentCell.ColumnIndex];
+            dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
         }
 
         private void Decf(int cmdReg)
         {
             var fReg = cmdReg & 127;
+            if (fReg == 0)
+            {
+                F = ReadReg(ReadReg(0x04));
+                fReg = ReadReg(0x04);
+            }
+            else
+                F = ReadReg(fReg);
+
             var fOpt = cmdReg & 128;
-            int result;
 
-            if (fReg == 0xC)
+            var result = F - 1;
+            SetZeroFlag(result);
+
+            if (result < 0)
+                result = 255;
+
+            if (fOpt == 128)
             {
-                result = Wert1 - 1;
-
-                if (result < 0)
-                    result = 255;
-
-                if (fOpt == 128)
-                {
-                    Wert1 = result;
-                    text_Wert1.Text = Wert1.ToString("X");
-
-                }
-                if (fOpt == 0)
-                {
-                    W = result;
-                    text_W.Text = W.ToString("X");
-                }
+                F = result;
+                WriteReg(fReg);
+            }
+            if (fOpt == 0)
+            {
+                W = result;
+                text_W.Text = W.ToString("X");
             }
 
-            if (fReg == 0xD)
-            {
-                result = Wert2 - 1;
-                if (fOpt == 128)
-                {
-                    Wert2 = result;
-                    text_Wert2.Text = Wert2.ToString("X");
+        }
 
-                }
-                if (fOpt == 0)
-                {
-                    W = result;
-                    text_W.Text = W.ToString("X");
-                }
+        private void Decfsz(int cmdReg)
+        {
+            var fReg = cmdReg & 127;
+            if (fReg == 0)
+                F = ReadReg(ReadReg(0x04));
+            else
+                F = ReadReg(fReg);
+
+            var fOpt = cmdReg & 128;
+
+            var result = F - 1;
+
+            if (result < 0)
+                result = 255;
+
+            if (fOpt == 128)
+            {
+                F = result;
+                WriteReg(fReg);
             }
+            if (fOpt == 0)
+            {
+                W = result;
+                text_W.Text = W.ToString("X");
+            }
+
+            if (result != 0) return;
+
+            if (dataGridView_prog.CurrentRow != null)
+                dataGridView_prog.CurrentCell =
+                    dataGridView_prog
+                        .Rows[Math.Min(dataGridView_prog.CurrentRow.Index + 1, dataGridView_prog.Rows.Count - 1)]
+                        .Cells[dataGridView_prog.CurrentCell.ColumnIndex];
+            dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
         }
 
         private void Swapf(int cmdReg)
         {
             var fReg = cmdReg & 127;
-            var fOpt = cmdReg & 128;
-            int result;
-
-            if (fReg == 0xC)
+            if (fReg == 0)
             {
-                var upperNibble = Wert1 & 0b1111_0000;
-                var lowerNibble = Wert1 & 0b0000_1111;
-                upperNibble = upperNibble >> 4;
-                lowerNibble = lowerNibble << 4;
-
-                result = upperNibble | lowerNibble;
-
-                if (fOpt == 128)
-                {
-                    Wert1 = result;
-                    text_Wert1.Text = Wert1.ToString("X");
-
-                }
-                if (fOpt == 0)
-                {
-                    W = result;
-                    text_W.Text = W.ToString("X");
-                }
+                F = ReadReg(ReadReg(0x04));
+                fReg = ReadReg(0x04);
             }
+            else
+                F = ReadReg(fReg);
+            var fOpt = cmdReg & 128;
+            
+            var upperNibble = F & 0b1111_0000;
+            var lowerNibble = F & 0b0000_1111;
+            upperNibble = upperNibble >> 4;
+            lowerNibble = lowerNibble << 4;
 
-            if (fReg == 0xD)
+            var result= upperNibble | lowerNibble;
+
+            if (fOpt == 128)
             {
-                var upperNibble = Wert2 & 0b1111_0000;
-                var lowerNibble = Wert2 & 0b0000_1111;
-                upperNibble = upperNibble >> 4;
-                lowerNibble = lowerNibble << 4;
-
-                result = upperNibble | lowerNibble;
-
-                if (fOpt == 128)
-                {
-                    Wert2 = result;
-                    text_Wert2.Text = Wert2.ToString("X");
-
-                }
-                if (fOpt == 0)
-                {
-                    W = result;
-                    text_W.Text = W.ToString("X");
-                }
+                F = result;
+                WriteReg(fReg);
+            }
+            if (fOpt == 0)
+            {
+                W = result;
+                text_W.Text = W.ToString("X");
             }
         }
 
         private void Rlf(int cmdReg)
         {
             var fReg = cmdReg & 127;
-            var fOpt = cmdReg & 128;
-            int result;
-
-            if (fReg == 0xC)
+            if (fReg == 0)
             {
-                var currCf = CarryFlag;
-                if ((Wert1 & 128) == 128)
-                    CarryFlag = 1;
-
-                var shiftResult = Wert1 << 1;
-                result = shiftResult | currCf;             
-
-                if (fOpt == 128)
-                {
-                    Wert1 = result;
-                    text_Wert1.Text = Wert1.ToString("X");
-
-                }
-                if (fOpt == 0)
-                {
-                    W = result;
-                    text_W.Text = W.ToString("X");
-                }
+                F = ReadReg(ReadReg(0x04));
+                fReg = ReadReg(0x04);
             }
+            else
+                F = ReadReg(fReg);
+            var fOpt = cmdReg & 128;
+            var currCf = StatusReg & 1;
 
-            if (fReg == 0xD)
+            if ((F & 128) == 128) StatusReg = StatusReg | 1;
+            else   StatusReg = StatusReg & ~1 & 0x000000FF; 
+
+            var shiftResult = (F << 1) & 255;
+
+            var result = shiftResult | currCf;             
+
+            if (fOpt == 128)
             {
-                var currCf = CarryFlag;
-                if ((Wert2 & 128) == 128)
-                    CarryFlag = 1;
-
-                var shiftResult = Wert2 << 1;
-                result = shiftResult | currCf;
-
-                if (fOpt == 128)
-                {
-                    Wert2 = result;
-                    text_Wert2.Text = Wert2.ToString("X");
-
-                }
-                if (fOpt == 0)
-                {
-                    W = result;
-                    text_W.Text = W.ToString("X");
-                }
+                F = result;
+                WriteReg(fReg);
+            }
+            if (fOpt == 0)
+            {
+                W = result;
+                text_W.Text = W.ToString("X");
             }
         }
 
         private void Rrf(int cmdReg)
         {
+
             var fReg = cmdReg & 127;
+            if (fReg == 0)
+            {
+                F = ReadReg(ReadReg(0x04));
+                fReg = ReadReg(0x04);
+            }             
+            else
+                F = ReadReg(fReg);
+
             var fOpt = cmdReg & 128;
             int result;
 
-            if (fReg == 0xC)
+            var currCf = StatusReg & 1;
+
+            if ((F & 1) == 1)StatusReg = StatusReg | 1;
+            else StatusReg = StatusReg & ~1 & 0x000000FF;
+
+            var shiftResult = F >> 1;
+
+            if (currCf == 1)
+                result = shiftResult | 128;
+            else
+                result = shiftResult;   
+
+            if (fOpt == 128)
             {
-                var currCf = CarryFlag;
-                if ((Wert1 & 1) == 1)
-                    CarryFlag = 1;
-
-                var shiftResult = Wert1 >> 1;
-                if (currCf == 1)
-                    result = shiftResult | 128;
-                else
-                    result = shiftResult;   
-
-                if (fOpt == 128)
-                {
-                    Wert1 = result;
-                    text_Wert1.Text = Wert1.ToString("X");
-
-                }
-                if (fOpt == 0)
-                {
-                    W = result;
-                    text_W.Text = W.ToString("X");
-                }
+                F = result;
+                WriteReg(fReg);
             }
-
-            if (fReg == 0xD)
+            if (fOpt == 0)
             {
-                var currCf = CarryFlag;
-                if ((Wert2 & 128) == 128)
-                    CarryFlag = 1;
-
-                var shiftResult = Wert2 << 1;
-                result = shiftResult | currCf;
-
-                if (fOpt == 128)
-                {
-                    Wert2 = result;
-                    text_Wert2.Text = Wert2.ToString("X");
-
-                }
-                if (fOpt == 0)
-                {
-                    W = result;
-                    text_W.Text = W.ToString("X");
-                }
+                W = result;
+                text_W.Text = W.ToString("X");
             }
         }
 
+        private void Bcf(int cmdReg)
+        {
+            var fReg = cmdReg & 127;
+            if (fReg == 0)
+            {
+                F = ReadReg(ReadReg(0x04));
+                fReg = ReadReg(0x04);
+            }
+            else
+                F = ReadReg(fReg);
+            var fBits = (cmdReg & 0b00_0011_1000_0000) >> 7;
+            var bitValue = (int)Math.Pow(2, fBits);
+            
+            F= F & (~bitValue & 0x000000FF);
 
+            WriteReg(fReg);
+            if (fReg == 3) StatusReg = F;
+        }
+
+        private void Bsf(int cmdReg)
+        {
+            var fReg = cmdReg & 127;
+            if (fReg == 0)
+            {
+                F = ReadReg(ReadReg(0x04));
+                fReg = ReadReg(0x04);
+            }
+            else
+                F = ReadReg(fReg);
+            var fBits = (cmdReg & 0b00_0011_1000_0000) >> 7;
+            var bitValue = Math.Pow(2, fBits);
+
+            F = F | (int)bitValue;
+            WriteReg(fReg);
+        }
+
+        private void Btfsc(int cmdReg)
+        {
+            var fReg = cmdReg & 127;
+            if (fReg == 0)
+                F = ReadReg(ReadReg(0x04));
+            else
+                F = ReadReg(fReg);
+            var fBits = (cmdReg & 0b00_0011_1000_0000) >> 7;
+            var bitValue = (int)Math.Pow(2, fBits);
+
+
+            if ((F & bitValue) == 0)
+            {
+                if (dataGridView_prog.CurrentRow != null)
+                    dataGridView_prog.CurrentCell =
+                        dataGridView_prog
+                            .Rows[Math.Min(dataGridView_prog.CurrentRow.Index + 1, dataGridView_prog.Rows.Count - 1)]
+                            .Cells[dataGridView_prog.CurrentCell.ColumnIndex];
+                dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
+            }
+        }
+
+        private void Btfss(int cmdReg)
+        {
+            var fReg = cmdReg & 127;
+            if (fReg == 0)
+                F = ReadReg(ReadReg(0x04));
+            else
+                F = ReadReg(fReg);
+            var fBits = (cmdReg & 0b00_0011_1000_0000) >> 7;
+            var bitValue = (int)Math.Pow(2, fBits);
+
+            if ((F & bitValue) == bitValue)
+            {
+                if (dataGridView_prog.CurrentRow != null)
+                    dataGridView_prog.CurrentCell =
+                        dataGridView_prog
+                            .Rows[Math.Min(dataGridView_prog.CurrentRow.Index + 1, dataGridView_prog.Rows.Count - 1)]
+                            .Cells[dataGridView_prog.CurrentCell.ColumnIndex];
+                dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
+            }
+        }
 
         private void CallSub(int cmdLit)
         {
@@ -958,8 +1084,6 @@ namespace MicroSimulator
                     .Rows[_stack.Peek()]
                     .Cells[dataGridView_prog.CurrentCell.ColumnIndex];
             dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
-
-            _stack.Pop();
         }
 
         private void Retlw(int cmdLit)
@@ -983,17 +1107,18 @@ namespace MicroSimulator
             W = 0;
             text_W.Text = W.ToString();
             ProgramCounter = 0;
+            StatusReg = 0;
             text_Pc.Text = ProgramCounter.ToString();
-            CarryFlag = 0;
-            textBox_CarryFlag.Text = CarryFlag.ToString();
-            ZeroFlag = 0;
-            textBox_ZeroFlag.Text = CarryFlag.ToString();
-            DigitCarry = 0;
-            text_DC.Text = DigitCarry.ToString();
-            Wert1 = 0;
-            text_Wert1.Text = Wert1.ToString();
-            Wert2 = 0;
-            text_Wert2.Text = Wert2.ToString();
+            textBox_CarryFlag.Text = "0";
+            textBox_ZeroFlag.Text = "0";
+            text_DC.Text = "0";
+            F = 0;
+
+            if (dataGridView_Register.CurrentRow == null) return;
+            foreach (DataGridViewRow row in dataGridView_Register.Rows)
+            {
+                row.Cells[2].Value = "";
+            }
 
         }
 
@@ -1026,6 +1151,7 @@ namespace MicroSimulator
                     using (var reader = new StreamReader(customStream))
                     {
                         dataGridView_prog.Rows.Clear();
+                        dataGridView_Register.Rows.Clear();
                         text_path.Text = openFileDialog.FileName;
                         CodeList = reader.ReadToEnd().Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
                         FillDataTable();
@@ -1058,9 +1184,13 @@ namespace MicroSimulator
 
                 var cmdValue = codeLine.Substring(5, 4).Trim();
 
-                var cmdOperatorValue = codeLine.Substring(36);
+                var cmdOperatorValue = codeLine.Substring(36);                
+
                 if (cmdOperatorValue.Contains(';'))
                     cmdOperatorValue = (cmdOperatorValue.Substring(0, cmdOperatorValue.IndexOf(";", StringComparison.Ordinal) + 1)).Trim().TrimEnd(';');
+
+                if (cmdOperatorValue.Contains("equ"))
+                    dataGridView_Register.Rows.Add(cmdOperatorValue.Substring(0, 9).Trim(), cmdOperatorValue.Substring(13).Trim().TrimEnd('h'));
 
                 var loop = codeLine.Substring(27, 9).Trim();
 
@@ -1068,15 +1198,17 @@ namespace MicroSimulator
 
                 dataGridView_prog.Rows.Add(idValue, cmdValue, cmdOperatorValue, loop);
             }
+
         }
 
         private void btn_Step_Click(object sender, EventArgs e)
         {
             Execute();
-            dataGridView_prog.CurrentCell =
-                dataGridView_prog
-                    .Rows[Math.Min(dataGridView_prog.CurrentRow.Index + 1, dataGridView_prog.Rows.Count - 1)]
-                    .Cells[dataGridView_prog.CurrentCell.ColumnIndex];
+            if (dataGridView_prog.CurrentRow != null)
+                dataGridView_prog.CurrentCell =
+                    dataGridView_prog
+                        .Rows[Math.Min(dataGridView_prog.CurrentRow.Index + 1, dataGridView_prog.Rows.Count - 1)]
+                        .Cells[dataGridView_prog.CurrentCell.ColumnIndex];
             dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
         }
 
@@ -1090,19 +1222,14 @@ namespace MicroSimulator
             if (dataGridView_prog.CurrentRow == null) return;
 
             ProgramCounter = dataGridView_prog.CurrentRow.Index;
-
             text_Pc.Text = ProgramCounter.ToString();
 
             var cmd = dataGridView_prog.CurrentRow.Cells[1].Value.ToString();
 
-            if (cmd!="") HandleCmd(cmd);
+            if (cmd != "") HandleCmd(cmd);
 
-            if (W == 0) ZeroFlag = 1;
-            else ZeroFlag = 0;
-
-            textBox_ZeroFlag.Text = ZeroFlag.ToString();
-
-            if (dataGridView_prog.CurrentRow == null) return;
+            WriteStatusReg();
+            WriteFlags();
 
         }
 
