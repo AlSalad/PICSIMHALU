@@ -11,6 +11,7 @@ using System.Reflection;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MicroSimulator.Properties;
@@ -23,11 +24,12 @@ namespace MicroSimulator
         public int W = 0; //test
         public int L = 0;
         public int F = 0;
-
+        
         public int StatusReg = 0;
         public int ProgramCounter = 0;
-        public int Wert1 = 0;
-        public int Wert2 = 0;
+
+        public bool Stop = false;
+
         Stack<int> _stack = new Stack<int>();
         public string[] CodeList;
 
@@ -1123,6 +1125,7 @@ namespace MicroSimulator
             F = 0;
 
             if (dataGridView_Register.CurrentRow == null) return;
+            dataGridView_prog.Rows[0].Selected = true;
             foreach (DataGridViewRow row in dataGridView_Register.Rows)
             {
                 row.Cells[2].Value = "";
@@ -1164,6 +1167,7 @@ namespace MicroSimulator
                         text_path.Text = openFileDialog.FileName;
                         CodeList = reader.ReadToEnd().Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
                         FillDataTable();
+                        dataGridView_prog.Rows[0].Selected = true;
                         //RegexCmd();
                     }
                 }
@@ -1223,7 +1227,20 @@ namespace MicroSimulator
 
         private void btn_Start_Click(object sender, EventArgs e)
         {
-            
+            Stop = false;
+
+            while (Stop == false)
+            {
+                Execute();
+                if (dataGridView_prog.CurrentRow != null)
+                    dataGridView_prog.CurrentCell =
+                        dataGridView_prog
+                            .Rows[Math.Min(dataGridView_prog.CurrentRow.Index + 1, dataGridView_prog.Rows.Count - 1)]
+                            .Cells[dataGridView_prog.CurrentCell.ColumnIndex];
+                dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
+
+                Thread.Sleep(1000);
+            } 
         }
 
         private void Execute()
@@ -1255,5 +1272,9 @@ namespace MicroSimulator
             dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
         }
 
+        private void button_Stop_Click(object sender, EventArgs e)
+        {
+            Stop = true;
+        }
     }
 }
