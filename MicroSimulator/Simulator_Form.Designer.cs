@@ -77,6 +77,7 @@ namespace MicroSimulator
             this.Column_Register = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column_RegHex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column_Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column_Bank2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_prog)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_RegA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_RegB)).BeginInit();
@@ -435,10 +436,10 @@ namespace MicroSimulator
             this.dataGridView_Register.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column_Register,
             this.Column_RegHex,
-            this.Column_Value});
+            this.Column_Value,
+            this.Column_Bank2});
             this.dataGridView_Register.Location = new System.Drawing.Point(788, 527);
             this.dataGridView_Register.Name = "dataGridView_Register";
-            this.dataGridView_Register.ReadOnly = true;
             this.dataGridView_Register.RowTemplate.Height = 28;
             this.dataGridView_Register.Size = new System.Drawing.Size(455, 381);
             this.dataGridView_Register.TabIndex = 50;
@@ -447,21 +448,24 @@ namespace MicroSimulator
             // 
             this.Column_Register.HeaderText = "Register";
             this.Column_Register.Name = "Column_Register";
-            this.Column_Register.ReadOnly = true;
             // 
             // Column_RegHex
             // 
             this.Column_RegHex.HeaderText = "Hex";
             this.Column_RegHex.Name = "Column_RegHex";
-            this.Column_RegHex.ReadOnly = true;
             this.Column_RegHex.Width = 50;
             // 
             // Column_Value
             // 
-            this.Column_Value.HeaderText = "Value";
+            this.Column_Value.HeaderText = "Bank1";
             this.Column_Value.Name = "Column_Value";
-            this.Column_Value.ReadOnly = true;
             this.Column_Value.Width = 50;
+            // 
+            // Column_Bank2
+            // 
+            this.Column_Bank2.HeaderText = "Bank2";
+            this.Column_Bank2.Name = "Column_Bank2";
+            this.Column_Bank2.Width = 50;
             // 
             // SimulatorForm
             // 
@@ -549,6 +553,7 @@ namespace MicroSimulator
         private DataGridViewTextBoxColumn Column_Register;
         private DataGridViewTextBoxColumn Column_RegHex;
         private DataGridViewTextBoxColumn Column_Value;
+        private DataGridViewTextBoxColumn Column_Bank2;
     }
 }
 

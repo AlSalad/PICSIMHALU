@@ -300,20 +300,29 @@ namespace MicroSimulator
 
         private void WriteReg(int cmdReg)
         {
+            var i = 2;
+            if ((StatusReg & 32) == 32)
+                i = 3;
+
             foreach (DataGridViewRow row in dataGridView_Register.Rows)
             {
                 if (Hex2Int(row.Cells[1].Value.ToString()).Equals(cmdReg))
                 {
-                    row.Cells[2].Value = F.ToString("X");
+                    row.Cells[i].Value = F.ToString("X");
                     return;
                 }
             }
-            dataGridView_Register.Rows.Add("", cmdReg.ToString("X"), F.ToString("X"));
+            if(i == 2)
+                dataGridView_Register.Rows.Add("", cmdReg.ToString("X"), F.ToString("X"), "");
+            if(i == 3)
+                dataGridView_Register.Rows.Add("", cmdReg.ToString("X"), "", F.ToString("X"));
 
         }
 
         private int ReadReg(int cmdReg)
         {
+
+
             foreach (DataGridViewRow row in dataGridView_Register.Rows)
             {
                 if (!Hex2Int(row.Cells[1].Value.ToString()).Equals(cmdReg)) continue;
@@ -556,10 +565,8 @@ namespace MicroSimulator
             var highWBits = W & 240;
 
             //DigitCarry
-            if (highFBits - highWBits < 16)
-                StatusReg = StatusReg | 2;
-            else
-                StatusReg = StatusReg & ~2 & 0x000000FF;
+            if (highFBits - highWBits < 16) StatusReg = StatusReg | 2;
+            else StatusReg = StatusReg & ~2 & 0x000000FF;
 
             int result;
 
@@ -1005,6 +1012,7 @@ namespace MicroSimulator
 
             F = F | (int)bitValue;
             WriteReg(fReg);
+            if (fReg == 3) StatusReg = F;
         }
 
         private void Btfsc(int cmdReg)
@@ -1118,6 +1126,7 @@ namespace MicroSimulator
             foreach (DataGridViewRow row in dataGridView_Register.Rows)
             {
                 row.Cells[2].Value = "";
+                row.Cells[3].Value = "";
             }
 
         }
