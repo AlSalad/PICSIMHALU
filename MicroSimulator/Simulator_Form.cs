@@ -26,6 +26,8 @@ namespace MicroSimulator
         public int W = 0; //test
         public int L = 0;
         public int F = 0;
+
+        public int Intcon;
         
         public int StatusReg = 0;
         public int ProgramCounter = 0;
@@ -240,6 +242,13 @@ namespace MicroSimulator
 
         }
 
+
+        private void HandleInterrupt()
+        {
+            Intcon = ReadReg(11);
+            
+        }
+
         private void WriteReg(int cmdReg)
         {
             var i = 2;
@@ -263,8 +272,6 @@ namespace MicroSimulator
 
         private int ReadReg(int cmdReg)
         {
-
-
             foreach (DataGridViewRow row in dataGridView_Register.Rows)
             {
                 if (!Hex2Int(row.Cells[1].Value.ToString()).Equals(cmdReg)) continue;
@@ -1055,6 +1062,7 @@ namespace MicroSimulator
         private void ResetParam()
         {
             W = 0;
+            Stop = true;
             text_W.Text = W.ToString();
             ProgramCounter = 0;
             StatusReg = 0;
@@ -1164,38 +1172,17 @@ namespace MicroSimulator
             dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
         }
 
-        private void Timer()
+        private void Start()
         {
-            // Create a timer
-            Timer myTimer = new Timer();
-            // Tell the timer what to do when it elapses
-            myTimer.Elapsed += new ElapsedEventHandler(RunEvent);
-            // Set it to go off every five seconds
-            myTimer.Interval = 5000;
-            // And start it        
-            myTimer.Enabled = true;
-        }
-
-        // Implement a call with the right signature for events going off
-        private void RunEvent(object source, ElapsedEventArgs e)
-        {
-            Run();
-        }
-
-        private void Run()
-        {
-            Execute();
-            if (dataGridView_prog.CurrentRow != null)
-                dataGridView_prog.CurrentCell =
-                    dataGridView_prog
-                        .Rows[Math.Min(dataGridView_prog.CurrentRow.Index + 1, dataGridView_prog.Rows.Count - 1)]
-                        .Cells[dataGridView_prog.CurrentCell.ColumnIndex];
-            dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
+            Stop = false;
+            // Sets the timer interval to 1 seconds.
+            timer1.Interval = 500;
+            timer1.Start();
         }
 
         private void btn_Start_Click(object sender, EventArgs e)
         {
-            Timer();
+            Start();
         }
 
         private void Execute()
@@ -1230,6 +1217,20 @@ namespace MicroSimulator
         private void button_Stop_Click(object sender, EventArgs e)
         {
             Stop = true;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            timer1.Stop();
+            if (Stop == true) return;
+            Execute();
+            if (dataGridView_prog.CurrentRow != null)
+                dataGridView_prog.CurrentCell =
+                    dataGridView_prog
+                        .Rows[Math.Min(dataGridView_prog.CurrentRow.Index + 1, dataGridView_prog.Rows.Count - 1)]
+                        .Cells[dataGridView_prog.CurrentCell.ColumnIndex];
+            dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
+            Start();
         }
     }
 }

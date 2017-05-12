@@ -8,11 +8,6 @@ namespace MicroSimulator
     {
 
         /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        public System.ComponentModel.IContainer components = null;
-
-        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -33,6 +28,7 @@ namespace MicroSimulator
         /// </summary>
         public void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.text_path = new System.Windows.Forms.TextBox();
             this.btn_Open = new System.Windows.Forms.Button();
             this.dataGridView_prog = new System.Windows.Forms.DataGridView();
@@ -79,6 +75,7 @@ namespace MicroSimulator
             this.Column_Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column_Bank2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button_Stop = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_prog)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_RegA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_RegB)).BeginInit();
@@ -478,6 +475,10 @@ namespace MicroSimulator
             this.button_Stop.UseVisualStyleBackColor = true;
             this.button_Stop.Click += new System.EventHandler(this.button_Stop_Click);
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // SimulatorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -567,6 +568,8 @@ namespace MicroSimulator
         private DataGridViewTextBoxColumn Column_Value;
         private DataGridViewTextBoxColumn Column_Bank2;
         private Button button_Stop;
+        private System.ComponentModel.IContainer components;
+        private Timer timer1;
     }
 }
 
