@@ -295,7 +295,7 @@ namespace MicroSimulator
             {
                 foreach (DataGridViewRow row in dataGridView_prog.Rows)
                 {
-                    if (row.Cells[0].Value.ToString().Equals(searchString))
+                    if (row.Cells[1].Value.ToString().Equals(searchString))
                     {
                         dataGridView_prog.CurrentCell =
                             dataGridView_prog
@@ -1018,7 +1018,7 @@ namespace MicroSimulator
             {
                 foreach (DataGridViewRow row in dataGridView_prog.Rows)
                 {
-                    if (row.Cells[0].Value.ToString().Equals(searchString))
+                    if (row.Cells[1].Value.ToString().Equals(searchString))
                     {
                         dataGridView_prog.CurrentCell =
                             dataGridView_prog
@@ -1157,7 +1157,7 @@ namespace MicroSimulator
 
                 if (idValue == "" && cmdValue == "" && cmdOperatorValue == "" && loop == "") continue;
 
-                dataGridView_prog.Rows.Add(idValue, cmdValue, cmdOperatorValue, loop);
+                dataGridView_prog.Rows.Add(null ,idValue, cmdValue, cmdOperatorValue, loop);
             }
         }
 
@@ -1172,16 +1172,64 @@ namespace MicroSimulator
             dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
         }
 
+
+        private void btn_Start_Click(object sender, EventArgs e)
+        {
+            if (dataGridView_prog.CurrentRow != null && ToBoolean(dataGridView_prog.CurrentRow.Cells[0].Value))
+            {
+                Execute();
+                if (dataGridView_prog.CurrentRow != null)
+                    dataGridView_prog.CurrentCell =
+                        dataGridView_prog
+                            .Rows[Math.Min(dataGridView_prog.CurrentRow.Index + 1, dataGridView_prog.Rows.Count - 1)]
+                            .Cells[dataGridView_prog.CurrentCell.ColumnIndex];
+                dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
+            };
+
+            Start();
+        }
+
+
         private void Start()
         {
             Stop = false;
             // Sets the timer interval to 1 seconds.
-            timer1.Interval = 500;
+            try
+            {
+                var quartz = int.Parse(textBox_Quarz.Text);
+
+                if (quartz == 0) return;
+
+                if (quartz > 4000) quartz = 4000;
+                timer1.Interval = 4000 / quartz;
+            }
+            catch (System.FormatException)
+            {
+                return;
+            }
+                
             timer1.Start();
         }
+        /// <summary>
+        /// Wenn Stop button gedrückt wird, setzte Stop auf wahr
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button_Stop_Click(object sender, EventArgs e) => Stop = true;
 
-        private void btn_Start_Click(object sender, EventArgs e)
+        private void timer1_Tick(object sender, EventArgs e)
         {
+            timer1.Stop();
+            if (dataGridView_prog.CurrentRow != null && ToBoolean(dataGridView_prog.CurrentRow.Cells[0].Value)) Stop = true;
+            if (Stop) return;
+
+            Execute();
+            if (dataGridView_prog.CurrentRow != null)
+                dataGridView_prog.CurrentCell =
+                    dataGridView_prog
+                        .Rows[Math.Min(dataGridView_prog.CurrentRow.Index + 1, dataGridView_prog.Rows.Count - 1)]
+                        .Cells[dataGridView_prog.CurrentCell.ColumnIndex];
+            dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
             Start();
         }
 
@@ -1192,7 +1240,7 @@ namespace MicroSimulator
             ProgramCounter = dataGridView_prog.CurrentRow.Index;
             text_Pc.Text = ProgramCounter.ToString();
 
-            var cmd = dataGridView_prog.CurrentRow.Cells[1].Value.ToString();
+            var cmd = dataGridView_prog.CurrentRow.Cells[2].Value.ToString();
 
             if (cmd != "") HandleCmd(cmd);
 
@@ -1212,25 +1260,6 @@ namespace MicroSimulator
                     .Rows[0]
                     .Cells[dataGridView_prog.CurrentCell.ColumnIndex];
             dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
-        }
-
-        private void button_Stop_Click(object sender, EventArgs e)
-        {
-            Stop = true;
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            timer1.Stop();
-            if (Stop == true) return;
-            Execute();
-            if (dataGridView_prog.CurrentRow != null)
-                dataGridView_prog.CurrentCell =
-                    dataGridView_prog
-                        .Rows[Math.Min(dataGridView_prog.CurrentRow.Index + 1, dataGridView_prog.Rows.Count - 1)]
-                        .Cells[dataGridView_prog.CurrentCell.ColumnIndex];
-            dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
-            Start();
         }
     }
 }

@@ -32,6 +32,7 @@ namespace MicroSimulator
             this.text_path = new System.Windows.Forms.TextBox();
             this.btn_Open = new System.Windows.Forms.Button();
             this.dataGridView_prog = new System.Windows.Forms.DataGridView();
+            this.Column_BreakPoint = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Column_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column_Cmd = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column_Op = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -76,6 +77,8 @@ namespace MicroSimulator
             this.Column_Bank2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button_Stop = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.textBox_Quarz = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_prog)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_RegA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_RegB)).BeginInit();
@@ -108,6 +111,7 @@ namespace MicroSimulator
             this.dataGridView_prog.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView_prog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_prog.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column_BreakPoint,
             this.Column_ID,
             this.Column_Cmd,
             this.Column_Op,
@@ -115,8 +119,15 @@ namespace MicroSimulator
             this.dataGridView_prog.Location = new System.Drawing.Point(23, 63);
             this.dataGridView_prog.Name = "dataGridView_prog";
             this.dataGridView_prog.RowTemplate.Height = 28;
-            this.dataGridView_prog.Size = new System.Drawing.Size(485, 869);
+            this.dataGridView_prog.Size = new System.Drawing.Size(520, 869);
             this.dataGridView_prog.TabIndex = 8;
+            // 
+            // Column_BreakPoint
+            // 
+            this.Column_BreakPoint.FillWeight = 30F;
+            this.Column_BreakPoint.HeaderText = "BP";
+            this.Column_BreakPoint.Name = "Column_BreakPoint";
+            this.Column_BreakPoint.Width = 20;
             // 
             // Column_ID
             // 
@@ -160,9 +171,9 @@ namespace MicroSimulator
             // 
             // btn_Step
             // 
-            this.btn_Step.Location = new System.Drawing.Point(544, 133);
+            this.btn_Step.Location = new System.Drawing.Point(549, 154);
             this.btn_Step.Name = "btn_Step";
-            this.btn_Step.Size = new System.Drawing.Size(75, 29);
+            this.btn_Step.Size = new System.Drawing.Size(97, 41);
             this.btn_Step.TabIndex = 32;
             this.btn_Step.Text = "Next";
             this.btn_Step.UseVisualStyleBackColor = true;
@@ -170,9 +181,9 @@ namespace MicroSimulator
             // 
             // btn_Start
             // 
-            this.btn_Start.Location = new System.Drawing.Point(544, 63);
+            this.btn_Start.Location = new System.Drawing.Point(549, 63);
             this.btn_Start.Name = "btn_Start";
-            this.btn_Start.Size = new System.Drawing.Size(75, 29);
+            this.btn_Start.Size = new System.Drawing.Size(97, 40);
             this.btn_Start.TabIndex = 33;
             this.btn_Start.Text = "Start";
             this.btn_Start.UseVisualStyleBackColor = true;
@@ -418,9 +429,9 @@ namespace MicroSimulator
             // 
             // button_Reset
             // 
-            this.button_Reset.Location = new System.Drawing.Point(544, 168);
+            this.button_Reset.Location = new System.Drawing.Point(549, 201);
             this.button_Reset.Name = "button_Reset";
-            this.button_Reset.Size = new System.Drawing.Size(75, 29);
+            this.button_Reset.Size = new System.Drawing.Size(97, 44);
             this.button_Reset.TabIndex = 49;
             this.button_Reset.Text = "Reset";
             this.button_Reset.UseVisualStyleBackColor = true;
@@ -467,9 +478,9 @@ namespace MicroSimulator
             // 
             // button_Stop
             // 
-            this.button_Stop.Location = new System.Drawing.Point(544, 98);
+            this.button_Stop.Location = new System.Drawing.Point(549, 109);
             this.button_Stop.Name = "button_Stop";
-            this.button_Stop.Size = new System.Drawing.Size(75, 29);
+            this.button_Stop.Size = new System.Drawing.Size(97, 39);
             this.button_Stop.TabIndex = 51;
             this.button_Stop.Text = "Stop";
             this.button_Stop.UseVisualStyleBackColor = true;
@@ -479,12 +490,31 @@ namespace MicroSimulator
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // textBox_Quarz
+            // 
+            this.textBox_Quarz.Location = new System.Drawing.Point(652, 70);
+            this.textBox_Quarz.Name = "textBox_Quarz";
+            this.textBox_Quarz.Size = new System.Drawing.Size(63, 26);
+            this.textBox_Quarz.TabIndex = 52;
+            this.textBox_Quarz.Text = "4000";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(721, 73);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(29, 20);
+            this.label1.TabIndex = 53;
+            this.label1.Text = "Hz";
+            // 
             // SimulatorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1258, 944);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.textBox_Quarz);
             this.Controls.Add(this.button_Stop);
             this.Controls.Add(this.dataGridView_Register);
             this.Controls.Add(this.button_Reset);
@@ -529,10 +559,6 @@ namespace MicroSimulator
         private System.Windows.Forms.Button btn_Step;
         private System.Windows.Forms.DataGridView dataGridView_prog;
         private System.Windows.Forms.Button btn_Start;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column_ID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column_Cmd;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column_Op;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column_loop;
         private System.Windows.Forms.TextBox text_Pc;
         private System.Windows.Forms.DataGridViewTextBoxColumn RegA_Bit0;
         private System.Windows.Forms.DataGridViewTextBoxColumn RegA_Bit1;
@@ -570,6 +596,13 @@ namespace MicroSimulator
         private Button button_Stop;
         private System.ComponentModel.IContainer components;
         private Timer timer1;
+        private DataGridViewCheckBoxColumn Column_BreakPoint;
+        private DataGridViewTextBoxColumn Column_ID;
+        private DataGridViewTextBoxColumn Column_Cmd;
+        private DataGridViewTextBoxColumn Column_Op;
+        private DataGridViewTextBoxColumn Column_loop;
+        private TextBox textBox_Quarz;
+        private Label label1;
     }
 }
 
