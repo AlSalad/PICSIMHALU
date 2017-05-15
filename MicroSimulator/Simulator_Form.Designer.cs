@@ -30,7 +30,7 @@ namespace MicroSimulator
         {
             this.components = new System.ComponentModel.Container();
             this.text_path = new System.Windows.Forms.TextBox();
-            this.btn_Open = new System.Windows.Forms.Button();
+            this.Btn_Open = new System.Windows.Forms.Button();
             this.dataGridView_prog = new System.Windows.Forms.DataGridView();
             this.Column_BreakPoint = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Column_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -79,6 +79,7 @@ namespace MicroSimulator
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.textBox_Quarz = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.Button_Help = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_prog)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_RegA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_RegB)).BeginInit();
@@ -94,16 +95,16 @@ namespace MicroSimulator
             this.text_path.Size = new System.Drawing.Size(520, 26);
             this.text_path.TabIndex = 0;
             // 
-            // btn_Open
+            // Btn_Open
             // 
-            this.btn_Open.Location = new System.Drawing.Point(544, 10);
-            this.btn_Open.Margin = new System.Windows.Forms.Padding(0);
-            this.btn_Open.Name = "btn_Open";
-            this.btn_Open.Size = new System.Drawing.Size(75, 35);
-            this.btn_Open.TabIndex = 7;
-            this.btn_Open.Text = "Open";
-            this.btn_Open.UseVisualStyleBackColor = true;
-            this.btn_Open.Click += new System.EventHandler(this.btn_Open_Click);
+            this.Btn_Open.Location = new System.Drawing.Point(544, 10);
+            this.Btn_Open.Margin = new System.Windows.Forms.Padding(0);
+            this.Btn_Open.Name = "Btn_Open";
+            this.Btn_Open.Size = new System.Drawing.Size(75, 35);
+            this.Btn_Open.TabIndex = 7;
+            this.Btn_Open.Text = "Open";
+            this.Btn_Open.UseVisualStyleBackColor = true;
+            this.Btn_Open.Click += new System.EventHandler(this.Btn_Open_Click);
             // 
             // dataGridView_prog
             // 
@@ -187,7 +188,7 @@ namespace MicroSimulator
             this.btn_Start.TabIndex = 33;
             this.btn_Start.Text = "Start";
             this.btn_Start.UseVisualStyleBackColor = true;
-            this.btn_Start.Click += new System.EventHandler(this.btn_Start_Click);
+            this.btn_Start.Click += new System.EventHandler(this.Btn_Start_Click);
             // 
             // text_Pc
             // 
@@ -507,12 +508,23 @@ namespace MicroSimulator
             this.label1.TabIndex = 53;
             this.label1.Text = "Hz";
             // 
+            // Button_Help
+            // 
+            this.Button_Help.Location = new System.Drawing.Point(622, 10);
+            this.Button_Help.Name = "Button_Help";
+            this.Button_Help.Size = new System.Drawing.Size(63, 35);
+            this.Button_Help.TabIndex = 54;
+            this.Button_Help.Text = "Help";
+            this.Button_Help.UseVisualStyleBackColor = true;
+            this.Button_Help.Click += new System.EventHandler(this.Button_Help_Click);
+            // 
             // SimulatorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1258, 944);
+            this.Controls.Add(this.Button_Help);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox_Quarz);
             this.Controls.Add(this.button_Stop);
@@ -533,7 +545,7 @@ namespace MicroSimulator
             this.Controls.Add(this.label_W);
             this.Controls.Add(this.text_W);
             this.Controls.Add(this.dataGridView_prog);
-            this.Controls.Add(this.btn_Open);
+            this.Controls.Add(this.Btn_Open);
             this.Controls.Add(this.text_path);
             this.Name = "SimulatorForm";
             this.Text = "Simulator";
@@ -550,7 +562,7 @@ namespace MicroSimulator
 
         #endregion
         private System.Windows.Forms.TextBox text_path;
-        private System.Windows.Forms.Button btn_Open;
+        private System.Windows.Forms.Button Btn_Open;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.TextBox text_W;
@@ -603,6 +615,7 @@ namespace MicroSimulator
         private DataGridViewTextBoxColumn Column_loop;
         private TextBox textBox_Quarz;
         private Label label1;
+        private Button Button_Help;
     }
 }
 

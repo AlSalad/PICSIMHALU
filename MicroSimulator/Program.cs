@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace MicroSimulator
 {
-    static class Program
+    internal static class Program
     {
         //get list of commands
 
@@ -16,7 +16,7 @@ namespace MicroSimulator
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

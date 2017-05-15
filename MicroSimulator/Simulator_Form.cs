@@ -1,44 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics.Eventing.Reader;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
-using System.Runtime.Remoting.Messaging;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MicroSimulator.Properties;
 using static System.Convert;
-using System.Timers;
-using Timer = System.Timers.Timer;
 
 namespace MicroSimulator
 {  
     public partial class SimulatorForm : Form
     {
-        public int W = 0; //test
-        public int L = 0;
-        public int F = 0;
+        public int W; //test
+        public int L;
+        public int F;
 
         public int Intcon;
         
-        public int StatusReg = 0;
-        public int ProgramCounter = 0;
+        public int StatusReg;
+        public int ProgramCounter;
 
-        public bool Stop = false;
+        public bool Stop;
 
         Stack<int> _stack = new Stack<int>();
         public string[] CodeList;
 
         public SimulatorForm()
         {
+            ProgramCounter = 0;
             InitializeComponent();
         }
 
@@ -243,11 +232,11 @@ namespace MicroSimulator
         }
 
 
-        private void HandleInterrupt()
-        {
-            Intcon = ReadReg(11);
+        //private void HandleInterrupt()
+        //{
+        //    Intcon = ReadReg(11);
             
-        }
+        //}
 
         private void WriteReg(int cmdReg)
         {
@@ -671,9 +660,9 @@ namespace MicroSimulator
             else
                 F = ReadReg(fReg);
             var fOpt = cmdReg & 128;
-            int result;
 
-            result = (int) (~F & 0x000000FF);
+            var result = ~F & 0x000000FF;
+
             if (fOpt == 128)
             {
                 F = result;
@@ -792,10 +781,7 @@ namespace MicroSimulator
         private void Decfsz(int cmdReg)
         {
             var fReg = cmdReg & 127;
-            if (fReg == 0)
-                F = ReadReg(ReadReg(0x04));
-            else
-                F = ReadReg(fReg);
+            F = ReadReg(fReg == 0 ? ReadReg(0x04) : fReg);
 
             var fOpt = cmdReg & 128;
 
@@ -967,10 +953,12 @@ namespace MicroSimulator
         private void Btfsc(int cmdReg)
         {
             var fReg = cmdReg & 127;
+
             if (fReg == 0)
                 F = ReadReg(ReadReg(0x04));
             else
                 F = ReadReg(fReg);
+
             var fBits = (cmdReg & 0b00_0011_1000_0000) >> 7;
             var bitValue = (int)Math.Pow(2, fBits);
 
@@ -1067,9 +1055,9 @@ namespace MicroSimulator
             ProgramCounter = 0;
             StatusReg = 0;
             text_Pc.Text = ProgramCounter.ToString();
-            textBox_CarryFlag.Text = "0";
-            textBox_ZeroFlag.Text = "0";
-            text_DC.Text = "0";
+            textBox_CarryFlag.Text = @"0";
+            textBox_ZeroFlag.Text = @"0";
+            text_DC.Text = @"0";
             F = 0;
 
             if (dataGridView_Register.CurrentRow == null) return;
@@ -1087,7 +1075,7 @@ namespace MicroSimulator
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btn_Open_Click(object sender, EventArgs e)
+        private void Btn_Open_Click(object sender, EventArgs e)
         {
             ResetParam();
             //CmdInput.Items.Clear();
@@ -1103,8 +1091,7 @@ namespace MicroSimulator
 
             try
             {
-                Stream customStream;
-                if ((customStream = openFileDialog.OpenFile()) == null) return;
+                var customStream = openFileDialog.OpenFile();
 
                 using (customStream)
                 {                
@@ -1173,7 +1160,7 @@ namespace MicroSimulator
         }
 
 
-        private void btn_Start_Click(object sender, EventArgs e)
+        private void Btn_Start_Click(object sender, EventArgs e)
         {
             if (dataGridView_prog.CurrentRow != null && ToBoolean(dataGridView_prog.CurrentRow.Cells[0].Value))
             {
@@ -1184,7 +1171,7 @@ namespace MicroSimulator
                             .Rows[Math.Min(dataGridView_prog.CurrentRow.Index + 1, dataGridView_prog.Rows.Count - 1)]
                             .Cells[dataGridView_prog.CurrentCell.ColumnIndex];
                 dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
-            };
+            }
 
             Start();
         }
@@ -1203,7 +1190,7 @@ namespace MicroSimulator
                 if (quartz > 4000) quartz = 4000;
                 timer1.Interval = 4000 / quartz;
             }
-            catch (System.FormatException)
+            catch (FormatException)
             {
                 return;
             }
@@ -1260,6 +1247,11 @@ namespace MicroSimulator
                     .Rows[0]
                     .Cells[dataGridView_prog.CurrentCell.ColumnIndex];
             dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
+        }
+
+        private void Button_Help_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(@"C:\Users\Koopa\Documents\DHBW\Semester 4\Rechnertechnik\Pflichtenheft_Rechnertechnik.pdf");
         }
     }
 }
