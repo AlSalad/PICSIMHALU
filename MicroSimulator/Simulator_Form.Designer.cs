@@ -76,7 +76,7 @@ namespace MicroSimulator
             this.Column_Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column_Bank2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button_Stop = new System.Windows.Forms.Button();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.Timer_prog = new System.Windows.Forms.Timer(this.components);
             this.textBox_Quarz = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.Button_Help = new System.Windows.Forms.Button();
@@ -436,7 +436,7 @@ namespace MicroSimulator
             this.button_Reset.TabIndex = 49;
             this.button_Reset.Text = "Reset";
             this.button_Reset.UseVisualStyleBackColor = true;
-            this.button_Reset.Click += new System.EventHandler(this.button_Reset_Click);
+            this.button_Reset.Click += new System.EventHandler(this.Button_Reset_Click);
             // 
             // dataGridView_Register
             // 
@@ -485,11 +485,11 @@ namespace MicroSimulator
             this.button_Stop.TabIndex = 51;
             this.button_Stop.Text = "Stop";
             this.button_Stop.UseVisualStyleBackColor = true;
-            this.button_Stop.Click += new System.EventHandler(this.button_Stop_Click);
+            this.button_Stop.Click += new System.EventHandler(this.Button_Stop_Click);
             // 
-            // timer1
+            // Timer_prog
             // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.Timer_prog.Tick += new System.EventHandler(this.Timer_prog_Tick);
             // 
             // textBox_Quarz
             // 
@@ -607,7 +607,7 @@ namespace MicroSimulator
         private DataGridViewTextBoxColumn Column_Bank2;
         private Button button_Stop;
         private System.ComponentModel.IContainer components;
-        private Timer timer1;
+        private Timer Timer_prog;
         private DataGridViewCheckBoxColumn Column_BreakPoint;
         private DataGridViewTextBoxColumn Column_ID;
         private DataGridViewTextBoxColumn Column_Cmd;

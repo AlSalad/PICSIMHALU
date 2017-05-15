@@ -11,6 +11,7 @@ namespace MicroSimulator
 {  
     public partial class SimulatorForm : Form
     {
+        #region Global fields ---------------------
         public int W; //test
         public int L;
         public int F;
@@ -24,7 +25,9 @@ namespace MicroSimulator
 
         Stack<int> _stack = new Stack<int>();
         public string[] CodeList;
+        #endregion
 
+        #region Load Forms ---------------------
         public SimulatorForm()
         {
             ProgramCounter = 0;
@@ -39,9 +42,9 @@ namespace MicroSimulator
             dataGridView_RegB.Rows.Add("TRIS", "i", "i", "i", "i", "i", "i", "i", "i");
             dataGridView_RegB.Rows.Add("Bits", 0, 0, 0, 0, 0, 0, 0, 0);
         }
+        #endregion
 
         #region Converter ---------------------
-
         public string Hex2Bin(string value)
         {
             return Convert.ToString(ToInt32(value, 16), 2).PadLeft(value.Length * 4, '0');
@@ -60,9 +63,13 @@ namespace MicroSimulator
 
         #endregion
 
+        #region Handle Commands -------------------
         private void HandleCmd(string cmdValue)
         {
             var cmd = Hex2Int(cmdValue);
+
+            if ((cmd & 0b11_1111_1001_1111) == 0b00_0000_0000_0000)
+                Nop();
 
             //movlw
             if ((cmd & 0b11_1100_0000_0000) == 0b11_0000_0000_0000)
@@ -188,14 +195,16 @@ namespace MicroSimulator
             if (cmd == 0b00_0000_0000_1000)
                 ReturnToCall();
         }
+        #endregion
 
+        #region Register control -------------------
         private void SetZeroFlag(int val)
         {
             //Zero Flag
             if (val == 0)
                 StatusReg = StatusReg | 4;
             else
-                StatusReg = StatusReg & ~4 & 0x000000FF;      
+                StatusReg = StatusReg & ~4 & 0x000000FF;
         }
 
         private void WriteStatusReg()
@@ -216,7 +225,7 @@ namespace MicroSimulator
 
                 var value = row.Cells[2].Value;
 
-                if (value != null && (string) value != "")
+                if (value != null && (string)value != "")
                 {
                     var status = Hex2Int(value.ToString());
                     var zeroFlag = (status & 4) == 0 ? 0 : 1;
@@ -226,17 +235,10 @@ namespace MicroSimulator
                     textBox_ZeroFlag.Text = zeroFlag.ToString("X");
                     text_DC.Text = digitCarry.ToString("X");
                     textBox_CarryFlag.Text = carryFlag.ToString("X");
-                }                   
+                }
             }
 
         }
-
-
-        //private void HandleInterrupt()
-        //{
-        //    Intcon = ReadReg(11);
-            
-        //}
 
         private void WriteReg(int cmdReg)
         {
@@ -246,15 +248,14 @@ namespace MicroSimulator
 
             foreach (DataGridViewRow row in dataGridView_Register.Rows)
             {
-                if (Hex2Int(row.Cells[1].Value.ToString()).Equals(cmdReg))
-                {
-                    row.Cells[i].Value = F.ToString("X");
-                    return;
-                }
+                if (!Hex2Int(row.Cells[1].Value.ToString()).Equals(cmdReg)) continue;
+
+                row.Cells[i].Value = F.ToString("X");
+                return;
             }
-            if(i == 2)
+            if (i == 2)
                 dataGridView_Register.Rows.Add("", cmdReg.ToString("X"), F.ToString("X"), "");
-            if(i == 3)
+            if (i == 3)
                 dataGridView_Register.Rows.Add("", cmdReg.ToString("X"), "", F.ToString("X"));
 
         }
@@ -270,9 +271,15 @@ namespace MicroSimulator
             return 0;
         }
 
+
+        #endregion
+
         #region Commands -------------------
 
-
+        private void Nop()
+        {
+            
+        }
 
         private void Goto(int cmdLit)
         {
@@ -503,7 +510,7 @@ namespace MicroSimulator
             var lowWBits = W & 240;
 
             //DigitCarry
-            if (lowFBits + ((16 - lowWBits)) > 15) StatusReg = StatusReg | 2;
+            if (lowFBits + 16 - lowWBits > 15) StatusReg = StatusReg | 2;
             else StatusReg = StatusReg & ~2 & 0x000000FF;
 
             int result;
@@ -981,6 +988,7 @@ namespace MicroSimulator
                 F = ReadReg(ReadReg(0x04));
             else
                 F = ReadReg(fReg);
+
             var fBits = (cmdReg & 0b00_0011_1000_0000) >> 7;
             var bitValue = (int)Math.Pow(2, fBits);
 
@@ -1047,6 +1055,7 @@ namespace MicroSimulator
         }
         #endregion
 
+        #region System Control -------------------
         private void ResetParam()
         {
             W = 0;
@@ -1067,7 +1076,6 @@ namespace MicroSimulator
                 row.Cells[2].Value = "";
                 row.Cells[3].Value = "";
             }
-
         }
 
         /// <summary>
@@ -1188,25 +1196,25 @@ namespace MicroSimulator
                 if (quartz == 0) return;
 
                 if (quartz > 4000) quartz = 4000;
-                timer1.Interval = 4000 / quartz;
+                Timer_prog.Interval = 4000 / quartz;
             }
             catch (FormatException)
             {
                 return;
             }
                 
-            timer1.Start();
+            Timer_prog.Start();
         }
         /// <summary>
         /// Wenn Stop button gedrückt wird, setzte Stop auf wahr
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button_Stop_Click(object sender, EventArgs e) => Stop = true;
+        private void Button_Stop_Click(object sender, EventArgs e) => Stop = true;
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void Timer_prog_Tick(object sender, EventArgs e)
         {
-            timer1.Stop();
+            Timer_prog.Stop();
             if (dataGridView_prog.CurrentRow != null && ToBoolean(dataGridView_prog.CurrentRow.Cells[0].Value)) Stop = true;
             if (Stop) return;
 
@@ -1236,7 +1244,7 @@ namespace MicroSimulator
 
         }
 
-        private void button_Reset_Click(object sender, EventArgs e)
+        private void Button_Reset_Click(object sender, EventArgs e)
         {
             ResetParam();
 
@@ -1253,5 +1261,7 @@ namespace MicroSimulator
         {
             System.Diagnostics.Process.Start(@"C:\Users\Koopa\Documents\DHBW\Semester 4\Rechnertechnik\Pflichtenheft_Rechnertechnik.pdf");
         }
+
+        #endregion
     }
 }
