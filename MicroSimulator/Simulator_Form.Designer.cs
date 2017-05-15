@@ -510,10 +510,6 @@ namespace MicroSimulator
             this.Button_Help.UseVisualStyleBackColor = true;
             this.Button_Help.Click += new System.EventHandler(this.Button_Help_Click);
             // 
-            // Timer_0
-            // 
-            this.Timer_0.Tick += new System.EventHandler(this.Timer_0_Tick);
-            // 
             // text_Tmr0
             // 
             this.text_Tmr0.Location = new System.Drawing.Point(841, 406);
