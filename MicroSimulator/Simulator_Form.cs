@@ -16,6 +16,8 @@ namespace MicroSimulator
         public int L;
         public int F;
 
+        public int Tmr0Value;
+
         public int Intcon;
         
         public int StatusReg;
@@ -338,7 +340,8 @@ namespace MicroSimulator
 
             var fOpt = cmdReg & 128;
 
-            SetZeroFlag(result);
+            if (fReg != 1)
+                SetZeroFlag(result);
 
             if (fOpt == 128)
             {
@@ -1197,6 +1200,7 @@ namespace MicroSimulator
 
                 if (quartz > 4000) quartz = 4000;
                 Timer_prog.Interval = 4000 / quartz;
+                Timer_0.Interval = 8000 / quartz;
             }
             catch (FormatException)
             {
@@ -1204,6 +1208,7 @@ namespace MicroSimulator
             }
                 
             Timer_prog.Start();
+            Timer_0.Start();
         }
         /// <summary>
         /// Wenn Stop button gedrückt wird, setzte Stop auf wahr
@@ -1226,6 +1231,18 @@ namespace MicroSimulator
                         .Cells[dataGridView_prog.CurrentCell.ColumnIndex];
             dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
             Start();
+        }
+
+        private void Timer_0_Tick(object sender, EventArgs e)
+        { 
+            Timer_0.Stop();
+            if (Stop) return;
+
+            Tmr0Value++;
+            if (Tmr0Value == 256)
+                Tmr0Value = 0;
+
+            text_Tmr0.Text = Convert.ToString(Tmr0Value, 2);
         }
 
         private void Execute()
@@ -1263,5 +1280,6 @@ namespace MicroSimulator
         }
 
         #endregion
+
     }
 }

@@ -80,6 +80,9 @@ namespace MicroSimulator
             this.textBox_Quarz = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.Button_Help = new System.Windows.Forms.Button();
+            this.Timer_0 = new System.Windows.Forms.Timer(this.components);
+            this.text_Tmr0 = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_prog)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_RegA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_RegB)).BeginInit();
@@ -120,7 +123,7 @@ namespace MicroSimulator
             this.dataGridView_prog.Location = new System.Drawing.Point(23, 63);
             this.dataGridView_prog.Name = "dataGridView_prog";
             this.dataGridView_prog.RowTemplate.Height = 28;
-            this.dataGridView_prog.Size = new System.Drawing.Size(520, 869);
+            this.dataGridView_prog.Size = new System.Drawing.Size(534, 869);
             this.dataGridView_prog.TabIndex = 8;
             // 
             // Column_BreakPoint
@@ -172,7 +175,7 @@ namespace MicroSimulator
             // 
             // btn_Step
             // 
-            this.btn_Step.Location = new System.Drawing.Point(549, 154);
+            this.btn_Step.Location = new System.Drawing.Point(563, 154);
             this.btn_Step.Name = "btn_Step";
             this.btn_Step.Size = new System.Drawing.Size(97, 41);
             this.btn_Step.TabIndex = 32;
@@ -182,7 +185,7 @@ namespace MicroSimulator
             // 
             // btn_Start
             // 
-            this.btn_Start.Location = new System.Drawing.Point(549, 63);
+            this.btn_Start.Location = new System.Drawing.Point(563, 63);
             this.btn_Start.Name = "btn_Start";
             this.btn_Start.Size = new System.Drawing.Size(97, 40);
             this.btn_Start.TabIndex = 33;
@@ -430,7 +433,7 @@ namespace MicroSimulator
             // 
             // button_Reset
             // 
-            this.button_Reset.Location = new System.Drawing.Point(549, 201);
+            this.button_Reset.Location = new System.Drawing.Point(563, 201);
             this.button_Reset.Name = "button_Reset";
             this.button_Reset.Size = new System.Drawing.Size(97, 44);
             this.button_Reset.TabIndex = 49;
@@ -479,7 +482,7 @@ namespace MicroSimulator
             // 
             // button_Stop
             // 
-            this.button_Stop.Location = new System.Drawing.Point(549, 109);
+            this.button_Stop.Location = new System.Drawing.Point(563, 109);
             this.button_Stop.Name = "button_Stop";
             this.button_Stop.Size = new System.Drawing.Size(97, 39);
             this.button_Stop.TabIndex = 51;
@@ -493,7 +496,7 @@ namespace MicroSimulator
             // 
             // textBox_Quarz
             // 
-            this.textBox_Quarz.Location = new System.Drawing.Point(652, 70);
+            this.textBox_Quarz.Location = new System.Drawing.Point(666, 73);
             this.textBox_Quarz.Name = "textBox_Quarz";
             this.textBox_Quarz.Size = new System.Drawing.Size(63, 26);
             this.textBox_Quarz.TabIndex = 52;
@@ -502,7 +505,7 @@ namespace MicroSimulator
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(721, 73);
+            this.label1.Location = new System.Drawing.Point(735, 73);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(29, 20);
             this.label1.TabIndex = 53;
@@ -518,12 +521,35 @@ namespace MicroSimulator
             this.Button_Help.UseVisualStyleBackColor = true;
             this.Button_Help.Click += new System.EventHandler(this.Button_Help_Click);
             // 
+            // Timer_0
+            // 
+            this.Timer_0.Tick += new System.EventHandler(this.Timer_0_Tick);
+            // 
+            // text_Tmr0
+            // 
+            this.text_Tmr0.Location = new System.Drawing.Point(841, 406);
+            this.text_Tmr0.Name = "text_Tmr0";
+            this.text_Tmr0.Size = new System.Drawing.Size(100, 26);
+            this.text_Tmr0.TabIndex = 55;
+            this.text_Tmr0.Text = "0";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(790, 409);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(45, 20);
+            this.label2.TabIndex = 56;
+            this.label2.Text = "Tmr0";
+            // 
             // SimulatorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1258, 944);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.text_Tmr0);
             this.Controls.Add(this.Button_Help);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox_Quarz);
@@ -616,6 +642,9 @@ namespace MicroSimulator
         private TextBox textBox_Quarz;
         private Label label1;
         private Button Button_Help;
+        private Timer Timer_0;
+        private TextBox text_Tmr0;
+        private Label label2;
     }
 }
 
