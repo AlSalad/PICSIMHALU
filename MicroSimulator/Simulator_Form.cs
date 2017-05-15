@@ -1550,11 +1550,11 @@ namespace MicroSimulator
             try
             {
                 var quartz = int.Parse(textBox_Quarz.Text);
-                if (quartz == 0 ) return;
-
-                double runtime = Circles * (4000 / quartz);
-                text_Runtime.Text = runtime + @"µs";
-            }
+                if (quartz == 0) return;
+                var d = 4000.0 / (double)quartz;
+                var runtime = (double)Circles * d;
+                text_Runtime.Text = runtime.ToString();
+            }            
             catch (FormatException)
             { return; }
 
@@ -1564,7 +1564,7 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// Restet alle Werte
+        /// Resetet alle Werte
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

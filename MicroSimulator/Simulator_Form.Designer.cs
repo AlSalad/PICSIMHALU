@@ -90,6 +90,7 @@ namespace MicroSimulator
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_prog)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_RegA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_RegB)).BeginInit();
@@ -130,7 +131,7 @@ namespace MicroSimulator
             this.dataGridView_prog.Location = new System.Drawing.Point(23, 63);
             this.dataGridView_prog.Name = "dataGridView_prog";
             this.dataGridView_prog.RowTemplate.Height = 28;
-            this.dataGridView_prog.Size = new System.Drawing.Size(534, 869);
+            this.dataGridView_prog.Size = new System.Drawing.Size(543, 869);
             this.dataGridView_prog.TabIndex = 8;
             // 
             // Column_BreakPoint
@@ -182,7 +183,7 @@ namespace MicroSimulator
             // 
             // btn_Step
             // 
-            this.btn_Step.Location = new System.Drawing.Point(563, 154);
+            this.btn_Step.Location = new System.Drawing.Point(572, 154);
             this.btn_Step.Name = "btn_Step";
             this.btn_Step.Size = new System.Drawing.Size(97, 41);
             this.btn_Step.TabIndex = 32;
@@ -192,7 +193,7 @@ namespace MicroSimulator
             // 
             // btn_Start
             // 
-            this.btn_Start.Location = new System.Drawing.Point(563, 63);
+            this.btn_Start.Location = new System.Drawing.Point(572, 63);
             this.btn_Start.Name = "btn_Start";
             this.btn_Start.Size = new System.Drawing.Size(97, 40);
             this.btn_Start.TabIndex = 33;
@@ -421,7 +422,7 @@ namespace MicroSimulator
             // 
             // button_Reset
             // 
-            this.button_Reset.Location = new System.Drawing.Point(563, 201);
+            this.button_Reset.Location = new System.Drawing.Point(572, 201);
             this.button_Reset.Name = "button_Reset";
             this.button_Reset.Size = new System.Drawing.Size(97, 44);
             this.button_Reset.TabIndex = 49;
@@ -470,7 +471,7 @@ namespace MicroSimulator
             // 
             // button_Stop
             // 
-            this.button_Stop.Location = new System.Drawing.Point(563, 109);
+            this.button_Stop.Location = new System.Drawing.Point(572, 109);
             this.button_Stop.Name = "button_Stop";
             this.button_Stop.Size = new System.Drawing.Size(97, 39);
             this.button_Stop.TabIndex = 51;
@@ -587,12 +588,22 @@ namespace MicroSimulator
             this.label8.TabIndex = 62;
             this.label8.Text = "b";
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(947, 441);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(25, 20);
+            this.label9.TabIndex = 63;
+            this.label9.Text = "µs";
+            // 
             // SimulatorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1258, 944);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -703,6 +714,7 @@ namespace MicroSimulator
         private Label label6;
         private Label label7;
         private Label label8;
+        private Label label9;
     }
 }
 
