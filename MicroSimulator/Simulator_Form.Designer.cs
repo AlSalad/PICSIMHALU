@@ -83,6 +83,13 @@ namespace MicroSimulator
             this.Timer_0 = new System.Windows.Forms.Timer(this.components);
             this.text_Tmr0 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.Timer_Takt = new System.Windows.Forms.Timer(this.components);
+            this.text_Runtime = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_prog)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_RegA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_RegB)).BeginInit();
@@ -160,7 +167,7 @@ namespace MicroSimulator
             this.text_W.BackColor = System.Drawing.SystemColors.Info;
             this.text_W.Location = new System.Drawing.Point(841, 374);
             this.text_W.Name = "text_W";
-            this.text_W.Size = new System.Drawing.Size(100, 26);
+            this.text_W.Size = new System.Drawing.Size(63, 26);
             this.text_W.TabIndex = 9;
             this.text_W.Text = "0";
             // 
@@ -181,7 +188,7 @@ namespace MicroSimulator
             this.btn_Step.TabIndex = 32;
             this.btn_Step.Text = "Next";
             this.btn_Step.UseVisualStyleBackColor = true;
-            this.btn_Step.Click += new System.EventHandler(this.btn_Step_Click);
+            this.btn_Step.Click += new System.EventHandler(this.Btn_Step_Click);
             // 
             // btn_Start
             // 
@@ -197,7 +204,7 @@ namespace MicroSimulator
             // 
             this.text_Pc.Location = new System.Drawing.Point(841, 342);
             this.text_Pc.Name = "text_Pc";
-            this.text_Pc.Size = new System.Drawing.Size(100, 26);
+            this.text_Pc.Size = new System.Drawing.Size(63, 26);
             this.text_Pc.TabIndex = 34;
             this.text_Pc.Text = "0";
             // 
@@ -205,63 +212,54 @@ namespace MicroSimulator
             // 
             this.RegA_Bit0.HeaderText = "0";
             this.RegA_Bit0.Name = "RegA_Bit0";
-            this.RegA_Bit0.ReadOnly = true;
             this.RegA_Bit0.Width = 25;
             // 
             // RegA_Bit1
             // 
             this.RegA_Bit1.HeaderText = "1";
             this.RegA_Bit1.Name = "RegA_Bit1";
-            this.RegA_Bit1.ReadOnly = true;
             this.RegA_Bit1.Width = 25;
             // 
             // RegA_Bit2
             // 
             this.RegA_Bit2.HeaderText = "2";
             this.RegA_Bit2.Name = "RegA_Bit2";
-            this.RegA_Bit2.ReadOnly = true;
             this.RegA_Bit2.Width = 25;
             // 
             // RegA_Bit3
             // 
             this.RegA_Bit3.HeaderText = "3";
             this.RegA_Bit3.Name = "RegA_Bit3";
-            this.RegA_Bit3.ReadOnly = true;
             this.RegA_Bit3.Width = 25;
             // 
             // RegA_Bit4
             // 
             this.RegA_Bit4.HeaderText = "4";
             this.RegA_Bit4.Name = "RegA_Bit4";
-            this.RegA_Bit4.ReadOnly = true;
             this.RegA_Bit4.Width = 25;
             // 
             // RegA_Bit5
             // 
             this.RegA_Bit5.HeaderText = "5";
             this.RegA_Bit5.Name = "RegA_Bit5";
-            this.RegA_Bit5.ReadOnly = true;
             this.RegA_Bit5.Width = 25;
             // 
             // RegA_Bit6
             // 
             this.RegA_Bit6.HeaderText = "6";
             this.RegA_Bit6.Name = "RegA_Bit6";
-            this.RegA_Bit6.ReadOnly = true;
             this.RegA_Bit6.Width = 25;
             // 
             // Reg1_bit7
             // 
             this.Reg1_bit7.HeaderText = "7";
             this.Reg1_bit7.Name = "Reg1_bit7";
-            this.Reg1_bit7.ReadOnly = true;
             this.Reg1_bit7.Width = 25;
             // 
             // RegA
             // 
             this.RegA.HeaderText = "RA";
             this.RegA.Name = "RegA";
-            this.RegA.ReadOnly = true;
             this.RegA.Width = 60;
             // 
             // dataGridView_RegA
@@ -281,10 +279,10 @@ namespace MicroSimulator
             this.RegA_Bit0});
             this.dataGridView_RegA.Location = new System.Drawing.Point(791, 63);
             this.dataGridView_RegA.Name = "dataGridView_RegA";
-            this.dataGridView_RegA.ReadOnly = true;
             this.dataGridView_RegA.RowTemplate.Height = 28;
             this.dataGridView_RegA.Size = new System.Drawing.Size(455, 122);
             this.dataGridView_RegA.TabIndex = 35;
+            this.dataGridView_RegA.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_RegA_CellContentClick);
             // 
             // dataGridView_RegB
             // 
@@ -303,7 +301,6 @@ namespace MicroSimulator
             this.RegB_Bit0});
             this.dataGridView_RegB.Location = new System.Drawing.Point(791, 191);
             this.dataGridView_RegB.Name = "dataGridView_RegB";
-            this.dataGridView_RegB.ReadOnly = true;
             this.dataGridView_RegB.RowTemplate.Height = 28;
             this.dataGridView_RegB.Size = new System.Drawing.Size(455, 122);
             this.dataGridView_RegB.TabIndex = 36;
@@ -312,63 +309,54 @@ namespace MicroSimulator
             // 
             this.RegB.HeaderText = "RB";
             this.RegB.Name = "RegB";
-            this.RegB.ReadOnly = true;
             this.RegB.Width = 60;
             // 
             // RegB_Bit7
             // 
             this.RegB_Bit7.HeaderText = "7";
             this.RegB_Bit7.Name = "RegB_Bit7";
-            this.RegB_Bit7.ReadOnly = true;
             this.RegB_Bit7.Width = 25;
             // 
             // RegB_Bit6
             // 
             this.RegB_Bit6.HeaderText = "6";
             this.RegB_Bit6.Name = "RegB_Bit6";
-            this.RegB_Bit6.ReadOnly = true;
             this.RegB_Bit6.Width = 25;
             // 
             // RegB_Bit5
             // 
             this.RegB_Bit5.HeaderText = "5";
             this.RegB_Bit5.Name = "RegB_Bit5";
-            this.RegB_Bit5.ReadOnly = true;
             this.RegB_Bit5.Width = 25;
             // 
             // RegB_Bit4
             // 
             this.RegB_Bit4.HeaderText = "4";
             this.RegB_Bit4.Name = "RegB_Bit4";
-            this.RegB_Bit4.ReadOnly = true;
             this.RegB_Bit4.Width = 25;
             // 
             // RegB_Bit3
             // 
             this.RegB_Bit3.HeaderText = "3";
             this.RegB_Bit3.Name = "RegB_Bit3";
-            this.RegB_Bit3.ReadOnly = true;
             this.RegB_Bit3.Width = 25;
             // 
             // RegB_Bit2
             // 
             this.RegB_Bit2.HeaderText = "2";
             this.RegB_Bit2.Name = "RegB_Bit2";
-            this.RegB_Bit2.ReadOnly = true;
             this.RegB_Bit2.Width = 25;
             // 
             // RegB_Bit1
             // 
             this.RegB_Bit1.HeaderText = "1";
             this.RegB_Bit1.Name = "RegB_Bit1";
-            this.RegB_Bit1.ReadOnly = true;
             this.RegB_Bit1.Width = 25;
             // 
             // RegB_Bit0
             // 
             this.RegB_Bit0.HeaderText = "0";
             this.RegB_Bit0.Name = "RegB_Bit0";
-            this.RegB_Bit0.ReadOnly = true;
             this.RegB_Bit0.Width = 25;
             // 
             // label_PC
@@ -451,10 +439,10 @@ namespace MicroSimulator
             this.Column_RegHex,
             this.Column_Value,
             this.Column_Bank2});
-            this.dataGridView_Register.Location = new System.Drawing.Point(788, 527);
+            this.dataGridView_Register.Location = new System.Drawing.Point(712, 527);
             this.dataGridView_Register.Name = "dataGridView_Register";
             this.dataGridView_Register.RowTemplate.Height = 28;
-            this.dataGridView_Register.Size = new System.Drawing.Size(455, 381);
+            this.dataGridView_Register.Size = new System.Drawing.Size(531, 381);
             this.dataGridView_Register.TabIndex = 50;
             // 
             // Column_Register
@@ -472,13 +460,13 @@ namespace MicroSimulator
             // 
             this.Column_Value.HeaderText = "Bank1";
             this.Column_Value.Name = "Column_Value";
-            this.Column_Value.Width = 50;
+            this.Column_Value.Width = 70;
             // 
             // Column_Bank2
             // 
             this.Column_Bank2.HeaderText = "Bank2";
             this.Column_Bank2.Name = "Column_Bank2";
-            this.Column_Bank2.Width = 50;
+            this.Column_Bank2.Width = 70;
             // 
             // button_Stop
             // 
@@ -496,7 +484,7 @@ namespace MicroSimulator
             // 
             // textBox_Quarz
             // 
-            this.textBox_Quarz.Location = new System.Drawing.Point(666, 73);
+            this.textBox_Quarz.Location = new System.Drawing.Point(841, 470);
             this.textBox_Quarz.Name = "textBox_Quarz";
             this.textBox_Quarz.Size = new System.Drawing.Size(63, 26);
             this.textBox_Quarz.TabIndex = 52;
@@ -505,7 +493,7 @@ namespace MicroSimulator
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(735, 73);
+            this.label1.Location = new System.Drawing.Point(910, 473);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(29, 20);
             this.label1.TabIndex = 53;
@@ -542,12 +530,75 @@ namespace MicroSimulator
             this.label2.TabIndex = 56;
             this.label2.Text = "Tmr0";
             // 
+            // Timer_Takt
+            // 
+            this.Timer_Takt.Tick += new System.EventHandler(this.Timer_Takt_Tick);
+            // 
+            // text_Runtime
+            // 
+            this.text_Runtime.Location = new System.Drawing.Point(841, 438);
+            this.text_Runtime.Name = "text_Runtime";
+            this.text_Runtime.Size = new System.Drawing.Size(100, 26);
+            this.text_Runtime.TabIndex = 57;
+            this.text_Runtime.Text = "0";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(762, 441);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(73, 20);
+            this.label4.TabIndex = 58;
+            this.label4.Text = "RunTime";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(778, 473);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(57, 20);
+            this.label5.TabIndex = 59;
+            this.label5.Text = "Quartz";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(910, 377);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(18, 20);
+            this.label6.TabIndex = 60;
+            this.label6.Text = "h";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(910, 345);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(18, 20);
+            this.label7.TabIndex = 61;
+            this.label7.Text = "h";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(947, 409);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(18, 20);
+            this.label8.TabIndex = 62;
+            this.label8.Text = "b";
+            // 
             // SimulatorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1258, 944);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.text_Runtime);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.text_Tmr0);
             this.Controls.Add(this.Button_Help);
@@ -627,10 +678,6 @@ namespace MicroSimulator
         private Label label3;
         private Button button_Reset;
         private DataGridView dataGridView_Register;
-        private DataGridViewTextBoxColumn Column_Register;
-        private DataGridViewTextBoxColumn Column_RegHex;
-        private DataGridViewTextBoxColumn Column_Value;
-        private DataGridViewTextBoxColumn Column_Bank2;
         private Button button_Stop;
         private System.ComponentModel.IContainer components;
         private Timer Timer_prog;
@@ -645,6 +692,17 @@ namespace MicroSimulator
         private Timer Timer_0;
         private TextBox text_Tmr0;
         private Label label2;
+        private DataGridViewTextBoxColumn Column_Register;
+        private DataGridViewTextBoxColumn Column_RegHex;
+        private DataGridViewTextBoxColumn Column_Value;
+        private DataGridViewTextBoxColumn Column_Bank2;
+        private Timer Timer_Takt;
+        private TextBox text_Runtime;
+        private Label label4;
+        private Label label5;
+        private Label label6;
+        private Label label7;
+        private Label label8;
     }
 }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -11,12 +12,13 @@ namespace MicroSimulator
 {  
     public partial class SimulatorForm : Form
     {
-        #region Global fields ---------------------
+    #region Global fields ---------------------
         public int W; //test
         public int L;
         public int F;
 
         public int Tmr0Value;
+        public int Circles;
 
         public int Intcon;
         
@@ -27,15 +29,23 @@ namespace MicroSimulator
 
         Stack<int> _stack = new Stack<int>();
         public string[] CodeList;
-        #endregion
+    #endregion
 
-        #region Load Forms ---------------------
+     #region Load Forms ---------------------
+        /// <summary>
+        /// 
+        /// </summary>
         public SimulatorForm()
         {
             ProgramCounter = 0;
             InitializeComponent();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SimulatorForm_Load(object sender, EventArgs e)
         {
             dataGridView_RegA.Rows.Add("TRIS", "i", "i", "i", "i", "i", "i", "i", "i");
@@ -44,28 +54,36 @@ namespace MicroSimulator
             dataGridView_RegB.Rows.Add("TRIS", "i", "i", "i", "i", "i", "i", "i", "i");
             dataGridView_RegB.Rows.Add("Bits", 0, 0, 0, 0, 0, 0, 0, 0);
         }
-        #endregion
+    #endregion
 
-        #region Converter ---------------------
+    #region Converter ---------------------
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public string Hex2Bin(string value)
         {
             return Convert.ToString(ToInt32(value, 16), 2).PadLeft(value.Length * 4, '0');
         }
 
-        public int Bin2Dec(string value)
-        {
-           return ToInt32(value, 2);
-        }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public int Hex2Int(string value)
         {
             if (value == null) throw new ArgumentNullException(nameof(value));
             return int.Parse(value, System.Globalization.NumberStyles.HexNumber);
         }
+    #endregion
 
-        #endregion
-
-        #region Handle Commands -------------------
+     #region Handle Commands -------------------
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmdValue"></param>
         private void HandleCmd(string cmdValue)
         {
             var cmd = Hex2Int(cmdValue);
@@ -197,9 +215,13 @@ namespace MicroSimulator
             if (cmd == 0b00_0000_0000_1000)
                 ReturnToCall();
         }
-        #endregion
+    #endregion
 
-        #region Register control -------------------
+    #region Register control -------------------
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="val"></param>
         private void SetZeroFlag(int val)
         {
             //Zero Flag
@@ -209,6 +231,9 @@ namespace MicroSimulator
                 StatusReg = StatusReg & ~4 & 0x000000FF;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void WriteStatusReg()
         {
             foreach (DataGridViewRow row in dataGridView_Register.Rows)
@@ -219,6 +244,9 @@ namespace MicroSimulator
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void WriteFlags()
         {
             foreach (DataGridViewRow row in dataGridView_Register.Rows)
@@ -242,6 +270,10 @@ namespace MicroSimulator
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmdReg"></param>
         private void WriteReg(int cmdReg)
         {
             var i = 2;
@@ -262,6 +294,11 @@ namespace MicroSimulator
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmdReg"></param>
+        /// <returns></returns>
         private int ReadReg(int cmdReg)
         {
             foreach (DataGridViewRow row in dataGridView_Register.Rows)
@@ -272,17 +309,21 @@ namespace MicroSimulator
             }
             return 0;
         }
-
-
-        #endregion
+    #endregion
 
         #region Commands -------------------
-
+        /// <summary>
+        /// 
+        /// </summary>
         private void Nop()
         {
-            
+            Circles += 1;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmdLit"></param>
         private void Goto(int cmdLit)
         {
             var hexVal = cmdLit.ToString("X");
@@ -308,15 +349,26 @@ namespace MicroSimulator
                 MessageBox.Show(exc.Message);
             }
 
+            Circles += 2;
+
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmdLit"></param>
         private void Movlw(int cmdLit)
         {
             L = cmdLit;
             W = L;
             text_W.Text = W.ToString("X");
+            Circles += 1;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmdReg"></param>
         private void Movwf(int cmdReg)
         {
             if (cmdReg == 0)
@@ -324,8 +376,13 @@ namespace MicroSimulator
 
             F = W;
             WriteReg(cmdReg);
+            Circles += 1;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmdReg"></param>
         private void Movf(int cmdReg)
         {
             var fReg = cmdReg & 127;
@@ -354,16 +411,26 @@ namespace MicroSimulator
                 W = result;
                 text_W.Text = W.ToString("X");
             }
+            Circles += 1;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmdLit"></param>
         private void Iorlw(int cmdLit)
         {
             L = cmdLit;
             W = W | L;
             SetZeroFlag(W);
             text_W.Text = W.ToString("X");
+            Circles += 1;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmdReg"></param>
         private void Iorwf(int cmdReg)
         {
             var fReg = cmdReg & 127;
@@ -392,16 +459,26 @@ namespace MicroSimulator
                 W = result;
                 text_W.Text = W.ToString("X");
             }
+            Circles += 1;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmdLit"></param>
         private void Andlw(int cmdLit)
         {
             L = cmdLit;
             W = W & L;
             SetZeroFlag(W);
             text_W.Text = W.ToString("X");
+            Circles += 1;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmdReg"></param>
         private void Andwf(int cmdReg)
         {
             var fReg = cmdReg & 127;
@@ -427,8 +504,13 @@ namespace MicroSimulator
                 SetZeroFlag(W);
                 text_W.Text = W.ToString("X");
             }
+            Circles += 1;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmdLit"></param>
         private void Xorlw(int cmdLit)
         {
             L = cmdLit;
@@ -437,8 +519,13 @@ namespace MicroSimulator
             SetZeroFlag(W);
 
             text_W.Text = W.ToString("X");
+            Circles += 1;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmdReg"></param>
         private void Xorwf(int cmdReg)
         {
             var fReg = cmdReg & 127;
@@ -464,8 +551,13 @@ namespace MicroSimulator
                 W = result;
                 text_W.Text = W.ToString("X");
             }
+            Circles += 1;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmdLit"></param>
         private void Sublw(int cmdLit)
         {
             L = cmdLit;
@@ -495,8 +587,13 @@ namespace MicroSimulator
             }
 
             text_W.Text = W.ToString("X");
+            Circles += 1;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmdReg"></param>
         private void Subwf(int cmdReg)
         {
             var fReg = cmdReg & 127;
@@ -547,9 +644,14 @@ namespace MicroSimulator
             {
                 W = result;
                 text_W.Text = W.ToString("X");
-            }      
+            }
+            Circles += 1;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmdLit"></param>
         private void Addlw(int cmdLit)
         {
             L = cmdLit;
@@ -580,8 +682,13 @@ namespace MicroSimulator
             }
 
             text_W.Text = W.ToString("X");
+            Circles += 1;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmdReg"></param>
         private void Addwf(int cmdReg)
         {
             var fReg = cmdReg & 127;
@@ -633,9 +740,13 @@ namespace MicroSimulator
                 W = result;
                 text_W.Text = W.ToString("X");
             }
-
+            Circles += 1;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmdReg"></param>
         private void Clrf(int cmdReg)
         {
             if (cmdReg == 0) { 
@@ -648,17 +759,25 @@ namespace MicroSimulator
             WriteReg(cmdReg);
             //Zero Flag = 1
             StatusReg = StatusReg | 4;
+            Circles += 1;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void Clrw()
-
         {
             W = 0;
             //Zero Flag = 1
             StatusReg = StatusReg | 4;
             text_W.Text = W.ToString("X");
+            Circles += 1;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmdReg"></param>
         private void Comf(int cmdReg)
         {
             var fReg = cmdReg & 127;
@@ -684,8 +803,13 @@ namespace MicroSimulator
                 W = result;
                 text_W.Text = W.ToString("X");
             }
+            Circles += 1;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmdReg"></param>
         private void Incf(int cmdReg)
         {
             var fReg = cmdReg & 127;
@@ -715,8 +839,13 @@ namespace MicroSimulator
                 W = result;
                 text_W.Text = W.ToString("X");
             }
+            Circles += 1;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmdReg"></param>
         private void Incfsz(int cmdReg)
         {
             var fReg = cmdReg & 127;
@@ -745,9 +874,9 @@ namespace MicroSimulator
                 W = result;
                 text_W.Text = W.ToString("X");
             }
-
+            Circles += 1;
             if (result != 0) return;
-
+            Circles += 1;
             if (dataGridView_prog.CurrentRow != null)
                 dataGridView_prog.CurrentCell =
                     dataGridView_prog
@@ -756,6 +885,10 @@ namespace MicroSimulator
             dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmdReg"></param>
         private void Decf(int cmdReg)
         {
             var fReg = cmdReg & 127;
@@ -785,9 +918,13 @@ namespace MicroSimulator
                 W = result;
                 text_W.Text = W.ToString("X");
             }
-
+            Circles += 1;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmdReg"></param>
         private void Decfsz(int cmdReg)
         {
             var fReg = cmdReg & 127;
@@ -810,9 +947,9 @@ namespace MicroSimulator
                 W = result;
                 text_W.Text = W.ToString("X");
             }
-
+            Circles += 1;
             if (result != 0) return;
-
+            Circles += 1;
             if (dataGridView_prog.CurrentRow != null)
                 dataGridView_prog.CurrentCell =
                     dataGridView_prog
@@ -821,6 +958,10 @@ namespace MicroSimulator
             dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmdReg"></param>
         private void Swapf(int cmdReg)
         {
             var fReg = cmdReg & 127;
@@ -850,8 +991,13 @@ namespace MicroSimulator
                 W = result;
                 text_W.Text = W.ToString("X");
             }
+            Circles += 1;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmdReg"></param>
         private void Rlf(int cmdReg)
         {
             var fReg = cmdReg & 127;
@@ -882,11 +1028,15 @@ namespace MicroSimulator
                 W = result;
                 text_W.Text = W.ToString("X");
             }
+            Circles += 1;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmdReg"></param>
         private void Rrf(int cmdReg)
         {
-
             var fReg = cmdReg & 127;
             if (fReg == 0)
             {
@@ -921,8 +1071,13 @@ namespace MicroSimulator
                 W = result;
                 text_W.Text = W.ToString("X");
             }
+            Circles += 1;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmdReg"></param>
         private void Bcf(int cmdReg)
         {
             var fReg = cmdReg & 127;
@@ -935,13 +1090,18 @@ namespace MicroSimulator
                 F = ReadReg(fReg);
             var fBits = (cmdReg & 0b00_0011_1000_0000) >> 7;
             var bitValue = (int)Math.Pow(2, fBits);
-            
-            F= F & (~bitValue & 0x000000FF);
+
+            F = F & ~bitValue & 0x000000FF;
 
             WriteReg(fReg);
             if (fReg == 3) StatusReg = F;
+            Circles += 1;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmdReg"></param>
         private void Bsf(int cmdReg)
         {
             var fReg = cmdReg & 127;
@@ -958,8 +1118,13 @@ namespace MicroSimulator
             F = F | (int)bitValue;
             WriteReg(fReg);
             if (fReg == 3) StatusReg = F;
+            Circles += 1;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmdReg"></param>
         private void Btfsc(int cmdReg)
         {
             var fReg = cmdReg & 127;
@@ -970,11 +1135,12 @@ namespace MicroSimulator
                 F = ReadReg(fReg);
 
             var fBits = (cmdReg & 0b00_0011_1000_0000) >> 7;
-            var bitValue = (int)Math.Pow(2, fBits);
-
+            var bitValue = (int) Math.Pow(2, fBits);
+            Circles += 1;
 
             if ((F & bitValue) == 0)
             {
+                Circles += 1;
                 if (dataGridView_prog.CurrentRow != null)
                     dataGridView_prog.CurrentCell =
                         dataGridView_prog
@@ -982,8 +1148,13 @@ namespace MicroSimulator
                             .Cells[dataGridView_prog.CurrentCell.ColumnIndex];
                 dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
             }
+           
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmdReg"></param>
         private void Btfss(int cmdReg)
         {
             var fReg = cmdReg & 127;
@@ -995,8 +1166,10 @@ namespace MicroSimulator
             var fBits = (cmdReg & 0b00_0011_1000_0000) >> 7;
             var bitValue = (int)Math.Pow(2, fBits);
 
+            Circles += 1;
             if ((F & bitValue) == bitValue)
             {
+                Circles += 1;
                 if (dataGridView_prog.CurrentRow != null)
                     dataGridView_prog.CurrentCell =
                         dataGridView_prog
@@ -1006,6 +1179,10 @@ namespace MicroSimulator
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmdLit"></param>
         private void CallSub(int cmdLit)
         {
             _stack.Push(ProgramCounter);
@@ -1019,6 +1196,7 @@ namespace MicroSimulator
                 {
                     if (row.Cells[1].Value.ToString().Equals(searchString))
                     {
+                        Circles += 2;
                         dataGridView_prog.CurrentCell =
                             dataGridView_prog
                                 .Rows[row.Index - 1]
@@ -1033,8 +1211,12 @@ namespace MicroSimulator
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void ReturnToCall()
         {
+            Circles += 2;
             dataGridView_prog.CurrentCell =
                 dataGridView_prog
                     .Rows[_stack.Peek()]
@@ -1042,8 +1224,13 @@ namespace MicroSimulator
             dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmdLit"></param>
         private void Retlw(int cmdLit)
         {
+            Circles += 2;
             dataGridView_prog.CurrentCell =
                 dataGridView_prog
                     .Rows[_stack.Peek()]
@@ -1058,26 +1245,70 @@ namespace MicroSimulator
         }
         #endregion
 
-        #region System Control -------------------
+     #region System Control -------------------
+        /// <summary>
+        /// 
+        /// </summary>
         private void ResetParam()
         {
+
             W = 0;
             Stop = true;
             text_W.Text = W.ToString();
             ProgramCounter = 0;
             StatusReg = 0;
+            Circles = 0;
             text_Pc.Text = ProgramCounter.ToString();
             textBox_CarryFlag.Text = @"0";
             textBox_ZeroFlag.Text = @"0";
             text_DC.Text = @"0";
+            text_Tmr0.Text = @"0";
+            text_Runtime.Text = @"0";
             F = 0;
 
             if (dataGridView_Register.CurrentRow == null) return;
             dataGridView_prog.Rows[0].Selected = true;
+
             foreach (DataGridViewRow row in dataGridView_Register.Rows)
             {
                 row.Cells[2].Value = "";
                 row.Cells[3].Value = "";
+            }
+
+            ResetRegValues();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void ResetRegValues()
+        {
+            foreach (DataGridViewRow row in dataGridView_Register.Rows)
+            {
+                if (Hex2Int(row.Cells[1].Value.ToString()).Equals(0))
+                    row.Cells[2].Value = "--------";
+                if (Hex2Int(row.Cells[1].Value.ToString()).Equals(1))
+                    row.Cells[2].Value = "xxxxxxxx";
+                if (Hex2Int(row.Cells[1].Value.ToString()).Equals(2))
+                    row.Cells[2].Value = "00000000";
+                if (Hex2Int(row.Cells[1].Value.ToString()).Equals(3))
+                    row.Cells[2].Value = "00011xxx";
+                if (Hex2Int(row.Cells[1].Value.ToString()).Equals(4))
+                    row.Cells[2].Value = "xxxxxxxx";
+                if (Hex2Int(row.Cells[1].Value.ToString()).Equals(5))
+                    row.Cells[2].Value = "---xxxxx";
+                if (Hex2Int(row.Cells[1].Value.ToString()).Equals(6))
+                    row.Cells[2].Value = "xxxxxxxx";
+                if (Hex2Int(row.Cells[1].Value.ToString()).Equals(8))
+                    row.Cells[2].Value = "xxxxxxxx";
+                if (Hex2Int(row.Cells[1].Value.ToString()).Equals(9))
+                    row.Cells[2].Value = "xxxxxxxx";
+                if (Hex2Int(row.Cells[1].Value.ToString()).Equals(10))
+                    row.Cells[2].Value = "---00000";
+                if (Hex2Int(row.Cells[1].Value.ToString()).Equals(11))
+                    row.Cells[2].Value = "0000000x";
+
+
             }
         }
 
@@ -1121,6 +1352,12 @@ namespace MicroSimulator
             catch (Exception ex){MessageBox.Show(Resources.read_error + ex.Message); }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="streamProvider"></param>
+        /// <param name="encoding"></param>
+        /// <returns></returns>
         public IEnumerable<string> ReadLines(Func<Stream> streamProvider,
                                      Encoding encoding)
         {
@@ -1134,7 +1371,9 @@ namespace MicroSimulator
                 }
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         private void FillDataTable()
         {
             foreach (var codeLine in CodeList)
@@ -1159,7 +1398,12 @@ namespace MicroSimulator
             }
         }
 
-        private void btn_Step_Click(object sender, EventArgs e)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Btn_Step_Click(object sender, EventArgs e)
         {
             Execute();
             if (dataGridView_prog.CurrentRow != null)
@@ -1170,7 +1414,11 @@ namespace MicroSimulator
             dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Btn_Start_Click(object sender, EventArgs e)
         {
             if (dataGridView_prog.CurrentRow != null && ToBoolean(dataGridView_prog.CurrentRow.Cells[0].Value))
@@ -1183,15 +1431,34 @@ namespace MicroSimulator
                             .Cells[dataGridView_prog.CurrentCell.ColumnIndex];
                 dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
             }
-
             Start();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private int ReadTmrPrescaler()
+        {
+            foreach (DataGridViewRow row in dataGridView_Register.Rows)
+            {
+                if (!Hex2Int(row.Cells[1].Value.ToString()).Equals(1)) continue;
+                var value = row.Cells[2].Value.ToString();
+                if (value == "") continue;
+                if (value == "xxxxxxxx") continue;
 
+                var prescalebits = Hex2Int(value) & 7;
+                return (int)Math.Pow(2, prescalebits);
+            }
+            return 1;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         private void Start()
         {
             Stop = false;
-            // Sets the timer interval to 1 seconds.
             try
             {
                 var quartz = int.Parse(textBox_Quarz.Text);
@@ -1199,17 +1466,16 @@ namespace MicroSimulator
                 if (quartz == 0) return;
 
                 if (quartz > 4000) quartz = 4000;
-                Timer_prog.Interval = 4000 / quartz;
-                Timer_0.Interval = 8000 / quartz;
+                Timer_prog.Interval = 1;
+                Timer_0.Interval = 4000 / quartz * ReadTmrPrescaler();
             }
             catch (FormatException)
-            {
-                return;
-            }
+            {return;}
                 
             Timer_prog.Start();
             Timer_0.Start();
         }
+
         /// <summary>
         /// Wenn Stop button gedrückt wird, setzte Stop auf wahr
         /// </summary>
@@ -1217,6 +1483,11 @@ namespace MicroSimulator
         /// <param name="e"></param>
         private void Button_Stop_Click(object sender, EventArgs e) => Stop = true;
 
+        /// <summary>
+        /// Program Timer läuft
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Timer_prog_Tick(object sender, EventArgs e)
         {
             Timer_prog.Stop();
@@ -1233,18 +1504,38 @@ namespace MicroSimulator
             Start();
         }
 
+        /// <summary>
+        ///  Tmr0 käuft durch
+        ///  </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Timer_0_Tick(object sender, EventArgs e)
         { 
             Timer_0.Stop();
             if (Stop) return;
 
+            text_Tmr0.BackColor = Color.White;
             Tmr0Value++;
             if (Tmr0Value == 256)
+            {
                 Tmr0Value = 0;
+                text_Tmr0.BackColor = Color.Brown;
+            }
+                
 
-            text_Tmr0.Text = Convert.ToString(Tmr0Value, 2);
+            foreach (DataGridViewRow row in dataGridView_Register.Rows)
+            {
+                if (!Hex2Int(row.Cells[1].Value.ToString()).Equals(1)) continue;
+
+                row.Cells[2].Value = Tmr0Value.ToString("X");
+            }
+
+            text_Tmr0.Text = Convert.ToString(Tmr0Value, 2).PadLeft(8, '0');
         }
 
+        /// <summary>
+        /// Führt Befehl aus
+        /// </summary>
         private void Execute()
         {
             if (dataGridView_prog.CurrentRow == null) return;
@@ -1256,11 +1547,27 @@ namespace MicroSimulator
 
             if (cmd != "") HandleCmd(cmd);
 
+            try
+            {
+                var quartz = int.Parse(textBox_Quarz.Text);
+                if (quartz == 0 ) return;
+
+                double runtime = Circles * (4000 / quartz);
+                text_Runtime.Text = runtime + @"µs";
+            }
+            catch (FormatException)
+            { return; }
+
             WriteStatusReg();
             WriteFlags();
 
         }
 
+        /// <summary>
+        /// Restet alle Werte
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Reset_Click(object sender, EventArgs e)
         {
             ResetParam();
@@ -1274,12 +1581,35 @@ namespace MicroSimulator
             dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
         }
 
+        /// <summary>
+        /// Öffnet PDF Hilfe
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Help_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start(@"C:\Users\Koopa\Documents\DHBW\Semester 4\Rechnertechnik\Pflichtenheft_Rechnertechnik.pdf");
         }
-
         #endregion
 
+        private void dataGridView_RegA_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            foreach (DataGridViewCell cell in dataGridView_RegA.Rows[0].Cells)
+            {
+                if (cell.Value.ToString() == "t")
+                {
+                    Timer_Takt.Start();
+                    Timer_Takt.Interval = 3000;
+                }
+            }
+        }
+
+        private void Timer_Takt_Tick(object sender, EventArgs e)
+        {
+            if (dataGridView_RegA[0, 0].Value.ToString() == "1")
+                dataGridView_RegA[0, 0].Value = "0";
+            else
+                dataGridView_RegA[0, 0].Value = "1";
+        }
     }
 }
