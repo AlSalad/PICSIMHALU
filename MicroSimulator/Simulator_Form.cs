@@ -23,8 +23,6 @@ namespace MicroSimulator
         public double PrescaleCircle;
         public double Runtime;
 
-        public int Intcon;
-        
         public int StatusReg;
         public int ProgramCounter;
 
@@ -32,9 +30,32 @@ namespace MicroSimulator
 
         Stack<int> _stack = new Stack<int>();
         public string[] CodeList;
-    #endregion
 
-     #region Load Forms ---------------------
+        private int GetIntcon()
+        {
+            foreach (DataGridViewRow row in dataGridView_Register.Rows)
+            {
+                if (!Hex2Int(row.Cells[1].Value.ToString()).Equals(11)) continue;
+                var value = row.Cells[2].Value;
+                if (value != null) return Hex2Int(value.ToString());
+            }
+            return 0;
+        }
+
+        private void SetIncton(int val)
+        {
+            foreach (DataGridViewRow row in dataGridView_Register.Rows)
+            {
+
+                if (Hex2Int(row.Cells[1].Value.ToString()).Equals(11))
+                    row.Cells[2].Value = val.ToString("X");
+            }
+        }
+
+        #endregion
+
+
+        #region Load Forms ---------------------
         /// <summary>
         /// 
         /// </summary>
@@ -77,8 +98,15 @@ namespace MicroSimulator
         /// <returns></returns>
         public int Hex2Int(string value)
         {
-            if (value == null) throw new ArgumentNullException(nameof(value));
-            return int.Parse(value, NumberStyles.HexNumber);
+            try
+            {
+                return int.Parse(value, NumberStyles.HexNumber);
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+            
         }
     #endregion
 
@@ -217,6 +245,9 @@ namespace MicroSimulator
             //return
             if (cmd == 0b00_0000_0000_1000)
                 ReturnToCall();
+
+            if (cmd == 0b00_0000_0000_1001)
+                Retfie();
         }
     #endregion
 
@@ -241,9 +272,9 @@ namespace MicroSimulator
         {
             foreach (DataGridViewRow row in dataGridView_Register.Rows)
             {
-                if (!Hex2Int(row.Cells[1].Value.ToString()).Equals(3)) continue;
-                row.Cells[2].Value = StatusReg.ToString("X");
-                return;
+                if (Hex2Int(row.Cells[1].Value.ToString()).Equals(3))
+                    row.Cells[2].Value = StatusReg.ToString("X");
+
             }
         }
 
@@ -1240,13 +1271,25 @@ namespace MicroSimulator
 
             L = cmdLit;
             W = L;
-            text_W.Text = W.ToString("X");
+            text_W.Text = W.ToString("X");          
+        }
 
-            _stack.Pop();
+        private void Retfie()
+        {
+            Circles = 2;
+            dataGridView_prog.CurrentCell =
+                dataGridView_prog
+                    .Rows[_stack.Peek()]
+                    .Cells[dataGridView_prog.CurrentCell.ColumnIndex];
+            dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
+
+            var intcon = GetIntcon() | 128;
+
+            SetIncton(intcon);
         }
         #endregion
 
-     #region System Control -------------------
+        #region System Control -------------------
         /// <summary>
         /// 
         /// </summary>
@@ -1309,9 +1352,7 @@ namespace MicroSimulator
                 if (Hex2Int(row.Cells[1].Value.ToString()).Equals(10))
                     row.Cells[2].Value = "---00000";
                 if (Hex2Int(row.Cells[1].Value.ToString()).Equals(11))
-                    row.Cells[2].Value = "0000000x";
-
-
+                    row.Cells[2].Value = "00000000";
             }
         }
 
@@ -1416,9 +1457,7 @@ namespace MicroSimulator
                         .Rows[Math.Min(dataGridView_prog.CurrentRow.Index + 1, dataGridView_prog.Rows.Count - 1)]
                         .Cells[dataGridView_prog.CurrentCell.ColumnIndex];
                 dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
-            }
-
-            
+            }           
         }
 
         /// <summary>
@@ -1450,7 +1489,7 @@ namespace MicroSimulator
             foreach (DataGridViewRow row in dataGridView_Register.Rows)
             {
                 if (!Hex2Int(row.Cells[1].Value.ToString()).Equals(1)) continue;
-                var value = row.Cells[2].Value.ToString();
+                var value = row.Cells[3].Value.ToString();
                 if (value == "") continue;
                 if (value == "xxxxxxxx") continue;
 
@@ -1523,6 +1562,8 @@ namespace MicroSimulator
             ProgramCounter = dataGridView_prog.CurrentRow.Index;
             text_Pc.Text = ProgramCounter.ToString();
 
+            CheckInterrupt();
+
             var cmd = dataGridView_prog.CurrentRow.Cells[2].Value.ToString();
 
             if (cmd != "") HandleCmd(cmd);
@@ -1537,39 +1578,73 @@ namespace MicroSimulator
             }            
             catch (FormatException)
             { return; }
-
+           
             SetTmr0();
             WriteStatusReg();
             WriteFlags();
+        }
 
+        private void CheckInterrupt()
+        {
+            if ((GetIntcon() & 0b1010_0000) != 0b1010_0000) return;
+
+            var intcon = GetIntcon() & 0b1101_1111;
+            SetIncton(intcon);
+
+            const string searchString = "0004";
+
+            dataGridView_prog.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            try
+            {
+                _stack.Push(ProgramCounter);
+                foreach (DataGridViewRow row in dataGridView_prog.Rows)
+                {
+                    if (row.Cells[1].Value.ToString().Equals(searchString))
+                    {
+                        dataGridView_prog.CurrentCell =
+                            dataGridView_prog
+                                .Rows[row.Index - 2]
+                                .Cells[dataGridView_prog.CurrentCell.ColumnIndex];
+                        dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+            Circles = 2;
         }
 
         private void SetTmr0()
         {
+            var intcon = GetIntcon();
             text_Tmr0.BackColor = Color.White;
 
             var prescaler = (double)Circles / ReadTmrPrescaler();
             PrescaleCircle += prescaler;
-            if (PrescaleCircle == 1.0)
+            if (PrescaleCircle >= 1.0)
             {
                 Tmr0Value += Circles;
                 PrescaleCircle = 0;
-            }
+            }      
 
-
-            if (Tmr0Value == 256)
+            if (Tmr0Value >= 256)
             {
-                Tmr0Value = 0;
+                Tmr0Value = Tmr0Value - 256;
                 text_Tmr0.BackColor = Color.Brown;
-            }
 
+                intcon = GetIntcon() & 0b0010_0000;
+            }
+            
             foreach (DataGridViewRow row in dataGridView_Register.Rows)
             {
-                if (!Hex2Int(row.Cells[1].Value.ToString()).Equals(1)) continue;
+                if (Hex2Int(row.Cells[1].Value.ToString()).Equals(1))
+                    row.Cells[2].Value = Tmr0Value.ToString("X");
 
-                row.Cells[2].Value = Tmr0Value.ToString("X");
+                if (Hex2Int(row.Cells[1].Value.ToString()).Equals(11))
+                    row.Cells[2].Value = intcon.ToString("X");
             }
-
             text_Tmr0.Text = Convert.ToString(Tmr0Value, 2).PadLeft(8, '0');
         }
 
