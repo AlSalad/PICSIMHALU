@@ -21,6 +21,14 @@ namespace ExternalPort
             button_A5.BackColor = Color.White;
             button_A6.BackColor = Color.White;
             button_A7.BackColor = Color.White;
+            button_B0.BackColor = Color.White;
+            button_B1.BackColor = Color.White;
+            button_B2.BackColor = Color.White;
+            button_B3.BackColor = Color.White;
+            button_B4.BackColor = Color.White;
+            button_B5.BackColor = Color.White;
+            button_B6.BackColor = Color.White;
+            button_B7.BackColor = Color.White;
 
         }
 
@@ -241,6 +249,193 @@ namespace ExternalPort
             }
 
 
+        }
+
+        private void button_B0_Click(object sender, EventArgs e)
+        {
+
+            if (button_B0.BackColor == Color.White)
+            {
+                _port.Write("B;0;0;O");
+                button_B0.BackColor = Color.CornflowerBlue;
+                return;
+            }
+
+            if (button_B0.BackColor == Color.CornflowerBlue)
+            {
+                _port.Write("B;0;0;T");
+                button_B0.BackColor = Color.IndianRed;
+                return;
+            }
+
+            if (button_B0.BackColor == Color.IndianRed)
+            {
+                _port.Write("B;0;0;I");
+                button_B0.BackColor = Color.White;
+            }
+
+        }
+
+        private void button_B1_Click(object sender, EventArgs e)
+        {
+
+            if (button_B1.BackColor == Color.White)
+            {
+                _port.Write("B;0;0;O");
+                button_B1.BackColor = Color.CornflowerBlue;
+                return;
+            }
+
+            if (button_B1.BackColor == Color.CornflowerBlue)
+            {
+                _port.Write("B;0;0;T");
+                button_B1.BackColor = Color.IndianRed;
+                return;
+            }
+
+            if (button_B1.BackColor == Color.IndianRed)
+            {
+                _port.Write("B;0;0;I");
+                button_B1.BackColor = Color.White;
+            }
+        }
+
+        private void button_B2_Click(object sender, EventArgs e)
+        {
+            if (button_B2.BackColor == Color.White)
+            {
+                _port.Write("B;0;0;O");
+                button_B2.BackColor = Color.CornflowerBlue;
+                return;
+            }
+
+            if (button_B1.BackColor == Color.CornflowerBlue)
+            {
+                _port.Write("B;0;0;T");
+                button_B2.BackColor = Color.IndianRed;
+                return;
+            }
+
+            if (button_B2.BackColor == Color.IndianRed)
+            {
+                _port.Write("B;0;0;I");
+                button_B2.BackColor = Color.White;
+            }
+        }
+
+        private void button_B3_Click(object sender, EventArgs e)
+        {
+            if (button_B3.BackColor == Color.White)
+            {
+                _port.Write("B;0;0;O");
+                button_B3.BackColor = Color.CornflowerBlue;
+                return;
+            }
+
+            if (button_B3.BackColor == Color.CornflowerBlue)
+            {
+                _port.Write("B;0;0;T");
+                button_B3.BackColor = Color.IndianRed;
+                return;
+            }
+
+            if (button_B3.BackColor == Color.IndianRed)
+            {
+                _port.Write("B;0;0;I");
+                button_B3.BackColor = Color.White;
+            }
+        }
+
+        private void button_B4_Click(object sender, EventArgs e)
+        {
+            if (button_B4.BackColor == Color.White)
+            {
+                _port.Write("B;0;0;O");
+                button_B4.BackColor = Color.CornflowerBlue;
+                return;
+            }
+
+            if (button_B4.BackColor == Color.CornflowerBlue)
+            {
+                _port.Write("B;0;0;T");
+                button_B4.BackColor = Color.IndianRed;
+                return;
+            }
+
+            if (button_B4.BackColor == Color.IndianRed)
+            {
+                _port.Write("B;0;0;I");
+                button_B4.BackColor = Color.White;
+            }
+        }
+
+        private void button_B5_Click(object sender, EventArgs e)
+        {
+            if (button_B5.BackColor == Color.White)
+            {
+                _port.Write("B;0;0;O");
+                button_B5.BackColor = Color.CornflowerBlue;
+                return;
+            }
+
+            if (button_B5.BackColor == Color.CornflowerBlue)
+            {
+                _port.Write("B;0;0;T");
+                button_B5.BackColor = Color.IndianRed;
+                return;
+            }
+
+            if (button_B5.BackColor == Color.IndianRed)
+            {
+                _port.Write("B;0;0;I");
+                button_B5.BackColor = Color.White;
+            }
+        }
+
+        private void button_B6_Click(object sender, EventArgs e)
+        {
+            if (button_B6.BackColor == Color.White)
+            {
+                _port.Write("B;0;0;O");
+                button_B6.BackColor = Color.CornflowerBlue;
+                return;
+            }
+
+            if (button_B6.BackColor == Color.CornflowerBlue)
+            {
+                _port.Write("B;0;0;T");
+                button_B6.BackColor = Color.IndianRed;
+                return;
+            }
+
+            if (button_B6.BackColor == Color.IndianRed)
+            {
+                _port.Write("B;0;0;I");
+                button_B6.BackColor = Color.White;
+            }
+        }
+
+        private void button_B7_Click(object sender, EventArgs e)
+        {
+            if (button_B7.BackColor == Color.White)
+            {
+                _port.Write("B;0;0;O");
+                button_B7.BackColor = Color.CornflowerBlue;
+                return;
+            }
+
+            if (button_B7.BackColor == Color.CornflowerBlue)
+            {
+                _port.Write("B;0;0;T");
+                button_B7.BackColor = Color.IndianRed;
+                return;
+            }
+
+            if (button_B7.BackColor == Color.IndianRed)
+            {
+                _port.Write("B;0;0;I");
+                button_B7.BackColor = Color.White;
+            }
         }
     }
 }
