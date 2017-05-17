@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -13,7 +14,10 @@ namespace MicroSimulator
 {  
     public partial class SimulatorForm : Form
     {
-    #region Global fields ---------------------
+        #region Global fields ---------------------
+
+        private readonly SerialPort _com1Port = new SerialPort("COM1", 9600);
+
         public int W; //test
         public int L;
         public int F;
@@ -54,14 +58,15 @@ namespace MicroSimulator
 
         #endregion
 
-
-        #region Load Forms ---------------------
+    #region Load Forms ---------------------
         /// <summary>
         /// 
         /// </summary>
         public SimulatorForm()
         {
-            ProgramCounter = 0;
+            _com1Port.Open();
+            _com1Port.DataReceived += MyDataReceivedHandler;
+
             InitializeComponent();
         }
 
@@ -78,9 +83,32 @@ namespace MicroSimulator
             dataGridView_RegB.Rows.Add("TRIS", "i", "i", "i", "i", "i", "i", "i", "i");
             dataGridView_RegB.Rows.Add("Bits", 0, 0, 0, 0, 0, 0, 0, 0);
         }
+        #endregion
+
+    #region Serielle Schnittstelle
+
+        private void MyDataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
+        {
+            var indata = _com1Port.ReadExisting();
+            var port = indata.Split(';')[0];
+            var bit = 8 - ToInt32(indata.Split(';')[1]);
+            var row = ToInt32(indata.Split(';')[2]);
+            var opt = indata.Split(';')[3];
+
+            switch (port)
+            {
+                case "A":
+                    dataGridView_RegA[bit, row].Value = opt;
+                    break;
+                case "B":
+                    dataGridView_RegB[bit, row].Value = opt;
+                    break;
+
+            }
+        }
     #endregion
 
-    #region Converter ---------------------
+        #region Converter ---------------------
         /// <summary>
         /// 
         /// </summary>
@@ -345,7 +373,7 @@ namespace MicroSimulator
         }
     #endregion
 
-        #region Commands -------------------
+    #region Commands -------------------
         /// <summary>
         /// 
         /// </summary>
@@ -1289,7 +1317,7 @@ namespace MicroSimulator
         }
         #endregion
 
-        #region System Control -------------------
+    #region System Control -------------------
         /// <summary>
         /// 
         /// </summary>
