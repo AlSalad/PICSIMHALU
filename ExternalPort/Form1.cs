@@ -69,5 +69,38 @@ namespace ExternalPort
                 button_A1.BackColor = Color.White;
             }
         }
+
+        private void button_A2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button_bit_A0_Click(object sender, EventArgs e)
+        {
+            if (button_bit_A0.Text == "0")
+            {
+                _port.Write("A;0;1;1");
+                button_bit_A0.Text = "1";
+            }
+            else
+            {
+                _port.Write("A;0;1;0");
+                button_bit_A0.Text = "0";
+            }         
+        }
+
+        private void button_bit_A1_Click(object sender, EventArgs e)
+        {
+            if (button_bit_A1.Text == "0")
+            {
+                _port.Write("A;1;1;1");
+                button_bit_A1.Text = "1";
+            }
+            else
+            {
+                _port.Write("A;1;1;0");
+                button_bit_A1.Text = "0";
+            }
+        }
     }
 }
