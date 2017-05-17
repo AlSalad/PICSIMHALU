@@ -253,6 +253,94 @@ namespace ExternalPort
 
         }
 
+        private void button_bit_A2_Click(object sender, EventArgs e)
+        {
+            if (button_bit_A2.Text == "0")
+            {
+                _port.Write("A;1;1;1");
+                button_bit_A2.Text = "1";
+            }
+            else
+            {
+                _port.Write("A;1;1;0");
+                button_bit_A2.Text = "0";
+            }
+
+        }
+
+        private void button_bit_A3_Click(object sender, EventArgs e)
+        {
+            if (button_bit_A3.Text == "0")
+            {
+                _port.Write("A;1;1;1");
+                button_bit_A3.Text = "1";
+            }
+            else
+            {
+                _port.Write("A;1;1;0");
+                button_bit_A3.Text = "0";
+            }
+        }
+
+        private void button_bit_A4_Click(object sender, EventArgs e)
+        {
+            if (button_bit_A4.Text == "0")
+            {
+                _port.Write("A;1;1;1");
+                button_bit_A4.Text = "1";
+            }
+            else
+            {
+                _port.Write("A;1;1;0");
+                button_bit_A4.Text = "0";
+            }
+        }
+
+        private void button_bit_A5_Click(object sender, EventArgs e)
+        {
+            if (button_bit_A5.Text == "0")
+            {
+                _port.Write("A;1;1;1");
+                button_bit_A5.Text = "1";
+            }
+            else
+            {
+                _port.Write("A;1;1;0");
+                button_bit_A5.Text = "0";
+            }
+
+        }
+
+        private void button_bit_A6_Click(object sender, EventArgs e)
+        {
+            if (button_bit_A6.Text == "0")
+            {
+                _port.Write("A;1;1;1");
+                button_bit_A6.Text = "1";
+            }
+            else
+            {
+                _port.Write("A;1;1;0");
+                button_bit_A6.Text = "0";
+            }
+        }
+
+        private void button_bit_A7_Click(object sender, EventArgs e)
+        {
+            if (button_bit_A7.Text == "0")
+            {
+                _port.Write("A;1;1;1");
+                button_bit_A7.Text = "1";
+            }
+            else
+            {
+                _port.Write("A;1;1;0");
+                button_bit_A7.Text = "0";
+            }
+        }
+
+
+
         // Button B mit Farben
 
         private void button_B0_Click(object sender, EventArgs e)
@@ -556,5 +644,7 @@ namespace ExternalPort
                 button_bit_B7.Text = "0";
             }
         }
+
+        
     }
 }
