@@ -257,12 +257,12 @@ namespace ExternalPort
         {
             if (button_bit_A2.Text == "0")
             {
-                _port.Write("A;1;1;1");
+                _port.Write("A;2;1;1");
                 button_bit_A2.Text = "1";
             }
             else
             {
-                _port.Write("A;1;1;0");
+                _port.Write("A;2;1;0");
                 button_bit_A2.Text = "0";
             }
 
@@ -272,12 +272,12 @@ namespace ExternalPort
         {
             if (button_bit_A3.Text == "0")
             {
-                _port.Write("A;1;1;1");
+                _port.Write("A;3;1;1");
                 button_bit_A3.Text = "1";
             }
             else
             {
-                _port.Write("A;1;1;0");
+                _port.Write("A;3;1;0");
                 button_bit_A3.Text = "0";
             }
         }
@@ -286,12 +286,12 @@ namespace ExternalPort
         {
             if (button_bit_A4.Text == "0")
             {
-                _port.Write("A;1;1;1");
+                _port.Write("A;4;1;1");
                 button_bit_A4.Text = "1";
             }
             else
             {
-                _port.Write("A;1;1;0");
+                _port.Write("A;4;1;0");
                 button_bit_A4.Text = "0";
             }
         }
@@ -300,12 +300,12 @@ namespace ExternalPort
         {
             if (button_bit_A5.Text == "0")
             {
-                _port.Write("A;1;1;1");
+                _port.Write("A;5;1;1");
                 button_bit_A5.Text = "1";
             }
             else
             {
-                _port.Write("A;1;1;0");
+                _port.Write("A;5;1;0");
                 button_bit_A5.Text = "0";
             }
 
@@ -315,12 +315,12 @@ namespace ExternalPort
         {
             if (button_bit_A6.Text == "0")
             {
-                _port.Write("A;1;1;1");
+                _port.Write("A;6;1;1");
                 button_bit_A6.Text = "1";
             }
             else
             {
-                _port.Write("A;1;1;0");
+                _port.Write("A;6;1;0");
                 button_bit_A6.Text = "0";
             }
         }
@@ -329,12 +329,12 @@ namespace ExternalPort
         {
             if (button_bit_A7.Text == "0")
             {
-                _port.Write("A;1;1;1");
+                _port.Write("A;7;1;1");
                 button_bit_A7.Text = "1";
             }
             else
             {
-                _port.Write("A;1;1;0");
+                _port.Write("A;7;1;0");
                 button_bit_A7.Text = "0";
             }
         }
@@ -373,21 +373,21 @@ namespace ExternalPort
 
             if (button_B1.BackColor == Color.White)
             {
-                _port.Write("B;0;0;O");
+                _port.Write("B;1;0;O");
                 button_B1.BackColor = Color.CornflowerBlue;
                 return;
             }
 
             if (button_B1.BackColor == Color.CornflowerBlue)
             {
-                _port.Write("B;0;0;T");
+                _port.Write("B;1;0;T");
                 button_B1.BackColor = Color.IndianRed;
                 return;
             }
 
             if (button_B1.BackColor == Color.IndianRed)
             {
-                _port.Write("B;0;0;I");
+                _port.Write("B;1;0;I");
                 button_B1.BackColor = Color.White;
             }
         }
@@ -396,21 +396,21 @@ namespace ExternalPort
         {
             if (button_B2.BackColor == Color.White)
             {
-                _port.Write("B;0;0;O");
+                _port.Write("B;2;0;O");
                 button_B2.BackColor = Color.CornflowerBlue;
                 return;
             }
 
             if (button_B1.BackColor == Color.CornflowerBlue)
             {
-                _port.Write("B;0;0;T");
+                _port.Write("B;2;0;T");
                 button_B2.BackColor = Color.IndianRed;
                 return;
             }
 
             if (button_B2.BackColor == Color.IndianRed)
             {
-                _port.Write("B;0;0;I");
+                _port.Write("B;2;0;I");
                 button_B2.BackColor = Color.White;
             }
         }
@@ -419,21 +419,21 @@ namespace ExternalPort
         {
             if (button_B3.BackColor == Color.White)
             {
-                _port.Write("B;0;0;O");
+                _port.Write("B;3;0;O");
                 button_B3.BackColor = Color.CornflowerBlue;
                 return;
             }
 
             if (button_B3.BackColor == Color.CornflowerBlue)
             {
-                _port.Write("B;0;0;T");
+                _port.Write("B;3;0;T");
                 button_B3.BackColor = Color.IndianRed;
                 return;
             }
 
             if (button_B3.BackColor == Color.IndianRed)
             {
-                _port.Write("B;0;0;I");
+                _port.Write("B;3;0;I");
                 button_B3.BackColor = Color.White;
             }
         }
@@ -442,21 +442,21 @@ namespace ExternalPort
         {
             if (button_B4.BackColor == Color.White)
             {
-                _port.Write("B;0;0;O");
+                _port.Write("B;4;0;O");
                 button_B4.BackColor = Color.CornflowerBlue;
                 return;
             }
 
             if (button_B4.BackColor == Color.CornflowerBlue)
             {
-                _port.Write("B;0;0;T");
+                _port.Write("B;4;0;T");
                 button_B4.BackColor = Color.IndianRed;
                 return;
             }
 
             if (button_B4.BackColor == Color.IndianRed)
             {
-                _port.Write("B;0;0;I");
+                _port.Write("B;4;0;I");
                 button_B4.BackColor = Color.White;
             }
         }
@@ -465,21 +465,21 @@ namespace ExternalPort
         {
             if (button_B5.BackColor == Color.White)
             {
-                _port.Write("B;0;0;O");
+                _port.Write("B;5;0;O");
                 button_B5.BackColor = Color.CornflowerBlue;
                 return;
             }
 
             if (button_B5.BackColor == Color.CornflowerBlue)
             {
-                _port.Write("B;0;0;T");
+                _port.Write("B;5;0;T");
                 button_B5.BackColor = Color.IndianRed;
                 return;
             }
 
             if (button_B5.BackColor == Color.IndianRed)
             {
-                _port.Write("B;0;0;I");
+                _port.Write("B;5;0;I");
                 button_B5.BackColor = Color.White;
             }
         }
@@ -488,21 +488,21 @@ namespace ExternalPort
         {
             if (button_B6.BackColor == Color.White)
             {
-                _port.Write("B;0;0;O");
+                _port.Write("B;6;0;O");
                 button_B6.BackColor = Color.CornflowerBlue;
                 return;
             }
 
             if (button_B6.BackColor == Color.CornflowerBlue)
             {
-                _port.Write("B;0;0;T");
+                _port.Write("B;6;0;T");
                 button_B6.BackColor = Color.IndianRed;
                 return;
             }
 
             if (button_B6.BackColor == Color.IndianRed)
             {
-                _port.Write("B;0;0;I");
+                _port.Write("B;6;0;I");
                 button_B6.BackColor = Color.White;
             }
         }
@@ -511,21 +511,21 @@ namespace ExternalPort
         {
             if (button_B7.BackColor == Color.White)
             {
-                _port.Write("B;0;0;O");
+                _port.Write("B;7;0;O");
                 button_B7.BackColor = Color.CornflowerBlue;
                 return;
             }
 
             if (button_B7.BackColor == Color.CornflowerBlue)
             {
-                _port.Write("B;0;0;T");
+                _port.Write("B;7;0;T");
                 button_B7.BackColor = Color.IndianRed;
                 return;
             }
 
             if (button_B7.BackColor == Color.IndianRed)
             {
-                _port.Write("B;0;0;I");
+                _port.Write("B;7;0;I");
                 button_B7.BackColor = Color.White;
             }
         }
@@ -551,12 +551,12 @@ namespace ExternalPort
         {
             if (button_bit_B1.Text == "0")
             {
-                _port.Write("B;0;1;1");
+                _port.Write("B;1;1;1");
                 button_bit_B1.Text = "1";
             }
             else
             {
-                _port.Write("B;0;1;0");
+                _port.Write("B;1;1;0");
                 button_bit_B1.Text = "0";
             }
         }
@@ -565,12 +565,12 @@ namespace ExternalPort
         {
             if (button_bit_B2.Text == "0")
             {
-                _port.Write("B;0;1;1");
+                _port.Write("B;2;1;1");
                 button_bit_B2.Text = "1";
             }
             else
             {
-                _port.Write("B;0;1;0");
+                _port.Write("B;2;1;0");
                 button_bit_B2.Text = "0";
             }
         }
@@ -579,12 +579,12 @@ namespace ExternalPort
         {
             if (button_bit_B3.Text == "0")
             {
-                _port.Write("B;0;1;1");
+                _port.Write("B;3;1;1");
                 button_bit_B3.Text = "1";
             }
             else
             {
-                _port.Write("B;0;1;0");
+                _port.Write("B;3;1;0");
                 button_bit_B3.Text = "0";
             }
         }
@@ -593,12 +593,12 @@ namespace ExternalPort
         {
             if (button_bit_B4.Text == "0")
             {
-                _port.Write("B;0;1;1");
+                _port.Write("B;4;1;1");
                 button_bit_B4.Text = "1";
             }
             else
             {
-                _port.Write("B;0;1;0");
+                _port.Write("B;4;1;0");
                 button_bit_B4.Text = "0";
             }
         }
@@ -607,12 +607,12 @@ namespace ExternalPort
         {
             if (button_bit_B5.Text == "0")
             {
-                _port.Write("B;0;1;1");
+                _port.Write("B;5;1;1");
                 button_bit_B5.Text = "1";
             }
             else
             {
-                _port.Write("B;0;1;0");
+                _port.Write("B;5;1;0");
                 button_bit_B5.Text = "0";
             }
         }
@@ -621,12 +621,12 @@ namespace ExternalPort
         {
             if (button_bit_B6.Text == "0")
             {
-                _port.Write("B;0;1;1");
+                _port.Write("B;6;1;1");
                 button_bit_B6.Text = "1";
             }
             else
             {
-                _port.Write("B;0;1;0");
+                _port.Write("B;6;1;0");
                 button_bit_B6.Text = "0";
             }
         }
@@ -635,12 +635,12 @@ namespace ExternalPort
         {
             if (button_bit_B7.Text == "0")
             {
-                _port.Write("B;0;1;1");
+                _port.Write("B;7;1;1");
                 button_bit_B7.Text = "1";
             }
             else
             {
-                _port.Write("B;0;1;0");
+                _port.Write("B;7;1;0");
                 button_bit_B7.Text = "0";
             }
         }
