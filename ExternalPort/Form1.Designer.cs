@@ -65,6 +65,7 @@
             this.button_bit_A1.TabIndex = 30;
             this.button_bit_A1.Text = "0";
             this.button_bit_A1.UseVisualStyleBackColor = true;
+            this.button_bit_A1.Click += new System.EventHandler(this.button_bit_A1_Click);
             // 
             // button_bit_A2
             // 
@@ -125,6 +126,7 @@
             this.button_bit_A0.TabIndex = 24;
             this.button_bit_A0.Text = "0";
             this.button_bit_A0.UseVisualStyleBackColor = true;
+            this.button_bit_A0.Click += new System.EventHandler(this.button_bit_A0_Click);
             // 
             // button_A7
             // 
