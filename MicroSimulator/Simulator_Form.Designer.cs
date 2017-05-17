@@ -71,10 +71,6 @@ namespace MicroSimulator
             this.label3 = new System.Windows.Forms.Label();
             this.button_Reset = new System.Windows.Forms.Button();
             this.dataGridView_Register = new System.Windows.Forms.DataGridView();
-            this.Column_Register = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column_RegHex = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column_Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column_Bank2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button_Stop = new System.Windows.Forms.Button();
             this.Timer_prog = new System.Windows.Forms.Timer(this.components);
             this.textBox_Quarz = new System.Windows.Forms.TextBox();
@@ -91,6 +87,10 @@ namespace MicroSimulator
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.Column_Register = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column_RegHex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column_Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column_Bank2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_prog)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_RegA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_RegB)).BeginInit();
@@ -99,19 +99,19 @@ namespace MicroSimulator
             // 
             // text_path
             // 
-            this.text_path.Location = new System.Drawing.Point(23, 12);
+            this.text_path.Location = new System.Drawing.Point(15, 8);
             this.text_path.Margin = new System.Windows.Forms.Padding(0);
             this.text_path.Name = "text_path";
             this.text_path.ReadOnly = true;
-            this.text_path.Size = new System.Drawing.Size(520, 26);
+            this.text_path.Size = new System.Drawing.Size(348, 20);
             this.text_path.TabIndex = 0;
             // 
             // Btn_Open
             // 
-            this.Btn_Open.Location = new System.Drawing.Point(544, 10);
+            this.Btn_Open.Location = new System.Drawing.Point(363, 6);
             this.Btn_Open.Margin = new System.Windows.Forms.Padding(0);
             this.Btn_Open.Name = "Btn_Open";
-            this.Btn_Open.Size = new System.Drawing.Size(75, 35);
+            this.Btn_Open.Size = new System.Drawing.Size(50, 23);
             this.Btn_Open.TabIndex = 7;
             this.Btn_Open.Text = "Open";
             this.Btn_Open.UseVisualStyleBackColor = true;
@@ -128,10 +128,11 @@ namespace MicroSimulator
             this.Column_Cmd,
             this.Column_Op,
             this.Column_loop});
-            this.dataGridView_prog.Location = new System.Drawing.Point(23, 63);
+            this.dataGridView_prog.Location = new System.Drawing.Point(15, 41);
+            this.dataGridView_prog.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dataGridView_prog.Name = "dataGridView_prog";
             this.dataGridView_prog.RowTemplate.Height = 28;
-            this.dataGridView_prog.Size = new System.Drawing.Size(543, 869);
+            this.dataGridView_prog.Size = new System.Drawing.Size(362, 565);
             this.dataGridView_prog.TabIndex = 8;
             // 
             // Column_BreakPoint
@@ -166,26 +167,29 @@ namespace MicroSimulator
             // text_W
             // 
             this.text_W.BackColor = System.Drawing.SystemColors.Info;
-            this.text_W.Location = new System.Drawing.Point(841, 374);
+            this.text_W.Location = new System.Drawing.Point(561, 243);
+            this.text_W.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.text_W.Name = "text_W";
-            this.text_W.Size = new System.Drawing.Size(63, 26);
+            this.text_W.Size = new System.Drawing.Size(43, 20);
             this.text_W.TabIndex = 9;
             this.text_W.Text = "0";
             // 
             // label_W
             // 
             this.label_W.AutoSize = true;
-            this.label_W.Location = new System.Drawing.Point(811, 377);
+            this.label_W.Location = new System.Drawing.Point(541, 245);
+            this.label_W.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_W.Name = "label_W";
-            this.label_W.Size = new System.Drawing.Size(24, 20);
+            this.label_W.Size = new System.Drawing.Size(18, 13);
             this.label_W.TabIndex = 31;
             this.label_W.Text = "W";
             // 
             // btn_Step
             // 
-            this.btn_Step.Location = new System.Drawing.Point(572, 154);
+            this.btn_Step.Location = new System.Drawing.Point(381, 100);
+            this.btn_Step.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btn_Step.Name = "btn_Step";
-            this.btn_Step.Size = new System.Drawing.Size(97, 41);
+            this.btn_Step.Size = new System.Drawing.Size(65, 27);
             this.btn_Step.TabIndex = 32;
             this.btn_Step.Text = "Next";
             this.btn_Step.UseVisualStyleBackColor = true;
@@ -193,9 +197,10 @@ namespace MicroSimulator
             // 
             // btn_Start
             // 
-            this.btn_Start.Location = new System.Drawing.Point(572, 63);
+            this.btn_Start.Location = new System.Drawing.Point(381, 41);
+            this.btn_Start.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btn_Start.Name = "btn_Start";
-            this.btn_Start.Size = new System.Drawing.Size(97, 40);
+            this.btn_Start.Size = new System.Drawing.Size(65, 26);
             this.btn_Start.TabIndex = 33;
             this.btn_Start.Text = "Start";
             this.btn_Start.UseVisualStyleBackColor = true;
@@ -203,9 +208,10 @@ namespace MicroSimulator
             // 
             // text_Pc
             // 
-            this.text_Pc.Location = new System.Drawing.Point(841, 342);
+            this.text_Pc.Location = new System.Drawing.Point(561, 222);
+            this.text_Pc.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.text_Pc.Name = "text_Pc";
-            this.text_Pc.Size = new System.Drawing.Size(63, 26);
+            this.text_Pc.Size = new System.Drawing.Size(43, 20);
             this.text_Pc.TabIndex = 34;
             this.text_Pc.Text = "0";
             // 
@@ -278,10 +284,11 @@ namespace MicroSimulator
             this.RegA_Bit2,
             this.RegA_Bit1,
             this.RegA_Bit0});
-            this.dataGridView_RegA.Location = new System.Drawing.Point(791, 63);
+            this.dataGridView_RegA.Location = new System.Drawing.Point(527, 41);
+            this.dataGridView_RegA.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dataGridView_RegA.Name = "dataGridView_RegA";
             this.dataGridView_RegA.RowTemplate.Height = 28;
-            this.dataGridView_RegA.Size = new System.Drawing.Size(455, 122);
+            this.dataGridView_RegA.Size = new System.Drawing.Size(303, 79);
             this.dataGridView_RegA.TabIndex = 35;
             this.dataGridView_RegA.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_RegA_CellContentClick);
             // 
@@ -300,10 +307,11 @@ namespace MicroSimulator
             this.RegB_Bit2,
             this.RegB_Bit1,
             this.RegB_Bit0});
-            this.dataGridView_RegB.Location = new System.Drawing.Point(791, 191);
+            this.dataGridView_RegB.Location = new System.Drawing.Point(527, 124);
+            this.dataGridView_RegB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dataGridView_RegB.Name = "dataGridView_RegB";
             this.dataGridView_RegB.RowTemplate.Height = 28;
-            this.dataGridView_RegB.Size = new System.Drawing.Size(455, 122);
+            this.dataGridView_RegB.Size = new System.Drawing.Size(303, 79);
             this.dataGridView_RegB.TabIndex = 36;
             // 
             // RegB
@@ -363,68 +371,76 @@ namespace MicroSimulator
             // label_PC
             // 
             this.label_PC.AutoSize = true;
-            this.label_PC.Location = new System.Drawing.Point(811, 345);
+            this.label_PC.Location = new System.Drawing.Point(541, 224);
+            this.label_PC.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_PC.Name = "label_PC";
-            this.label_PC.Size = new System.Drawing.Size(30, 20);
+            this.label_PC.Size = new System.Drawing.Size(21, 13);
             this.label_PC.TabIndex = 37;
             this.label_PC.Text = "PC";
             // 
             // textBox_CarryFlag
             // 
-            this.textBox_CarryFlag.Location = new System.Drawing.Point(1030, 342);
+            this.textBox_CarryFlag.Location = new System.Drawing.Point(687, 222);
+            this.textBox_CarryFlag.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBox_CarryFlag.Name = "textBox_CarryFlag";
-            this.textBox_CarryFlag.Size = new System.Drawing.Size(100, 26);
+            this.textBox_CarryFlag.Size = new System.Drawing.Size(68, 20);
             this.textBox_CarryFlag.TabIndex = 39;
             this.textBox_CarryFlag.Text = "0";
             // 
             // textBox_ZeroFlag
             // 
-            this.textBox_ZeroFlag.Location = new System.Drawing.Point(1030, 406);
+            this.textBox_ZeroFlag.Location = new System.Drawing.Point(687, 264);
+            this.textBox_ZeroFlag.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBox_ZeroFlag.Name = "textBox_ZeroFlag";
-            this.textBox_ZeroFlag.Size = new System.Drawing.Size(100, 26);
+            this.textBox_ZeroFlag.Size = new System.Drawing.Size(68, 20);
             this.textBox_ZeroFlag.TabIndex = 40;
             this.textBox_ZeroFlag.Text = "0";
             // 
             // label_CarryFlag
             // 
             this.label_CarryFlag.AutoSize = true;
-            this.label_CarryFlag.Location = new System.Drawing.Point(1004, 345);
+            this.label_CarryFlag.Location = new System.Drawing.Point(669, 224);
+            this.label_CarryFlag.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_CarryFlag.Name = "label_CarryFlag";
-            this.label_CarryFlag.Size = new System.Drawing.Size(20, 20);
+            this.label_CarryFlag.Size = new System.Drawing.Size(14, 13);
             this.label_CarryFlag.TabIndex = 41;
             this.label_CarryFlag.Text = "C";
             // 
             // label_ZeroFlag
             // 
             this.label_ZeroFlag.AutoSize = true;
-            this.label_ZeroFlag.Location = new System.Drawing.Point(1005, 412);
+            this.label_ZeroFlag.Location = new System.Drawing.Point(670, 268);
+            this.label_ZeroFlag.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_ZeroFlag.Name = "label_ZeroFlag";
-            this.label_ZeroFlag.Size = new System.Drawing.Size(19, 20);
+            this.label_ZeroFlag.Size = new System.Drawing.Size(14, 13);
             this.label_ZeroFlag.TabIndex = 42;
             this.label_ZeroFlag.Text = "Z";
             // 
             // text_DC
             // 
-            this.text_DC.Location = new System.Drawing.Point(1030, 374);
+            this.text_DC.Location = new System.Drawing.Point(687, 243);
+            this.text_DC.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.text_DC.Name = "text_DC";
-            this.text_DC.Size = new System.Drawing.Size(100, 26);
+            this.text_DC.Size = new System.Drawing.Size(68, 20);
             this.text_DC.TabIndex = 47;
             this.text_DC.Text = "0";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(992, 380);
+            this.label3.Location = new System.Drawing.Point(661, 247);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(32, 20);
+            this.label3.Size = new System.Drawing.Size(22, 13);
             this.label3.TabIndex = 48;
             this.label3.Text = "DC";
             // 
             // button_Reset
             // 
-            this.button_Reset.Location = new System.Drawing.Point(572, 201);
+            this.button_Reset.Location = new System.Drawing.Point(381, 131);
+            this.button_Reset.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button_Reset.Name = "button_Reset";
-            this.button_Reset.Size = new System.Drawing.Size(97, 44);
+            this.button_Reset.Size = new System.Drawing.Size(65, 29);
             this.button_Reset.TabIndex = 49;
             this.button_Reset.Text = "Reset";
             this.button_Reset.UseVisualStyleBackColor = true;
@@ -440,11 +456,149 @@ namespace MicroSimulator
             this.Column_RegHex,
             this.Column_Value,
             this.Column_Bank2});
-            this.dataGridView_Register.Location = new System.Drawing.Point(712, 527);
+            this.dataGridView_Register.Location = new System.Drawing.Point(475, 343);
+            this.dataGridView_Register.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dataGridView_Register.Name = "dataGridView_Register";
             this.dataGridView_Register.RowTemplate.Height = 28;
-            this.dataGridView_Register.Size = new System.Drawing.Size(531, 381);
+            this.dataGridView_Register.Size = new System.Drawing.Size(354, 248);
             this.dataGridView_Register.TabIndex = 50;
+            // 
+            // button_Stop
+            // 
+            this.button_Stop.Location = new System.Drawing.Point(381, 71);
+            this.button_Stop.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button_Stop.Name = "button_Stop";
+            this.button_Stop.Size = new System.Drawing.Size(65, 25);
+            this.button_Stop.TabIndex = 51;
+            this.button_Stop.Text = "Stop";
+            this.button_Stop.UseVisualStyleBackColor = true;
+            this.button_Stop.Click += new System.EventHandler(this.Button_Stop_Click);
+            // 
+            // Timer_prog
+            // 
+            this.Timer_prog.Tick += new System.EventHandler(this.Timer_prog_Tick);
+            // 
+            // textBox_Quarz
+            // 
+            this.textBox_Quarz.Location = new System.Drawing.Point(561, 305);
+            this.textBox_Quarz.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox_Quarz.Name = "textBox_Quarz";
+            this.textBox_Quarz.Size = new System.Drawing.Size(43, 20);
+            this.textBox_Quarz.TabIndex = 52;
+            this.textBox_Quarz.Text = "4000";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(607, 307);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(20, 13);
+            this.label1.TabIndex = 53;
+            this.label1.Text = "Hz";
+            // 
+            // Button_Help
+            // 
+            this.Button_Help.Location = new System.Drawing.Point(415, 6);
+            this.Button_Help.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Button_Help.Name = "Button_Help";
+            this.Button_Help.Size = new System.Drawing.Size(42, 23);
+            this.Button_Help.TabIndex = 54;
+            this.Button_Help.Text = "Help";
+            this.Button_Help.UseVisualStyleBackColor = true;
+            this.Button_Help.Click += new System.EventHandler(this.Button_Help_Click);
+            // 
+            // text_Tmr0
+            // 
+            this.text_Tmr0.Location = new System.Drawing.Point(561, 264);
+            this.text_Tmr0.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.text_Tmr0.Name = "text_Tmr0";
+            this.text_Tmr0.Size = new System.Drawing.Size(68, 20);
+            this.text_Tmr0.TabIndex = 55;
+            this.text_Tmr0.Text = "0";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(527, 266);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(31, 13);
+            this.label2.TabIndex = 56;
+            this.label2.Text = "Tmr0";
+            // 
+            // Timer_Takt
+            // 
+            this.Timer_Takt.Tick += new System.EventHandler(this.Timer_Takt_Tick);
+            // 
+            // text_Runtime
+            // 
+            this.text_Runtime.Location = new System.Drawing.Point(561, 285);
+            this.text_Runtime.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.text_Runtime.Name = "text_Runtime";
+            this.text_Runtime.Size = new System.Drawing.Size(68, 20);
+            this.text_Runtime.TabIndex = 57;
+            this.text_Runtime.Text = "0";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(508, 287);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(50, 13);
+            this.label4.TabIndex = 58;
+            this.label4.Text = "RunTime";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(519, 307);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(38, 13);
+            this.label5.TabIndex = 59;
+            this.label5.Text = "Quartz";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(607, 245);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(13, 13);
+            this.label6.TabIndex = 60;
+            this.label6.Text = "h";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(607, 224);
+            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(13, 13);
+            this.label7.TabIndex = 61;
+            this.label7.Text = "h";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(631, 266);
+            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(13, 13);
+            this.label8.TabIndex = 62;
+            this.label8.Text = "b";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(631, 287);
+            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(18, 13);
+            this.label9.TabIndex = 63;
+            this.label9.Text = "µs";
             // 
             // Column_Register
             // 
@@ -459,146 +613,22 @@ namespace MicroSimulator
             // 
             // Column_Value
             // 
-            this.Column_Value.HeaderText = "Bank1";
+            this.Column_Value.HeaderText = "Bank0";
             this.Column_Value.Name = "Column_Value";
             this.Column_Value.Width = 70;
             // 
             // Column_Bank2
             // 
-            this.Column_Bank2.HeaderText = "Bank2";
+            this.Column_Bank2.HeaderText = "Bank1";
             this.Column_Bank2.Name = "Column_Bank2";
             this.Column_Bank2.Width = 70;
             // 
-            // button_Stop
-            // 
-            this.button_Stop.Location = new System.Drawing.Point(572, 109);
-            this.button_Stop.Name = "button_Stop";
-            this.button_Stop.Size = new System.Drawing.Size(97, 39);
-            this.button_Stop.TabIndex = 51;
-            this.button_Stop.Text = "Stop";
-            this.button_Stop.UseVisualStyleBackColor = true;
-            this.button_Stop.Click += new System.EventHandler(this.Button_Stop_Click);
-            // 
-            // Timer_prog
-            // 
-            this.Timer_prog.Tick += new System.EventHandler(this.Timer_prog_Tick);
-            // 
-            // textBox_Quarz
-            // 
-            this.textBox_Quarz.Location = new System.Drawing.Point(841, 470);
-            this.textBox_Quarz.Name = "textBox_Quarz";
-            this.textBox_Quarz.Size = new System.Drawing.Size(63, 26);
-            this.textBox_Quarz.TabIndex = 52;
-            this.textBox_Quarz.Text = "4000";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(910, 473);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(29, 20);
-            this.label1.TabIndex = 53;
-            this.label1.Text = "Hz";
-            // 
-            // Button_Help
-            // 
-            this.Button_Help.Location = new System.Drawing.Point(622, 10);
-            this.Button_Help.Name = "Button_Help";
-            this.Button_Help.Size = new System.Drawing.Size(63, 35);
-            this.Button_Help.TabIndex = 54;
-            this.Button_Help.Text = "Help";
-            this.Button_Help.UseVisualStyleBackColor = true;
-            this.Button_Help.Click += new System.EventHandler(this.Button_Help_Click);
-            // 
-            // text_Tmr0
-            // 
-            this.text_Tmr0.Location = new System.Drawing.Point(841, 406);
-            this.text_Tmr0.Name = "text_Tmr0";
-            this.text_Tmr0.Size = new System.Drawing.Size(100, 26);
-            this.text_Tmr0.TabIndex = 55;
-            this.text_Tmr0.Text = "0";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(790, 409);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(45, 20);
-            this.label2.TabIndex = 56;
-            this.label2.Text = "Tmr0";
-            // 
-            // Timer_Takt
-            // 
-            this.Timer_Takt.Tick += new System.EventHandler(this.Timer_Takt_Tick);
-            // 
-            // text_Runtime
-            // 
-            this.text_Runtime.Location = new System.Drawing.Point(841, 438);
-            this.text_Runtime.Name = "text_Runtime";
-            this.text_Runtime.Size = new System.Drawing.Size(100, 26);
-            this.text_Runtime.TabIndex = 57;
-            this.text_Runtime.Text = "0";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(762, 441);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(73, 20);
-            this.label4.TabIndex = 58;
-            this.label4.Text = "RunTime";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(778, 473);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(57, 20);
-            this.label5.TabIndex = 59;
-            this.label5.Text = "Quartz";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(910, 377);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(18, 20);
-            this.label6.TabIndex = 60;
-            this.label6.Text = "h";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(910, 345);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(18, 20);
-            this.label7.TabIndex = 61;
-            this.label7.Text = "h";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(947, 409);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(18, 20);
-            this.label8.TabIndex = 62;
-            this.label8.Text = "b";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(947, 441);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(25, 20);
-            this.label9.TabIndex = 63;
-            this.label9.Text = "µs";
-            // 
             // SimulatorForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(1258, 944);
+            this.ClientSize = new System.Drawing.Size(839, 573);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
@@ -631,6 +661,7 @@ namespace MicroSimulator
             this.Controls.Add(this.dataGridView_prog);
             this.Controls.Add(this.Btn_Open);
             this.Controls.Add(this.text_path);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "SimulatorForm";
             this.Text = "Simulator";
             this.Load += new System.EventHandler(this.SimulatorForm_Load);
@@ -699,10 +730,6 @@ namespace MicroSimulator
         private Timer Timer_0;
         private TextBox text_Tmr0;
         private Label label2;
-        private DataGridViewTextBoxColumn Column_Register;
-        private DataGridViewTextBoxColumn Column_RegHex;
-        private DataGridViewTextBoxColumn Column_Value;
-        private DataGridViewTextBoxColumn Column_Bank2;
         private Timer Timer_Takt;
         private TextBox text_Runtime;
         private Label label4;
@@ -711,6 +738,10 @@ namespace MicroSimulator
         private Label label7;
         private Label label8;
         private Label label9;
+        private DataGridViewTextBoxColumn Column_Register;
+        private DataGridViewTextBoxColumn Column_RegHex;
+        private DataGridViewTextBoxColumn Column_Value;
+        private DataGridViewTextBoxColumn Column_Bank2;
     }
 }
 
