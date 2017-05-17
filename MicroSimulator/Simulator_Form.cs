@@ -119,7 +119,19 @@ namespace MicroSimulator
 
                 }
             }
-           
+
+            foreach (DataGridViewCell cell in dataGridView_RegB.Rows[0].Cells)
+            {
+                if (cell.Value.ToString() == "T")
+                {
+                    if (dataGridView_RegB[cell.ColumnIndex, 1].Value.ToString() == "1")
+                        dataGridView_RegB[cell.ColumnIndex, 1].Value = "0";
+                    else
+                        dataGridView_RegB[cell.ColumnIndex, 1].Value = "1";
+
+                }
+            }
+
         }      
         #endregion
 
