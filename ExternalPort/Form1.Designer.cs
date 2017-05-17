@@ -48,18 +48,20 @@
             // 
             // button_bit_A7
             // 
-            this.button_bit_A7.Location = new System.Drawing.Point(74, 94);
+            this.button_bit_A7.Location = new System.Drawing.Point(49, 61);
+            this.button_bit_A7.Margin = new System.Windows.Forms.Padding(2);
             this.button_bit_A7.Name = "button_bit_A7";
-            this.button_bit_A7.Size = new System.Drawing.Size(75, 76);
+            this.button_bit_A7.Size = new System.Drawing.Size(50, 49);
             this.button_bit_A7.TabIndex = 31;
             this.button_bit_A7.Text = "0";
             this.button_bit_A7.UseVisualStyleBackColor = true;
             // 
             // button_bit_A1
             // 
-            this.button_bit_A1.Location = new System.Drawing.Point(560, 94);
+            this.button_bit_A1.Location = new System.Drawing.Point(373, 61);
+            this.button_bit_A1.Margin = new System.Windows.Forms.Padding(2);
             this.button_bit_A1.Name = "button_bit_A1";
-            this.button_bit_A1.Size = new System.Drawing.Size(75, 76);
+            this.button_bit_A1.Size = new System.Drawing.Size(50, 49);
             this.button_bit_A1.TabIndex = 30;
             this.button_bit_A1.Text = "0";
             this.button_bit_A1.UseVisualStyleBackColor = true;
@@ -67,54 +69,60 @@
             // 
             // button_bit_A2
             // 
-            this.button_bit_A2.Location = new System.Drawing.Point(479, 94);
+            this.button_bit_A2.Location = new System.Drawing.Point(319, 61);
+            this.button_bit_A2.Margin = new System.Windows.Forms.Padding(2);
             this.button_bit_A2.Name = "button_bit_A2";
-            this.button_bit_A2.Size = new System.Drawing.Size(75, 76);
+            this.button_bit_A2.Size = new System.Drawing.Size(50, 49);
             this.button_bit_A2.TabIndex = 29;
             this.button_bit_A2.Text = "0";
             this.button_bit_A2.UseVisualStyleBackColor = true;
             // 
             // button_bit_A3
             // 
-            this.button_bit_A3.Location = new System.Drawing.Point(398, 94);
+            this.button_bit_A3.Location = new System.Drawing.Point(265, 61);
+            this.button_bit_A3.Margin = new System.Windows.Forms.Padding(2);
             this.button_bit_A3.Name = "button_bit_A3";
-            this.button_bit_A3.Size = new System.Drawing.Size(75, 76);
+            this.button_bit_A3.Size = new System.Drawing.Size(50, 49);
             this.button_bit_A3.TabIndex = 28;
             this.button_bit_A3.Text = "0";
             this.button_bit_A3.UseVisualStyleBackColor = true;
             // 
             // button_bit_A4
             // 
-            this.button_bit_A4.Location = new System.Drawing.Point(317, 94);
+            this.button_bit_A4.Location = new System.Drawing.Point(211, 61);
+            this.button_bit_A4.Margin = new System.Windows.Forms.Padding(2);
             this.button_bit_A4.Name = "button_bit_A4";
-            this.button_bit_A4.Size = new System.Drawing.Size(75, 76);
+            this.button_bit_A4.Size = new System.Drawing.Size(50, 49);
             this.button_bit_A4.TabIndex = 27;
             this.button_bit_A4.Text = "0";
             this.button_bit_A4.UseVisualStyleBackColor = true;
             // 
             // button_bit_A5
             // 
-            this.button_bit_A5.Location = new System.Drawing.Point(236, 94);
+            this.button_bit_A5.Location = new System.Drawing.Point(157, 61);
+            this.button_bit_A5.Margin = new System.Windows.Forms.Padding(2);
             this.button_bit_A5.Name = "button_bit_A5";
-            this.button_bit_A5.Size = new System.Drawing.Size(75, 76);
+            this.button_bit_A5.Size = new System.Drawing.Size(50, 49);
             this.button_bit_A5.TabIndex = 26;
             this.button_bit_A5.Text = "0";
             this.button_bit_A5.UseVisualStyleBackColor = true;
             // 
             // button_bit_A6
             // 
-            this.button_bit_A6.Location = new System.Drawing.Point(155, 94);
+            this.button_bit_A6.Location = new System.Drawing.Point(103, 61);
+            this.button_bit_A6.Margin = new System.Windows.Forms.Padding(2);
             this.button_bit_A6.Name = "button_bit_A6";
-            this.button_bit_A6.Size = new System.Drawing.Size(75, 76);
+            this.button_bit_A6.Size = new System.Drawing.Size(50, 49);
             this.button_bit_A6.TabIndex = 25;
             this.button_bit_A6.Text = "0";
             this.button_bit_A6.UseVisualStyleBackColor = true;
             // 
             // button_bit_A0
             // 
-            this.button_bit_A0.Location = new System.Drawing.Point(641, 94);
+            this.button_bit_A0.Location = new System.Drawing.Point(427, 61);
+            this.button_bit_A0.Margin = new System.Windows.Forms.Padding(2);
             this.button_bit_A0.Name = "button_bit_A0";
-            this.button_bit_A0.Size = new System.Drawing.Size(75, 76);
+            this.button_bit_A0.Size = new System.Drawing.Size(50, 49);
             this.button_bit_A0.TabIndex = 24;
             this.button_bit_A0.Text = "0";
             this.button_bit_A0.UseVisualStyleBackColor = true;
@@ -122,76 +130,89 @@
             // 
             // button_A7
             // 
-            this.button_A7.Location = new System.Drawing.Point(74, 12);
+            this.button_A7.Location = new System.Drawing.Point(49, 8);
+            this.button_A7.Margin = new System.Windows.Forms.Padding(2);
             this.button_A7.Name = "button_A7";
-            this.button_A7.Size = new System.Drawing.Size(75, 76);
+            this.button_A7.Size = new System.Drawing.Size(50, 49);
             this.button_A7.TabIndex = 23;
             this.button_A7.UseVisualStyleBackColor = true;
+            this.button_A7.Click += new System.EventHandler(this.button_A7_Click);
             // 
             // button_A1
             // 
-            this.button_A1.Location = new System.Drawing.Point(560, 12);
+            this.button_A1.Location = new System.Drawing.Point(373, 8);
+            this.button_A1.Margin = new System.Windows.Forms.Padding(2);
             this.button_A1.Name = "button_A1";
-            this.button_A1.Size = new System.Drawing.Size(75, 76);
+            this.button_A1.Size = new System.Drawing.Size(50, 49);
             this.button_A1.TabIndex = 22;
             this.button_A1.UseVisualStyleBackColor = true;
             this.button_A1.Click += new System.EventHandler(this.button_A1_Click);
             // 
             // button_A2
             // 
-            this.button_A2.Location = new System.Drawing.Point(479, 12);
+            this.button_A2.Location = new System.Drawing.Point(319, 8);
+            this.button_A2.Margin = new System.Windows.Forms.Padding(2);
             this.button_A2.Name = "button_A2";
-            this.button_A2.Size = new System.Drawing.Size(75, 76);
+            this.button_A2.Size = new System.Drawing.Size(50, 49);
             this.button_A2.TabIndex = 21;
             this.button_A2.UseVisualStyleBackColor = true;
             this.button_A2.Click += new System.EventHandler(this.button_A2_Click);
             // 
             // button_A3
             // 
-            this.button_A3.Location = new System.Drawing.Point(398, 12);
+            this.button_A3.Location = new System.Drawing.Point(265, 8);
+            this.button_A3.Margin = new System.Windows.Forms.Padding(2);
             this.button_A3.Name = "button_A3";
-            this.button_A3.Size = new System.Drawing.Size(75, 76);
+            this.button_A3.Size = new System.Drawing.Size(50, 49);
             this.button_A3.TabIndex = 20;
             this.button_A3.UseVisualStyleBackColor = true;
+            this.button_A3.Click += new System.EventHandler(this.button_A3_Click);
             // 
             // button_A4
             // 
-            this.button_A4.Location = new System.Drawing.Point(317, 12);
+            this.button_A4.Location = new System.Drawing.Point(211, 8);
+            this.button_A4.Margin = new System.Windows.Forms.Padding(2);
             this.button_A4.Name = "button_A4";
-            this.button_A4.Size = new System.Drawing.Size(75, 76);
+            this.button_A4.Size = new System.Drawing.Size(50, 49);
             this.button_A4.TabIndex = 19;
             this.button_A4.UseVisualStyleBackColor = true;
+            this.button_A4.Click += new System.EventHandler(this.button_A4_Click);
             // 
             // button_A5
             // 
-            this.button_A5.Location = new System.Drawing.Point(236, 12);
+            this.button_A5.Location = new System.Drawing.Point(157, 8);
+            this.button_A5.Margin = new System.Windows.Forms.Padding(2);
             this.button_A5.Name = "button_A5";
-            this.button_A5.Size = new System.Drawing.Size(75, 76);
+            this.button_A5.Size = new System.Drawing.Size(50, 49);
             this.button_A5.TabIndex = 18;
             this.button_A5.UseVisualStyleBackColor = true;
+            this.button_A5.Click += new System.EventHandler(this.button_A5_Click);
             // 
             // button_A6
             // 
-            this.button_A6.Location = new System.Drawing.Point(155, 12);
+            this.button_A6.Location = new System.Drawing.Point(103, 8);
+            this.button_A6.Margin = new System.Windows.Forms.Padding(2);
             this.button_A6.Name = "button_A6";
-            this.button_A6.Size = new System.Drawing.Size(75, 76);
+            this.button_A6.Size = new System.Drawing.Size(50, 49);
             this.button_A6.TabIndex = 17;
             this.button_A6.UseVisualStyleBackColor = true;
+            this.button_A6.Click += new System.EventHandler(this.button_A6_Click);
             // 
             // button_A0
             // 
-            this.button_A0.Location = new System.Drawing.Point(641, 12);
+            this.button_A0.Location = new System.Drawing.Point(427, 8);
+            this.button_A0.Margin = new System.Windows.Forms.Padding(2);
             this.button_A0.Name = "button_A0";
-            this.button_A0.Size = new System.Drawing.Size(75, 76);
+            this.button_A0.Size = new System.Drawing.Size(50, 49);
             this.button_A0.TabIndex = 16;
             this.button_A0.UseVisualStyleBackColor = true;
             this.button_A0.Click += new System.EventHandler(this.button_A0_Click);
             // 
             // FormSchnittstelle
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(730, 598);
+            this.ClientSize = new System.Drawing.Size(487, 389);
             this.Controls.Add(this.button_bit_A7);
             this.Controls.Add(this.button_bit_A1);
             this.Controls.Add(this.button_bit_A2);
@@ -208,6 +229,7 @@
             this.Controls.Add(this.button_A5);
             this.Controls.Add(this.button_A6);
             this.Controls.Add(this.button_A0);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FormSchnittstelle";
             this.Text = "Schnittstelle";
             this.ResumeLayout(false);
