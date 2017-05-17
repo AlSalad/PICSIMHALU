@@ -72,36 +72,6 @@ namespace ExternalPort
 
         private void button_A2_Click(object sender, EventArgs e)
         {
-<<<<<<< HEAD
-
-        }
-
-        private void button_bit_A0_Click(object sender, EventArgs e)
-        {
-            if (button_bit_A0.Text == "0")
-            {
-                _port.Write("A;0;1;1");
-                button_bit_A0.Text = "1";
-            }
-            else
-            {
-                _port.Write("A;0;1;0");
-                button_bit_A0.Text = "0";
-            }         
-        }
-
-        private void button_bit_A1_Click(object sender, EventArgs e)
-        {
-            if (button_bit_A1.Text == "0")
-            {
-                _port.Write("A;1;1;1");
-                button_bit_A1.Text = "1";
-            }
-            else
-            {
-                _port.Write("A;1;1;0");
-                button_bit_A1.Text = "0";
-=======
             if (button_A2.BackColor == Color.White)
             {
                 _port.Write("A;2;0;O");
@@ -238,8 +208,39 @@ namespace ExternalPort
             {
                 _port.Write("A;7;0;I");
                 button_A7.BackColor = Color.White;
->>>>>>> origin/master
             }
+        }
+
+
+        //Bit teil von A
+        private void button_bit_A0_Click(object sender, EventArgs e)
+        {
+            if (button_bit_A0.Text == "0")
+            {
+                _port.Write("A;0;1;1");
+                button_bit_A0.Text = "1";
+            }
+            else
+            {
+                _port.Write("A;0;1;0");
+                button_bit_A0.Text = "0";
+            }
+        }
+
+        private void button_bit_A1_Click(object sender, EventArgs e)
+        {
+            if (button_bit_A1.Text == "0")
+            {
+                _port.Write("A;1;1;1");
+                button_bit_A1.Text = "1";
+            }
+            else
+            {
+                _port.Write("A;1;1;0");
+                button_bit_A1.Text = "0";
+            }
+
+
         }
     }
 }
