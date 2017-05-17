@@ -32,6 +32,8 @@ namespace ExternalPort
 
         }
 
+        // Button von A mit Farben
+
         private void button_A0_Click(object sender, EventArgs e)
         {
             if (button_A0.BackColor == Color.White)
@@ -251,6 +253,8 @@ namespace ExternalPort
 
         }
 
+        // Button B mit Farben
+
         private void button_B0_Click(object sender, EventArgs e)
         {
 
@@ -435,6 +439,121 @@ namespace ExternalPort
             {
                 _port.Write("B;0;0;I");
                 button_B7.BackColor = Color.White;
+            }
+        }
+
+       
+        //Bit Teil Button B
+
+        private void button_bit_B0_Click(object sender, EventArgs e)
+        {
+            if (button_bit_B0.Text == "0")
+            {
+                _port.Write("B;0;1;1");
+                button_bit_B0.Text = "1";
+            }
+            else
+            {
+                _port.Write("B;0;1;0");
+                button_bit_B0.Text = "0";
+            }
+        }
+
+        private void button_bit_B1_Click(object sender, EventArgs e)
+        {
+            if (button_bit_B1.Text == "0")
+            {
+                _port.Write("B;0;1;1");
+                button_bit_B1.Text = "1";
+            }
+            else
+            {
+                _port.Write("B;0;1;0");
+                button_bit_B1.Text = "0";
+            }
+        }
+
+        private void button_bit_B2_Click(object sender, EventArgs e)
+        {
+            if (button_bit_B2.Text == "0")
+            {
+                _port.Write("B;0;1;1");
+                button_bit_B2.Text = "1";
+            }
+            else
+            {
+                _port.Write("B;0;1;0");
+                button_bit_B2.Text = "0";
+            }
+        }
+
+        private void button_bit_B3_Click(object sender, EventArgs e)
+        {
+            if (button_bit_B3.Text == "0")
+            {
+                _port.Write("B;0;1;1");
+                button_bit_B3.Text = "1";
+            }
+            else
+            {
+                _port.Write("B;0;1;0");
+                button_bit_B3.Text = "0";
+            }
+        }
+
+        private void button_bit_B4_Click(object sender, EventArgs e)
+        {
+            if (button_bit_B4.Text == "0")
+            {
+                _port.Write("B;0;1;1");
+                button_bit_B4.Text = "1";
+            }
+            else
+            {
+                _port.Write("B;0;1;0");
+                button_bit_B4.Text = "0";
+            }
+        }
+
+        private void button_bit_B5_Click(object sender, EventArgs e)
+        {
+            if (button_bit_B5.Text == "0")
+            {
+                _port.Write("B;0;1;1");
+                button_bit_B5.Text = "1";
+            }
+            else
+            {
+                _port.Write("B;0;1;0");
+                button_bit_B5.Text = "0";
+            }
+        }
+
+        private void button_bit_B6_Click(object sender, EventArgs e)
+        {
+            if (button_bit_B6.Text == "0")
+            {
+                _port.Write("B;0;1;1");
+                button_bit_B6.Text = "1";
+            }
+            else
+            {
+                _port.Write("B;0;1;0");
+                button_bit_B6.Text = "0";
+            }
+        }
+
+        private void button_bit_B7_Click(object sender, EventArgs e)
+        {
+            if (button_bit_B7.Text == "0")
+            {
+                _port.Write("B;0;1;1");
+                button_bit_B7.Text = "1";
+            }
+            else
+            {
+                _port.Write("B;0;1;0");
+                button_bit_B7.Text = "0";
             }
         }
     }
