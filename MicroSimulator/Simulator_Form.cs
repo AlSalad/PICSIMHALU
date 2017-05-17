@@ -50,7 +50,6 @@ namespace MicroSimulator
         {
             foreach (DataGridViewRow row in dataGridView_Register.Rows)
             {
-
                 if (Hex2Int(row.Cells[1].Value.ToString()).Equals(11))
                     row.Cells[2].Value = val.ToString("X");
             }
@@ -66,8 +65,9 @@ namespace MicroSimulator
         {
             _com1Port.Open();
             _com1Port.DataReceived += MyDataReceivedHandler;
-
             InitializeComponent();
+            Timer_Takt.Interval = 2000;
+            Timer_Takt.Start();
         }
 
         /// <summary>
@@ -103,10 +103,25 @@ namespace MicroSimulator
                 case "B":
                     dataGridView_RegB[bit, row].Value = opt;
                     break;
-
             }
         }
-    #endregion
+
+        private void Timer_Takt_Tick(object sender, EventArgs e)
+        {
+            foreach (DataGridViewCell cell in dataGridView_RegA.Rows[0].Cells)
+            {
+                if (cell.Value.ToString() == "T")
+                {
+                    if (dataGridView_RegA[cell.ColumnIndex, 1].Value.ToString() == "1")
+                        dataGridView_RegA[cell.ColumnIndex, 1].Value = "0";
+                    else
+                        dataGridView_RegA[cell.ColumnIndex, 1].Value = "1";
+
+                }
+            }
+           
+        }      
+        #endregion
 
         #region Converter ---------------------
         /// <summary>
@@ -138,7 +153,7 @@ namespace MicroSimulator
         }
     #endregion
 
-     #region Handle Commands -------------------
+    #region Handle Commands -------------------
         /// <summary>
         /// 
         /// </summary>
@@ -1705,24 +1720,6 @@ namespace MicroSimulator
         }
         #endregion
 
-        private void dataGridView_RegA_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            foreach (DataGridViewCell cell in dataGridView_RegA.Rows[0].Cells)
-            {
-                if (cell.Value.ToString() == "t")
-                {
-                    Timer_Takt.Start();
-                    Timer_Takt.Interval = 3000;
-                }
-            }
-        }
-
-        private void Timer_Takt_Tick(object sender, EventArgs e)
-        {
-            if (dataGridView_RegA[0, 0].Value.ToString() == "1")
-                dataGridView_RegA[0, 0].Value = "0";
-            else
-                dataGridView_RegA[0, 0].Value = "1";
-        }
+  
     }
 }
