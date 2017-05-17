@@ -401,7 +401,7 @@ namespace ExternalPort
                 return;
             }
 
-            if (button_B1.BackColor == Color.CornflowerBlue)
+            if (button_B2.BackColor == Color.CornflowerBlue)
             {
                 _port.Write("B;2;0;T");
                 button_B2.BackColor = Color.IndianRed;
