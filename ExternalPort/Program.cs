@@ -1,28 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MicroSimulator
+namespace ExternalPort
 {
-    internal static class Program
+    static class Program
     {
-        //get list of commands
-
-     
         /// <summary>
-        /// The main entry point for the application.
+        /// Der Haupteinstiegspunkt für die Anwendung.
         /// </summary>
         [STAThread]
-        private static void Main()
+        static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            var simForm = new SimulatorForm();
-                Application.Run(simForm);
-            
+            Application.Run(new FormSchnittstelle());
         }
     }
 }
