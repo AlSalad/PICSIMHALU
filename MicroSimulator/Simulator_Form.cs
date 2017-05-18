@@ -14,7 +14,7 @@ namespace MicroSimulator
 {  
     public partial class SimulatorForm : Form
     {
-        #region Global fields ---------------------
+    #region Global fields ---------------------
 
         private readonly SerialPort _com1Port = new SerialPort("COM1", 9600);
 
@@ -77,10 +77,10 @@ namespace MicroSimulator
         /// <param name="e"></param>
         private void SimulatorForm_Load(object sender, EventArgs e)
         {
-            dataGridView_RegA.Rows.Add("TRIS", "i", "i", "i", "i", "i", "i", "i", "i");
+            dataGridView_RegA.Rows.Add("TRIS", "I", "I", "I", "I", "I", "I", "I", "I");
             dataGridView_RegA.Rows.Add("Bits", 0, 0, 0, 0, 0, 0, 0, 0);
 
-            dataGridView_RegB.Rows.Add("TRIS", "i", "i", "i", "i", "i", "i", "i", "i");
+            dataGridView_RegB.Rows.Add("TRIS", "I", "I", "I", "I", "I", "I", "I", "I");
             dataGridView_RegB.Rows.Add("Bits", 0, 0, 0, 0, 0, 0, 0, 0);
         }
         #endregion
@@ -135,7 +135,7 @@ namespace MicroSimulator
         }      
         #endregion
 
-        #region Converter ---------------------
+    #region Converter ---------------------
         /// <summary>
         /// 
         /// </summary>
