@@ -683,7 +683,7 @@ namespace MicroSimulator
             this.text_WatchDogTimer.Location = new System.Drawing.Point(559, 311);
             this.text_WatchDogTimer.Margin = new System.Windows.Forms.Padding(2);
             this.text_WatchDogTimer.Name = "text_WatchDogTimer";
-            this.text_WatchDogTimer.Size = new System.Drawing.Size(68, 20);
+            this.text_WatchDogTimer.Size = new System.Drawing.Size(63, 20);
             this.text_WatchDogTimer.TabIndex = 67;
             this.text_WatchDogTimer.Text = "0";
             // 
@@ -703,9 +703,9 @@ namespace MicroSimulator
             this.label12.Location = new System.Drawing.Point(626, 314);
             this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(13, 13);
+            this.label12.Size = new System.Drawing.Size(20, 13);
             this.label12.TabIndex = 69;
-            this.label12.Text = "b";
+            this.label12.Text = "ms";
             // 
             // SimulatorForm
             // 

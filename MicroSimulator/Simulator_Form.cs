@@ -97,6 +97,8 @@ namespace MicroSimulator
         private void MyDataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
         {
             var indata = _com1Port.ReadExisting();
+            MessageBox.Show(indata);
+
             var port = indata.Split(';')[0];
             var bit = 8 - ToInt32(indata.Split(';')[1]);
             var row = ToInt32(indata.Split(';')[2]);
@@ -211,7 +213,7 @@ namespace MicroSimulator
                 Xorwf(cmd & 255);
 
             //Clrf
-            if ((cmd & 0b11_1111_0000_0000) == 0b00_0001_1000_0000)
+            if ((cmd & 0b11_1111_1000_0000) == 0b00_0001_1000_0000)
                 Clrf(cmd & 127);
 
             //Clrw
@@ -1573,7 +1575,7 @@ namespace MicroSimulator
                 var quartz = int.Parse(textBox_Quarz.Text);
                 if (quartz == 0) return;
                 var d = 4000.0 / quartz;
-                _runtime = _runtime + _circles / d;
+                _runtime = _runtime + _circles * d;
                 text_Runtime.Text = _runtime.ToString(CultureInfo.CurrentCulture);
             }
             catch (FormatException)
@@ -1583,6 +1585,7 @@ namespace MicroSimulator
             WatchdogTimer();
             WriteStatusReg();
             WriteFlags();
+            _circles = 0;
         }
 
         /// <summary>
@@ -1669,7 +1672,7 @@ namespace MicroSimulator
             {
                 if (!Hex2Int(row.Cells[1].Value.ToString()).Equals(1)) continue;
                 var value = row.Cells[3].Value.ToString();
-                if (!string.IsNullOrEmpty(value)) return ToInt32(value);
+                if (!string.IsNullOrEmpty(value)) return Hex2Int(value);
             }
             return 0;
         }
@@ -1745,6 +1748,7 @@ namespace MicroSimulator
             else prescaleopt = 18000;
 
             var runtime = ToDouble(text_Runtime.Text);
+            text_WatchDogTimer.Text = prescaleopt.ToString();
 
             if (runtime >= prescaleopt)
             {
@@ -1760,7 +1764,6 @@ namespace MicroSimulator
 
         }
 
-    #endregion
-
+        #endregion
     }
 }

@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RS232Verbindung.cs" />
     <Compile Include="Simulator_Form.cs">
       <SubType>Form</SubType>
     </Compile>
