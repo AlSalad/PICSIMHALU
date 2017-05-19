@@ -690,7 +690,7 @@ namespace MicroSimulator
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(528, 314);
+            this.label11.Location = new System.Drawing.Point(524, 314);
             this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(33, 13);
@@ -700,7 +700,7 @@ namespace MicroSimulator
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(626, 314);
+            this.label12.Location = new System.Drawing.Point(621, 314);
             this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(20, 13);
