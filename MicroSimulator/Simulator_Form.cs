@@ -75,6 +75,15 @@ namespace MicroSimulator
             InitializeComponent();
             Timer_Takt.Interval = 2000;
             Timer_Takt.Start();
+
+            for (var i = 0; i <= 7; i++)
+            {
+                var optNameA = "button_A" + i;
+                var optNameB = "button_B" + i;
+
+                Controls[optNameA].BackColor = Color.White;
+                Controls[optNameB].BackColor = Color.White;
+            } 
         }
 
         /// <summary>
@@ -84,11 +93,6 @@ namespace MicroSimulator
         /// <param name="e"></param>
         private void SimulatorForm_Load(object sender, EventArgs e)
         {
-            dataGridView_RegA.Rows.Add("TRIS", "I", "I", "I", "I", "I", "I", "I", "I");
-            dataGridView_RegA.Rows.Add("Bits", 0, 0, 0, 0, 0, 0, 0, 0);
-
-            dataGridView_RegB.Rows.Add("TRIS", "I", "I", "I", "I", "I", "I", "I", "I");
-            dataGridView_RegB.Rows.Add("Bits", 0, 0, 0, 0, 0, 0, 0, 0);
         }
         #endregion
 
@@ -104,32 +108,22 @@ namespace MicroSimulator
             var row = ToInt32(indata.Split(';')[2]);
             var opt = indata.Split(';')[3];
 
-            switch (port)
-            {
-                case "A":
-                    dataGridView_RegA[bit, row].Value = opt;
-                    break;
-                case "B":
-                    dataGridView_RegB[bit, row].Value = opt;
-                    break;
-            }
         }
 
         private void Timer_Takt_Tick(object sender, EventArgs e)
         {
-            foreach (DataGridViewCell cell in dataGridView_RegA.Rows[0].Cells)
-            {
-                //wenn 1 dann 0, wenn 0 dann 1
-                if (cell.Value.ToString() == "T")
-                    dataGridView_RegA[cell.ColumnIndex, 1].Value = dataGridView_RegA[cell.ColumnIndex, 1].Value.ToString() == "1" ? "0" : "1";
-            }
+                for (var i = 0; i <= 7; i++)
+                {
+                    var optNameA = "button_A" + i;
+                    var optNameB = "button_B" + i;
+                    var bitNameA = "button_bit_A" + i;
+                    var bitNameB = "button_bit_B" + i;
 
-            foreach (DataGridViewCell cell in dataGridView_RegB.Rows[0].Cells)
-            {
-                //wenn 1 dann 0, wenn 0 dann 1
-                if (cell.Value.ToString() == "T")
-                    dataGridView_RegB[cell.ColumnIndex, 1].Value = dataGridView_RegB[cell.ColumnIndex, 1].Value.ToString() == "1" ? "0" : "1";
-            }
+                    if (Controls[optNameA].BackColor == Color.IndianRed)
+                        Controls[bitNameA].Text = Controls[bitNameA].Text == "1" ? "0" : "1";
+                    if (Controls[optNameB].BackColor == Color.IndianRed)
+                        Controls[bitNameB].Text = Controls[bitNameB].Text == "1" ? "0" : "1";
+                }
         }      
         #endregion
 
@@ -1333,7 +1327,7 @@ namespace MicroSimulator
             //CmdInput.Items.Clear();
             var openFileDialog = new OpenFileDialog
             {
-                InitialDirectory = "C:\\workspace\\MicroSimulator\\MicroSimulator\\Tests",
+                InitialDirectory = "D:\\Workspace\\PICSIMHALU\\Tests",
                 Filter = @"*.LST|",
                 FilterIndex = 2,
                 RestoreDirectory = true
@@ -1441,13 +1435,13 @@ namespace MicroSimulator
 
                 if (quartz > 4000) quartz = 4000;
                 Timer_prog.Interval = 1;
-                Timer_0.Interval = 4000 / quartz * ReadTmrPrescaler();
+                //Timer_0.Interval = 4000 / quartz * ReadTmrPrescaler();
             }
             catch (FormatException)
             {return;}
                 
             Timer_prog.Start();
-            Timer_0.Start();
+            //Timer_0.Start();
         }
 
         /// <summary>
@@ -1631,9 +1625,18 @@ namespace MicroSimulator
         private void text_Takt_TextChanged(object sender, EventArgs e)
         {
             Timer_Takt.Stop();
-            if (string.IsNullOrEmpty(text_Takt.Text)) return;
-            Timer_Takt.Interval = ToInt32(text_Takt.Text);
-            Timer_Takt.Start();
+            try
+            {
+                var takt = int.Parse(text_Takt.Text);
+                if (takt == 0) return;
+
+                Timer_Takt.Interval = ToInt32(text_Takt.Text);
+                Timer_Takt.Start();
+            }
+            catch (FormatException)
+            {}
+            
+
         }
     #endregion
 
@@ -1666,15 +1669,16 @@ namespace MicroSimulator
         /// 
         /// </summary>
         /// <returns></returns>
-        private int CheckIfPrescale()
+        private int? CheckIfPrescale()
         {
             foreach (DataGridViewRow row in dataGridView_Register.Rows)
             {
                 if (!Hex2Int(row.Cells[1].Value.ToString()).Equals(1)) continue;
                 var value = row.Cells[3].Value.ToString();
-                if (!string.IsNullOrEmpty(value)) return Hex2Int(value);
+                if (!string.IsNullOrEmpty(value))
+                    return Hex2Int(value);
             }
-            return 0;
+            return null;
         }
 
         /// <summary>
@@ -1709,9 +1713,10 @@ namespace MicroSimulator
             if (CheckIfPrescale() == 0) prescaleopt = ReadTmrPrescaler() * 2;
             else prescaleopt = 1;
 
+            text_Prescaler.Text = @"1 / " + prescaleopt;
             var prescaler = (double)_circles / prescaleopt;
             _prescaleCircle += prescaler;
-            if (_prescaleCircle >= 1.0)
+            if (_prescaleCircle >= 4.0)
             {
                 _tmr0Value += _circles;
                 _prescaleCircle = 0;
@@ -1764,7 +1769,543 @@ namespace MicroSimulator
 
         }
 
+
+
         #endregion
 
+    #region Register Tris A und B -------------------
+        private void button_A0_Click(object sender, EventArgs e)
+        {
+            if (button_A0.BackColor == Color.White)
+            {
+                button_A0.BackColor = Color.CornflowerBlue;
+                return;
+            }
+
+            if (button_A0.BackColor == Color.CornflowerBlue)
+            {
+                button_A0.BackColor = Color.IndianRed;
+                return;
+            }
+
+            if (button_A0.BackColor == Color.IndianRed)
+            {
+                button_A0.BackColor = Color.White;
+            }
+        }
+
+        private void button_A1_Click(object sender, EventArgs e)
+        {
+            if (button_A1.BackColor == Color.White)
+            {
+                button_A1.BackColor = Color.CornflowerBlue;
+                return;
+            }
+
+            if (button_A1.BackColor == Color.CornflowerBlue)
+            {
+                button_A1.BackColor = Color.IndianRed;
+                return;
+            }
+
+            if (button_A1.BackColor == Color.IndianRed)
+            {
+                button_A1.BackColor = Color.White;
+            }
+        }
+
+        private void button_A2_Click(object sender, EventArgs e)
+        {
+            if (button_A2.BackColor == Color.White)
+            {
+                button_A2.BackColor = Color.CornflowerBlue;
+                return;
+            }
+
+            if (button_A2.BackColor == Color.CornflowerBlue)
+            {
+                button_A2.BackColor = Color.IndianRed;
+                return;
+            }
+
+            if (button_A2.BackColor == Color.IndianRed)
+            {
+                button_A2.BackColor = Color.White;
+            }
+
+        }
+
+        private void button_A3_Click(object sender, EventArgs e)
+        {
+            if (button_A3.BackColor == Color.White)
+            {
+                button_A3.BackColor = Color.CornflowerBlue;
+                return;
+            }
+
+            if (button_A3.BackColor == Color.CornflowerBlue)
+            {
+                button_A3.BackColor = Color.IndianRed;
+                return;
+            }
+
+            if (button_A3.BackColor == Color.IndianRed)
+            {
+                button_A3.BackColor = Color.White;
+            }
+
+        }
+
+        private void button_A4_Click(object sender, EventArgs e)
+        {
+            if (button_A4.BackColor == Color.White)
+            {
+                button_A4.BackColor = Color.CornflowerBlue;
+                return;
+            }
+
+            if (button_A4.BackColor == Color.CornflowerBlue)
+            {
+                button_A4.BackColor = Color.IndianRed;
+                return;
+            }
+
+            if (button_A4.BackColor == Color.IndianRed)
+            {
+                button_A4.BackColor = Color.White;
+            }
+
+        }
+
+        private void button_A5_Click(object sender, EventArgs e)
+        {
+            if (button_A5.BackColor == Color.White)
+            {
+                button_A5.BackColor = Color.CornflowerBlue;
+                return;
+            }
+
+            if (button_A5.BackColor == Color.CornflowerBlue)
+            {
+                button_A5.BackColor = Color.IndianRed;
+                return;
+            }
+
+            if (button_A5.BackColor == Color.IndianRed)
+            {
+                button_A5.BackColor = Color.White;
+            }
+        }
+
+        private void button_A6_Click(object sender, EventArgs e)
+        {
+            if (button_A6.BackColor == Color.White)
+            {
+                button_A6.BackColor = Color.CornflowerBlue;
+                return;
+            }
+
+            if (button_A6.BackColor == Color.CornflowerBlue)
+            {
+                button_A6.BackColor = Color.IndianRed;
+                return;
+            }
+
+            if (button_A6.BackColor == Color.IndianRed)
+            {
+                button_A6.BackColor = Color.White;
+            }
+        }
+
+        private void button_A7_Click(object sender, EventArgs e)
+        {
+            if (button_A7.BackColor == Color.White)
+            {
+                button_A7.BackColor = Color.CornflowerBlue;
+                return;
+            }
+
+            if (button_A7.BackColor == Color.CornflowerBlue)
+            {
+                button_A7.BackColor = Color.IndianRed;
+                return;
+            }
+
+            if (button_A7.BackColor == Color.IndianRed)
+            {
+                button_A7.BackColor = Color.White;
+            }
+        }
+
+
+        //Bit teil von A
+        private void button_bit_A0_Click(object sender, EventArgs e)
+        {
+            if (button_bit_A0.Text == "0")
+            {
+                button_bit_A0.Text = "1";
+            }
+            else
+            {
+                button_bit_A0.Text = "0";
+            }
+        }
+
+        private void button_bit_A1_Click(object sender, EventArgs e)
+        {
+            if (button_bit_A1.Text == "0")
+            {
+                button_bit_A1.Text = "1";
+            }
+            else
+            {
+                button_bit_A1.Text = "0";
+            }
+
+
+        }
+
+        private void button_bit_A2_Click(object sender, EventArgs e)
+        {
+            if (button_bit_A2.Text == "0")
+            {
+                button_bit_A2.Text = "1";
+            }
+            else
+            {
+                button_bit_A2.Text = "0";
+            }
+
+        }
+
+        private void button_bit_A3_Click(object sender, EventArgs e)
+        {
+            if (button_bit_A3.Text == "0")
+            {
+                button_bit_A3.Text = "1";
+            }
+            else
+            {
+                button_bit_A3.Text = "0";
+            }
+        }
+
+        private void button_bit_A4_Click(object sender, EventArgs e)
+        {
+            if (button_bit_A4.Text == "0")
+            {
+                button_bit_A4.Text = "1";
+            }
+            else
+            {
+                button_bit_A4.Text = "0";
+            }
+        }
+
+        private void button_bit_A5_Click(object sender, EventArgs e)
+        {
+            if (button_bit_A5.Text == "0")
+            {
+                button_bit_A5.Text = "1";
+            }
+            else
+            {
+                button_bit_A5.Text = "0";
+            }
+
+        }
+
+        private void button_bit_A6_Click(object sender, EventArgs e)
+        {
+            if (button_bit_A6.Text == "0")
+            {
+                button_bit_A6.Text = "1";
+            }
+            else
+            {
+                button_bit_A6.Text = "0";
+            }
+        }
+
+        private void button_bit_A7_Click(object sender, EventArgs e)
+        {
+            if (button_bit_A7.Text == "0")
+            {
+                button_bit_A7.Text = "1";
+            }
+            else
+            {
+                button_bit_A7.Text = "0";
+            }
+        }
+
+
+
+        // Button B mit Farben
+
+        private void button_B0_Click(object sender, EventArgs e)
+        {
+
+            if (button_B0.BackColor == Color.White)
+            {
+                button_B0.BackColor = Color.CornflowerBlue;
+                return;
+            }
+
+            if (button_B0.BackColor == Color.CornflowerBlue)
+            {
+                button_B0.BackColor = Color.IndianRed;
+                return;
+            }
+
+            if (button_B0.BackColor == Color.IndianRed)
+            {
+                button_B0.BackColor = Color.White;
+            }
+
+        }
+
+        private void button_B1_Click(object sender, EventArgs e)
+        {
+
+            if (button_B1.BackColor == Color.White)
+            {
+                button_B1.BackColor = Color.CornflowerBlue;
+                return;
+            }
+
+            if (button_B1.BackColor == Color.CornflowerBlue)
+            {
+                button_B1.BackColor = Color.IndianRed;
+                return;
+            }
+
+            if (button_B1.BackColor == Color.IndianRed)
+            {
+                button_B1.BackColor = Color.White;
+            }
+        }
+
+        private void button_B2_Click(object sender, EventArgs e)
+        {
+            if (button_B2.BackColor == Color.White)
+            {
+                button_B2.BackColor = Color.CornflowerBlue;
+                return;
+            }
+
+            if (button_B2.BackColor == Color.CornflowerBlue)
+            {
+                button_B2.BackColor = Color.IndianRed;
+                return;
+            }
+
+            if (button_B2.BackColor == Color.IndianRed)
+            {
+                button_B2.BackColor = Color.White;
+            }
+        }
+
+        private void button_B3_Click(object sender, EventArgs e)
+        {
+            if (button_B3.BackColor == Color.White)
+            {
+                button_B3.BackColor = Color.CornflowerBlue;
+                return;
+            }
+
+            if (button_B3.BackColor == Color.CornflowerBlue)
+            {
+                button_B3.BackColor = Color.IndianRed;
+                return;
+            }
+
+            if (button_B3.BackColor == Color.IndianRed)
+            {
+                button_B3.BackColor = Color.White;
+            }
+        }
+
+        private void button_B4_Click(object sender, EventArgs e)
+        {
+            if (button_B4.BackColor == Color.White)
+            {
+                button_B4.BackColor = Color.CornflowerBlue;
+                return;
+            }
+
+            if (button_B4.BackColor == Color.CornflowerBlue)
+            {
+                button_B4.BackColor = Color.IndianRed;
+                return;
+            }
+
+            if (button_B4.BackColor == Color.IndianRed)
+            {
+                button_B4.BackColor = Color.White;
+            }
+        }
+
+        private void button_B5_Click(object sender, EventArgs e)
+        {
+            if (button_B5.BackColor == Color.White)
+            {
+                button_B5.BackColor = Color.CornflowerBlue;
+                return;
+            }
+
+            if (button_B5.BackColor == Color.CornflowerBlue)
+            {
+                button_B5.BackColor = Color.IndianRed;
+                return;
+            }
+
+            if (button_B5.BackColor == Color.IndianRed)
+            {
+                button_B5.BackColor = Color.White;
+            }
+        }
+
+        private void button_B6_Click(object sender, EventArgs e)
+        {
+            if (button_B6.BackColor == Color.White)
+            {
+                button_B6.BackColor = Color.CornflowerBlue;
+                return;
+            }
+
+            if (button_B6.BackColor == Color.CornflowerBlue)
+            {
+                button_B6.BackColor = Color.IndianRed;
+                return;
+            }
+
+            if (button_B6.BackColor == Color.IndianRed)
+            {
+                button_B6.BackColor = Color.White;
+            }
+        }
+
+        private void button_B7_Click(object sender, EventArgs e)
+        {
+            if (button_B7.BackColor == Color.White)
+            {
+                button_B7.BackColor = Color.CornflowerBlue;
+                return;
+            }
+
+            if (button_B7.BackColor == Color.CornflowerBlue)
+            {
+                button_B7.BackColor = Color.IndianRed;
+                return;
+            }
+
+            if (button_B7.BackColor == Color.IndianRed)
+            {
+                button_B7.BackColor = Color.White;
+            }
+        }
+
+
+        //Bit Teil Button B
+
+        private void button_bit_B0_Click(object sender, EventArgs e)
+        {
+            if (button_bit_B0.Text == "0")
+            {
+                button_bit_B0.Text = "1";
+            }
+            else
+            {
+                button_bit_B0.Text = "0";
+            }
+        }
+
+        private void button_bit_B1_Click(object sender, EventArgs e)
+        {
+            if (button_bit_B1.Text == "0")
+            {
+                button_bit_B1.Text = "1";
+            }
+            else
+            {
+                button_bit_B1.Text = "0";
+            }
+        }
+
+        private void button_bit_B2_Click(object sender, EventArgs e)
+        {
+            if (button_bit_B2.Text == "0")
+            {
+                button_bit_B2.Text = "1";
+            }
+            else
+            {
+                button_bit_B2.Text = "0";
+            }
+        }
+
+        private void button_bit_B3_Click(object sender, EventArgs e)
+        {
+            if (button_bit_B3.Text == "0")
+            {
+                button_bit_B3.Text = "1";
+            }
+            else
+            {
+                button_bit_B3.Text = "0";
+            }
+        }
+
+        private void button_bit_B4_Click(object sender, EventArgs e)
+        {
+            if (button_bit_B4.Text == "0")
+            {
+                button_bit_B4.Text = "1";
+            }
+            else
+            {
+                button_bit_B4.Text = "0";
+            }
+        }
+
+        private void button_bit_B5_Click(object sender, EventArgs e)
+        {
+            if (button_bit_B5.Text == "0")
+            {
+                button_bit_B5.Text = "1";
+            }
+            else
+            {
+                button_bit_B5.Text = "0";
+            }
+        }
+
+        private void button_bit_B6_Click(object sender, EventArgs e)
+        {
+            if (button_bit_B6.Text == "0")
+            {
+
+                button_bit_B6.Text = "1";
+            }
+            else
+            {
+                button_bit_B6.Text = "0";
+            }
+        }
+
+        private void button_bit_B7_Click(object sender, EventArgs e)
+        {
+            if (button_bit_B7.Text == "0")
+            {
+                button_bit_B7.Text = "1";
+            }
+            else
+            {
+                button_bit_B7.Text = "0";
+            }
+        }
+
+    #endregion
     }
 }
