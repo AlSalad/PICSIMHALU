@@ -42,26 +42,6 @@ namespace MicroSimulator
             this.btn_Step = new System.Windows.Forms.Button();
             this.btn_Start = new System.Windows.Forms.Button();
             this.text_Pc = new System.Windows.Forms.TextBox();
-            this.RegA_Bit0 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RegA_Bit1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RegA_Bit2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RegA_Bit3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RegA_Bit4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RegA_Bit5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RegA_Bit6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Reg1_bit7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RegA = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridView_RegA = new System.Windows.Forms.DataGridView();
-            this.dataGridView_RegB = new System.Windows.Forms.DataGridView();
-            this.RegB = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RegB_Bit7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RegB_Bit6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RegB_Bit5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RegB_Bit4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RegB_Bit3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RegB_Bit2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RegB_Bit1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RegB_Bit0 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label_PC = new System.Windows.Forms.Label();
             this.textBox_CarryFlag = new System.Windows.Forms.TextBox();
             this.textBox_ZeroFlag = new System.Windows.Forms.TextBox();
@@ -80,12 +60,10 @@ namespace MicroSimulator
             this.textBox_Quarz = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.Button_Help = new System.Windows.Forms.Button();
-            this.Timer_0 = new System.Windows.Forms.Timer(this.components);
             this.text_Tmr0 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.Timer_Takt = new System.Windows.Forms.Timer(this.components);
             this.text_Runtime = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -97,10 +75,54 @@ namespace MicroSimulator
             this.text_WatchDogTimer = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
+            this.groupBox_SpecialRegs = new System.Windows.Forms.GroupBox();
+            this.groupBox_Flags = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.text_Prescaler = new System.Windows.Forms.TextBox();
+            this.button_B0 = new System.Windows.Forms.Button();
+            this.button_bit_A7 = new System.Windows.Forms.Button();
+            this.button_B6 = new System.Windows.Forms.Button();
+            this.button_bit_A1 = new System.Windows.Forms.Button();
+            this.button_B5 = new System.Windows.Forms.Button();
+            this.button_bit_A2 = new System.Windows.Forms.Button();
+            this.button_B4 = new System.Windows.Forms.Button();
+            this.button_bit_A3 = new System.Windows.Forms.Button();
+            this.button_B3 = new System.Windows.Forms.Button();
+            this.button_bit_A4 = new System.Windows.Forms.Button();
+            this.button_B2 = new System.Windows.Forms.Button();
+            this.button_bit_A5 = new System.Windows.Forms.Button();
+            this.button_B1 = new System.Windows.Forms.Button();
+            this.button_bit_A6 = new System.Windows.Forms.Button();
+            this.button_B7 = new System.Windows.Forms.Button();
+            this.button_bit_A0 = new System.Windows.Forms.Button();
+            this.button_bit_B0 = new System.Windows.Forms.Button();
+            this.button_A7 = new System.Windows.Forms.Button();
+            this.button_bit_B6 = new System.Windows.Forms.Button();
+            this.button_A1 = new System.Windows.Forms.Button();
+            this.button_bit_B5 = new System.Windows.Forms.Button();
+            this.button_A2 = new System.Windows.Forms.Button();
+            this.button_bit_B4 = new System.Windows.Forms.Button();
+            this.button_A3 = new System.Windows.Forms.Button();
+            this.button_bit_B3 = new System.Windows.Forms.Button();
+            this.button_A5 = new System.Windows.Forms.Button();
+            this.button_bit_B2 = new System.Windows.Forms.Button();
+            this.button_A6 = new System.Windows.Forms.Button();
+            this.button_bit_B1 = new System.Windows.Forms.Button();
+            this.button_A0 = new System.Windows.Forms.Button();
+            this.button_bit_B7 = new System.Windows.Forms.Button();
+            this.button_A4 = new System.Windows.Forms.Button();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_prog)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_RegA)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_RegB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Register)).BeginInit();
+            this.groupBox_SpecialRegs.SuspendLayout();
+            this.groupBox_Flags.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // text_path
@@ -138,7 +160,7 @@ namespace MicroSimulator
             this.dataGridView_prog.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView_prog.Name = "dataGridView_prog";
             this.dataGridView_prog.RowTemplate.Height = 28;
-            this.dataGridView_prog.Size = new System.Drawing.Size(362, 641);
+            this.dataGridView_prog.Size = new System.Drawing.Size(362, 769);
             this.dataGridView_prog.TabIndex = 8;
             // 
             // Column_BreakPoint
@@ -173,7 +195,7 @@ namespace MicroSimulator
             // text_W
             // 
             this.text_W.BackColor = System.Drawing.SystemColors.Info;
-            this.text_W.Location = new System.Drawing.Point(712, 233);
+            this.text_W.Location = new System.Drawing.Point(31, 39);
             this.text_W.Margin = new System.Windows.Forms.Padding(2);
             this.text_W.Name = "text_W";
             this.text_W.Size = new System.Drawing.Size(43, 20);
@@ -183,7 +205,7 @@ namespace MicroSimulator
             // label_W
             // 
             this.label_W.AutoSize = true;
-            this.label_W.Location = new System.Drawing.Point(693, 236);
+            this.label_W.Location = new System.Drawing.Point(12, 42);
             this.label_W.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_W.Name = "label_W";
             this.label_W.Size = new System.Drawing.Size(18, 13);
@@ -214,189 +236,17 @@ namespace MicroSimulator
             // 
             // text_Pc
             // 
-            this.text_Pc.Location = new System.Drawing.Point(712, 209);
+            this.text_Pc.Location = new System.Drawing.Point(31, 18);
             this.text_Pc.Margin = new System.Windows.Forms.Padding(2);
             this.text_Pc.Name = "text_Pc";
             this.text_Pc.Size = new System.Drawing.Size(43, 20);
             this.text_Pc.TabIndex = 34;
             this.text_Pc.Text = "0";
             // 
-            // RegA_Bit0
-            // 
-            this.RegA_Bit0.HeaderText = "0";
-            this.RegA_Bit0.Name = "RegA_Bit0";
-            this.RegA_Bit0.ReadOnly = true;
-            this.RegA_Bit0.Width = 25;
-            // 
-            // RegA_Bit1
-            // 
-            this.RegA_Bit1.HeaderText = "1";
-            this.RegA_Bit1.Name = "RegA_Bit1";
-            this.RegA_Bit1.ReadOnly = true;
-            this.RegA_Bit1.Width = 25;
-            // 
-            // RegA_Bit2
-            // 
-            this.RegA_Bit2.HeaderText = "2";
-            this.RegA_Bit2.Name = "RegA_Bit2";
-            this.RegA_Bit2.ReadOnly = true;
-            this.RegA_Bit2.Width = 25;
-            // 
-            // RegA_Bit3
-            // 
-            this.RegA_Bit3.HeaderText = "3";
-            this.RegA_Bit3.Name = "RegA_Bit3";
-            this.RegA_Bit3.ReadOnly = true;
-            this.RegA_Bit3.Width = 25;
-            // 
-            // RegA_Bit4
-            // 
-            this.RegA_Bit4.HeaderText = "4";
-            this.RegA_Bit4.Name = "RegA_Bit4";
-            this.RegA_Bit4.ReadOnly = true;
-            this.RegA_Bit4.Width = 25;
-            // 
-            // RegA_Bit5
-            // 
-            this.RegA_Bit5.HeaderText = "5";
-            this.RegA_Bit5.Name = "RegA_Bit5";
-            this.RegA_Bit5.ReadOnly = true;
-            this.RegA_Bit5.Width = 25;
-            // 
-            // RegA_Bit6
-            // 
-            this.RegA_Bit6.HeaderText = "6";
-            this.RegA_Bit6.Name = "RegA_Bit6";
-            this.RegA_Bit6.ReadOnly = true;
-            this.RegA_Bit6.Width = 25;
-            // 
-            // Reg1_bit7
-            // 
-            this.Reg1_bit7.HeaderText = "7";
-            this.Reg1_bit7.Name = "Reg1_bit7";
-            this.Reg1_bit7.ReadOnly = true;
-            this.Reg1_bit7.Width = 25;
-            // 
-            // RegA
-            // 
-            this.RegA.HeaderText = "RA";
-            this.RegA.Name = "RegA";
-            this.RegA.ReadOnly = true;
-            this.RegA.Width = 60;
-            // 
-            // dataGridView_RegA
-            // 
-            this.dataGridView_RegA.AllowUserToAddRows = false;
-            this.dataGridView_RegA.AllowUserToDeleteRows = false;
-            this.dataGridView_RegA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_RegA.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.RegA,
-            this.Reg1_bit7,
-            this.RegA_Bit6,
-            this.RegA_Bit5,
-            this.RegA_Bit4,
-            this.RegA_Bit3,
-            this.RegA_Bit2,
-            this.RegA_Bit1,
-            this.RegA_Bit0});
-            this.dataGridView_RegA.Location = new System.Drawing.Point(527, 41);
-            this.dataGridView_RegA.Margin = new System.Windows.Forms.Padding(2);
-            this.dataGridView_RegA.Name = "dataGridView_RegA";
-            this.dataGridView_RegA.ReadOnly = true;
-            this.dataGridView_RegA.RowTemplate.Height = 28;
-            this.dataGridView_RegA.Size = new System.Drawing.Size(303, 79);
-            this.dataGridView_RegA.TabIndex = 35;
-            // 
-            // dataGridView_RegB
-            // 
-            this.dataGridView_RegB.AllowUserToAddRows = false;
-            this.dataGridView_RegB.AllowUserToDeleteRows = false;
-            this.dataGridView_RegB.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_RegB.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.RegB,
-            this.RegB_Bit7,
-            this.RegB_Bit6,
-            this.RegB_Bit5,
-            this.RegB_Bit4,
-            this.RegB_Bit3,
-            this.RegB_Bit2,
-            this.RegB_Bit1,
-            this.RegB_Bit0});
-            this.dataGridView_RegB.Location = new System.Drawing.Point(527, 124);
-            this.dataGridView_RegB.Margin = new System.Windows.Forms.Padding(2);
-            this.dataGridView_RegB.Name = "dataGridView_RegB";
-            this.dataGridView_RegB.ReadOnly = true;
-            this.dataGridView_RegB.RowTemplate.Height = 28;
-            this.dataGridView_RegB.Size = new System.Drawing.Size(303, 79);
-            this.dataGridView_RegB.TabIndex = 36;
-            // 
-            // RegB
-            // 
-            this.RegB.HeaderText = "RB";
-            this.RegB.Name = "RegB";
-            this.RegB.ReadOnly = true;
-            this.RegB.Width = 60;
-            // 
-            // RegB_Bit7
-            // 
-            this.RegB_Bit7.HeaderText = "7";
-            this.RegB_Bit7.Name = "RegB_Bit7";
-            this.RegB_Bit7.ReadOnly = true;
-            this.RegB_Bit7.Width = 25;
-            // 
-            // RegB_Bit6
-            // 
-            this.RegB_Bit6.HeaderText = "6";
-            this.RegB_Bit6.Name = "RegB_Bit6";
-            this.RegB_Bit6.ReadOnly = true;
-            this.RegB_Bit6.Width = 25;
-            // 
-            // RegB_Bit5
-            // 
-            this.RegB_Bit5.HeaderText = "5";
-            this.RegB_Bit5.Name = "RegB_Bit5";
-            this.RegB_Bit5.ReadOnly = true;
-            this.RegB_Bit5.Width = 25;
-            // 
-            // RegB_Bit4
-            // 
-            this.RegB_Bit4.HeaderText = "4";
-            this.RegB_Bit4.Name = "RegB_Bit4";
-            this.RegB_Bit4.ReadOnly = true;
-            this.RegB_Bit4.Width = 25;
-            // 
-            // RegB_Bit3
-            // 
-            this.RegB_Bit3.HeaderText = "3";
-            this.RegB_Bit3.Name = "RegB_Bit3";
-            this.RegB_Bit3.ReadOnly = true;
-            this.RegB_Bit3.Width = 25;
-            // 
-            // RegB_Bit2
-            // 
-            this.RegB_Bit2.HeaderText = "2";
-            this.RegB_Bit2.Name = "RegB_Bit2";
-            this.RegB_Bit2.ReadOnly = true;
-            this.RegB_Bit2.Width = 25;
-            // 
-            // RegB_Bit1
-            // 
-            this.RegB_Bit1.HeaderText = "1";
-            this.RegB_Bit1.Name = "RegB_Bit1";
-            this.RegB_Bit1.ReadOnly = true;
-            this.RegB_Bit1.Width = 25;
-            // 
-            // RegB_Bit0
-            // 
-            this.RegB_Bit0.HeaderText = "0";
-            this.RegB_Bit0.Name = "RegB_Bit0";
-            this.RegB_Bit0.ReadOnly = true;
-            this.RegB_Bit0.Width = 25;
-            // 
             // label_PC
             // 
             this.label_PC.AutoSize = true;
-            this.label_PC.Location = new System.Drawing.Point(690, 212);
+            this.label_PC.Location = new System.Drawing.Point(9, 18);
             this.label_PC.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_PC.Name = "label_PC";
             this.label_PC.Size = new System.Drawing.Size(21, 13);
@@ -405,7 +255,7 @@ namespace MicroSimulator
             // 
             // textBox_CarryFlag
             // 
-            this.textBox_CarryFlag.Location = new System.Drawing.Point(712, 257);
+            this.textBox_CarryFlag.Location = new System.Drawing.Point(31, 18);
             this.textBox_CarryFlag.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_CarryFlag.Name = "textBox_CarryFlag";
             this.textBox_CarryFlag.Size = new System.Drawing.Size(26, 20);
@@ -414,7 +264,7 @@ namespace MicroSimulator
             // 
             // textBox_ZeroFlag
             // 
-            this.textBox_ZeroFlag.Location = new System.Drawing.Point(712, 305);
+            this.textBox_ZeroFlag.Location = new System.Drawing.Point(31, 66);
             this.textBox_ZeroFlag.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_ZeroFlag.Name = "textBox_ZeroFlag";
             this.textBox_ZeroFlag.Size = new System.Drawing.Size(26, 20);
@@ -424,7 +274,7 @@ namespace MicroSimulator
             // label_CarryFlag
             // 
             this.label_CarryFlag.AutoSize = true;
-            this.label_CarryFlag.Location = new System.Drawing.Point(694, 260);
+            this.label_CarryFlag.Location = new System.Drawing.Point(13, 21);
             this.label_CarryFlag.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_CarryFlag.Name = "label_CarryFlag";
             this.label_CarryFlag.Size = new System.Drawing.Size(14, 13);
@@ -434,7 +284,7 @@ namespace MicroSimulator
             // label_ZeroFlag
             // 
             this.label_ZeroFlag.AutoSize = true;
-            this.label_ZeroFlag.Location = new System.Drawing.Point(694, 307);
+            this.label_ZeroFlag.Location = new System.Drawing.Point(13, 68);
             this.label_ZeroFlag.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_ZeroFlag.Name = "label_ZeroFlag";
             this.label_ZeroFlag.Size = new System.Drawing.Size(14, 13);
@@ -443,7 +293,7 @@ namespace MicroSimulator
             // 
             // text_DC
             // 
-            this.text_DC.Location = new System.Drawing.Point(712, 281);
+            this.text_DC.Location = new System.Drawing.Point(31, 42);
             this.text_DC.Margin = new System.Windows.Forms.Padding(2);
             this.text_DC.Name = "text_DC";
             this.text_DC.Size = new System.Drawing.Size(26, 20);
@@ -453,7 +303,7 @@ namespace MicroSimulator
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(689, 284);
+            this.label3.Location = new System.Drawing.Point(8, 45);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(22, 13);
@@ -481,11 +331,11 @@ namespace MicroSimulator
             this.Column_RegHex,
             this.Column_Value,
             this.Column_Bank2});
-            this.dataGridView_Register.Location = new System.Drawing.Point(475, 343);
+            this.dataGridView_Register.Location = new System.Drawing.Point(381, 343);
             this.dataGridView_Register.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView_Register.Name = "dataGridView_Register";
             this.dataGridView_Register.RowTemplate.Height = 28;
-            this.dataGridView_Register.Size = new System.Drawing.Size(354, 339);
+            this.dataGridView_Register.Size = new System.Drawing.Size(341, 467);
             this.dataGridView_Register.TabIndex = 50;
             // 
             // Column_Register
@@ -528,7 +378,7 @@ namespace MicroSimulator
             // 
             // textBox_Quarz
             // 
-            this.textBox_Quarz.Location = new System.Drawing.Point(559, 239);
+            this.textBox_Quarz.Location = new System.Drawing.Point(11, 61);
             this.textBox_Quarz.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_Quarz.Name = "textBox_Quarz";
             this.textBox_Quarz.Size = new System.Drawing.Size(43, 20);
@@ -538,7 +388,7 @@ namespace MicroSimulator
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(602, 242);
+            this.label1.Location = new System.Drawing.Point(55, 64);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(20, 13);
@@ -558,7 +408,7 @@ namespace MicroSimulator
             // 
             // text_Tmr0
             // 
-            this.text_Tmr0.Location = new System.Drawing.Point(559, 287);
+            this.text_Tmr0.Location = new System.Drawing.Point(15, 31);
             this.text_Tmr0.Margin = new System.Windows.Forms.Padding(2);
             this.text_Tmr0.Name = "text_Tmr0";
             this.text_Tmr0.Size = new System.Drawing.Size(68, 20);
@@ -568,7 +418,7 @@ namespace MicroSimulator
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(528, 290);
+            this.label2.Location = new System.Drawing.Point(5, 16);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(31, 13);
@@ -581,27 +431,17 @@ namespace MicroSimulator
             // 
             // text_Runtime
             // 
-            this.text_Runtime.Location = new System.Drawing.Point(559, 215);
+            this.text_Runtime.Location = new System.Drawing.Point(11, 21);
             this.text_Runtime.Margin = new System.Windows.Forms.Padding(2);
             this.text_Runtime.Name = "text_Runtime";
             this.text_Runtime.Size = new System.Drawing.Size(63, 20);
             this.text_Runtime.TabIndex = 57;
             this.text_Runtime.Text = "0";
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(507, 218);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(50, 13);
-            this.label4.TabIndex = 58;
-            this.label4.Text = "RunTime";
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(519, 242);
+            this.label5.Location = new System.Drawing.Point(9, 46);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(38, 13);
@@ -611,7 +451,7 @@ namespace MicroSimulator
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(759, 236);
+            this.label6.Location = new System.Drawing.Point(78, 42);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(13, 13);
@@ -621,7 +461,7 @@ namespace MicroSimulator
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(759, 212);
+            this.label7.Location = new System.Drawing.Point(78, 18);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(13, 13);
@@ -631,7 +471,7 @@ namespace MicroSimulator
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(626, 290);
+            this.label8.Location = new System.Drawing.Point(87, 34);
             this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(13, 13);
@@ -641,7 +481,7 @@ namespace MicroSimulator
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(621, 218);
+            this.label9.Location = new System.Drawing.Point(78, 25);
             this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(18, 13);
@@ -650,7 +490,7 @@ namespace MicroSimulator
             // 
             // text_Takt
             // 
-            this.text_Takt.Location = new System.Drawing.Point(559, 263);
+            this.text_Takt.Location = new System.Drawing.Point(969, 17);
             this.text_Takt.Margin = new System.Windows.Forms.Padding(2);
             this.text_Takt.Name = "text_Takt";
             this.text_Takt.Size = new System.Drawing.Size(43, 20);
@@ -661,7 +501,7 @@ namespace MicroSimulator
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(528, 266);
+            this.label10.Location = new System.Drawing.Point(936, 20);
             this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(29, 13);
@@ -671,7 +511,7 @@ namespace MicroSimulator
             // ms
             // 
             this.ms.AutoSize = true;
-            this.ms.Location = new System.Drawing.Point(602, 266);
+            this.ms.Location = new System.Drawing.Point(1016, 20);
             this.ms.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.ms.Name = "ms";
             this.ms.Size = new System.Drawing.Size(20, 13);
@@ -680,85 +520,555 @@ namespace MicroSimulator
             // 
             // text_WatchDogTimer
             // 
-            this.text_WatchDogTimer.Location = new System.Drawing.Point(559, 311);
+            this.text_WatchDogTimer.Location = new System.Drawing.Point(15, 115);
             this.text_WatchDogTimer.Margin = new System.Windows.Forms.Padding(2);
             this.text_WatchDogTimer.Name = "text_WatchDogTimer";
-            this.text_WatchDogTimer.Size = new System.Drawing.Size(63, 20);
+            this.text_WatchDogTimer.Size = new System.Drawing.Size(53, 20);
             this.text_WatchDogTimer.TabIndex = 67;
             this.text_WatchDogTimer.Text = "0";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(524, 314);
+            this.label11.Location = new System.Drawing.Point(5, 100);
             this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(33, 13);
+            this.label11.Size = new System.Drawing.Size(83, 13);
             this.label11.TabIndex = 68;
-            this.label11.Text = "WDT";
+            this.label11.Text = "WatchdogTimer";
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(621, 314);
+            this.label12.Location = new System.Drawing.Point(70, 118);
             this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(20, 13);
+            this.label12.Size = new System.Drawing.Size(18, 13);
             this.label12.TabIndex = 69;
-            this.label12.Text = "ms";
+            this.label12.Text = "µs";
+            // 
+            // groupBox_SpecialRegs
+            // 
+            this.groupBox_SpecialRegs.Controls.Add(this.text_Pc);
+            this.groupBox_SpecialRegs.Controls.Add(this.text_W);
+            this.groupBox_SpecialRegs.Controls.Add(this.label_W);
+            this.groupBox_SpecialRegs.Controls.Add(this.label_PC);
+            this.groupBox_SpecialRegs.Controls.Add(this.label6);
+            this.groupBox_SpecialRegs.Controls.Add(this.label7);
+            this.groupBox_SpecialRegs.Location = new System.Drawing.Point(381, 266);
+            this.groupBox_SpecialRegs.Name = "groupBox_SpecialRegs";
+            this.groupBox_SpecialRegs.Size = new System.Drawing.Size(111, 72);
+            this.groupBox_SpecialRegs.TabIndex = 70;
+            this.groupBox_SpecialRegs.TabStop = false;
+            this.groupBox_SpecialRegs.Text = "Special Registers";
+            // 
+            // groupBox_Flags
+            // 
+            this.groupBox_Flags.Controls.Add(this.textBox_CarryFlag);
+            this.groupBox_Flags.Controls.Add(this.textBox_ZeroFlag);
+            this.groupBox_Flags.Controls.Add(this.label_CarryFlag);
+            this.groupBox_Flags.Controls.Add(this.label_ZeroFlag);
+            this.groupBox_Flags.Controls.Add(this.text_DC);
+            this.groupBox_Flags.Controls.Add(this.label3);
+            this.groupBox_Flags.Location = new System.Drawing.Point(499, 244);
+            this.groupBox_Flags.Name = "groupBox_Flags";
+            this.groupBox_Flags.Size = new System.Drawing.Size(87, 94);
+            this.groupBox_Flags.TabIndex = 71;
+            this.groupBox_Flags.TabStop = false;
+            this.groupBox_Flags.Text = "Flags";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.text_Runtime);
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.textBox_Quarz);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Location = new System.Drawing.Point(382, 165);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(111, 100);
+            this.groupBox1.TabIndex = 72;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Runtime";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.label4);
+            this.groupBox2.Controls.Add(this.text_Prescaler);
+            this.groupBox2.Controls.Add(this.text_Tmr0);
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Controls.Add(this.label8);
+            this.groupBox2.Controls.Add(this.text_WatchDogTimer);
+            this.groupBox2.Controls.Add(this.label12);
+            this.groupBox2.Controls.Add(this.label11);
+            this.groupBox2.Location = new System.Drawing.Point(592, 190);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(130, 148);
+            this.groupBox2.TabIndex = 73;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Timer";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(5, 54);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(78, 13);
+            this.label4.TabIndex = 71;
+            this.label4.Text = "Tmr0 Prescaler";
+            // 
+            // text_Prescaler
+            // 
+            this.text_Prescaler.Location = new System.Drawing.Point(15, 70);
+            this.text_Prescaler.Name = "text_Prescaler";
+            this.text_Prescaler.Size = new System.Drawing.Size(53, 20);
+            this.text_Prescaler.TabIndex = 70;
+            this.text_Prescaler.Text = "0";
+            // 
+            // button_B0
+            // 
+            this.button_B0.Location = new System.Drawing.Point(1059, 178);
+            this.button_B0.Margin = new System.Windows.Forms.Padding(0);
+            this.button_B0.Name = "button_B0";
+            this.button_B0.Size = new System.Drawing.Size(40, 40);
+            this.button_B0.TabIndex = 90;
+            this.button_B0.UseVisualStyleBackColor = true;
+            this.button_B0.Click += new System.EventHandler(this.button_B0_Click);
+            // 
+            // button_bit_A7
+            // 
+            this.button_bit_A7.Location = new System.Drawing.Point(779, 103);
+            this.button_bit_A7.Margin = new System.Windows.Forms.Padding(0);
+            this.button_bit_A7.Name = "button_bit_A7";
+            this.button_bit_A7.Size = new System.Drawing.Size(40, 40);
+            this.button_bit_A7.TabIndex = 89;
+            this.button_bit_A7.Text = "0";
+            this.button_bit_A7.UseVisualStyleBackColor = true;
+            this.button_bit_A7.Click += new System.EventHandler(this.button_bit_A7_Click);
+            // 
+            // button_B6
+            // 
+            this.button_B6.Location = new System.Drawing.Point(819, 178);
+            this.button_B6.Margin = new System.Windows.Forms.Padding(0);
+            this.button_B6.Name = "button_B6";
+            this.button_B6.Size = new System.Drawing.Size(40, 40);
+            this.button_B6.TabIndex = 91;
+            this.button_B6.UseVisualStyleBackColor = true;
+            this.button_B6.Click += new System.EventHandler(this.button_B6_Click);
+            // 
+            // button_bit_A1
+            // 
+            this.button_bit_A1.Location = new System.Drawing.Point(1019, 103);
+            this.button_bit_A1.Margin = new System.Windows.Forms.Padding(0);
+            this.button_bit_A1.Name = "button_bit_A1";
+            this.button_bit_A1.Size = new System.Drawing.Size(40, 40);
+            this.button_bit_A1.TabIndex = 88;
+            this.button_bit_A1.Text = "0";
+            this.button_bit_A1.UseVisualStyleBackColor = true;
+            this.button_bit_A1.Click += new System.EventHandler(this.button_bit_A1_Click);
+            // 
+            // button_B5
+            // 
+            this.button_B5.Location = new System.Drawing.Point(859, 178);
+            this.button_B5.Margin = new System.Windows.Forms.Padding(0);
+            this.button_B5.Name = "button_B5";
+            this.button_B5.Size = new System.Drawing.Size(40, 40);
+            this.button_B5.TabIndex = 92;
+            this.button_B5.UseVisualStyleBackColor = true;
+            this.button_B5.Click += new System.EventHandler(this.button_B5_Click);
+            // 
+            // button_bit_A2
+            // 
+            this.button_bit_A2.Location = new System.Drawing.Point(979, 103);
+            this.button_bit_A2.Margin = new System.Windows.Forms.Padding(0);
+            this.button_bit_A2.Name = "button_bit_A2";
+            this.button_bit_A2.Size = new System.Drawing.Size(40, 40);
+            this.button_bit_A2.TabIndex = 87;
+            this.button_bit_A2.Text = "0";
+            this.button_bit_A2.UseVisualStyleBackColor = true;
+            this.button_bit_A2.Click += new System.EventHandler(this.button_bit_A2_Click);
+            // 
+            // button_B4
+            // 
+            this.button_B4.Location = new System.Drawing.Point(899, 178);
+            this.button_B4.Margin = new System.Windows.Forms.Padding(0);
+            this.button_B4.Name = "button_B4";
+            this.button_B4.Size = new System.Drawing.Size(40, 40);
+            this.button_B4.TabIndex = 93;
+            this.button_B4.UseVisualStyleBackColor = true;
+            this.button_B4.Click += new System.EventHandler(this.button_B4_Click);
+            // 
+            // button_bit_A3
+            // 
+            this.button_bit_A3.Location = new System.Drawing.Point(939, 103);
+            this.button_bit_A3.Margin = new System.Windows.Forms.Padding(0);
+            this.button_bit_A3.Name = "button_bit_A3";
+            this.button_bit_A3.Size = new System.Drawing.Size(40, 40);
+            this.button_bit_A3.TabIndex = 86;
+            this.button_bit_A3.Text = "0";
+            this.button_bit_A3.UseVisualStyleBackColor = true;
+            this.button_bit_A3.Click += new System.EventHandler(this.button_bit_A3_Click);
+            // 
+            // button_B3
+            // 
+            this.button_B3.Location = new System.Drawing.Point(939, 178);
+            this.button_B3.Margin = new System.Windows.Forms.Padding(0);
+            this.button_B3.Name = "button_B3";
+            this.button_B3.Size = new System.Drawing.Size(40, 40);
+            this.button_B3.TabIndex = 94;
+            this.button_B3.UseVisualStyleBackColor = true;
+            this.button_B3.Click += new System.EventHandler(this.button_B3_Click);
+            // 
+            // button_bit_A4
+            // 
+            this.button_bit_A4.Location = new System.Drawing.Point(899, 103);
+            this.button_bit_A4.Margin = new System.Windows.Forms.Padding(0);
+            this.button_bit_A4.Name = "button_bit_A4";
+            this.button_bit_A4.Size = new System.Drawing.Size(40, 40);
+            this.button_bit_A4.TabIndex = 85;
+            this.button_bit_A4.Text = "0";
+            this.button_bit_A4.UseVisualStyleBackColor = true;
+            this.button_bit_A4.Click += new System.EventHandler(this.button_bit_A4_Click);
+            // 
+            // button_B2
+            // 
+            this.button_B2.Location = new System.Drawing.Point(979, 178);
+            this.button_B2.Margin = new System.Windows.Forms.Padding(0);
+            this.button_B2.Name = "button_B2";
+            this.button_B2.Size = new System.Drawing.Size(40, 40);
+            this.button_B2.TabIndex = 95;
+            this.button_B2.UseVisualStyleBackColor = true;
+            this.button_B2.Click += new System.EventHandler(this.button_B2_Click);
+            // 
+            // button_bit_A5
+            // 
+            this.button_bit_A5.Location = new System.Drawing.Point(859, 103);
+            this.button_bit_A5.Margin = new System.Windows.Forms.Padding(0);
+            this.button_bit_A5.Name = "button_bit_A5";
+            this.button_bit_A5.Size = new System.Drawing.Size(40, 40);
+            this.button_bit_A5.TabIndex = 84;
+            this.button_bit_A5.Text = "0";
+            this.button_bit_A5.UseVisualStyleBackColor = true;
+            this.button_bit_A5.Click += new System.EventHandler(this.button_bit_A5_Click);
+            // 
+            // button_B1
+            // 
+            this.button_B1.Location = new System.Drawing.Point(1019, 178);
+            this.button_B1.Margin = new System.Windows.Forms.Padding(0);
+            this.button_B1.Name = "button_B1";
+            this.button_B1.Size = new System.Drawing.Size(40, 40);
+            this.button_B1.TabIndex = 96;
+            this.button_B1.UseVisualStyleBackColor = true;
+            this.button_B1.Click += new System.EventHandler(this.button_B1_Click);
+            // 
+            // button_bit_A6
+            // 
+            this.button_bit_A6.Location = new System.Drawing.Point(819, 103);
+            this.button_bit_A6.Margin = new System.Windows.Forms.Padding(0);
+            this.button_bit_A6.Name = "button_bit_A6";
+            this.button_bit_A6.Size = new System.Drawing.Size(40, 40);
+            this.button_bit_A6.TabIndex = 83;
+            this.button_bit_A6.Text = "0";
+            this.button_bit_A6.UseVisualStyleBackColor = true;
+            this.button_bit_A6.Click += new System.EventHandler(this.button_bit_A6_Click);
+            // 
+            // button_B7
+            // 
+            this.button_B7.Location = new System.Drawing.Point(779, 178);
+            this.button_B7.Margin = new System.Windows.Forms.Padding(0);
+            this.button_B7.Name = "button_B7";
+            this.button_B7.Size = new System.Drawing.Size(40, 40);
+            this.button_B7.TabIndex = 97;
+            this.button_B7.UseVisualStyleBackColor = true;
+            this.button_B7.Click += new System.EventHandler(this.button_B7_Click);
+            // 
+            // button_bit_A0
+            // 
+            this.button_bit_A0.Location = new System.Drawing.Point(1059, 103);
+            this.button_bit_A0.Margin = new System.Windows.Forms.Padding(0);
+            this.button_bit_A0.Name = "button_bit_A0";
+            this.button_bit_A0.Size = new System.Drawing.Size(40, 40);
+            this.button_bit_A0.TabIndex = 82;
+            this.button_bit_A0.Text = "0";
+            this.button_bit_A0.UseVisualStyleBackColor = true;
+            this.button_bit_A0.Click += new System.EventHandler(this.button_bit_A0_Click);
+            // 
+            // button_bit_B0
+            // 
+            this.button_bit_B0.Location = new System.Drawing.Point(1059, 218);
+            this.button_bit_B0.Margin = new System.Windows.Forms.Padding(0);
+            this.button_bit_B0.Name = "button_bit_B0";
+            this.button_bit_B0.Size = new System.Drawing.Size(40, 40);
+            this.button_bit_B0.TabIndex = 98;
+            this.button_bit_B0.Text = "0";
+            this.button_bit_B0.UseVisualStyleBackColor = true;
+            this.button_bit_B0.Click += new System.EventHandler(this.button_bit_B0_Click);
+            // 
+            // button_A7
+            // 
+            this.button_A7.Location = new System.Drawing.Point(779, 63);
+            this.button_A7.Margin = new System.Windows.Forms.Padding(0);
+            this.button_A7.Name = "button_A7";
+            this.button_A7.Size = new System.Drawing.Size(40, 40);
+            this.button_A7.TabIndex = 81;
+            this.button_A7.UseVisualStyleBackColor = true;
+            this.button_A7.Click += new System.EventHandler(this.button_A7_Click);
+            // 
+            // button_bit_B6
+            // 
+            this.button_bit_B6.Location = new System.Drawing.Point(819, 218);
+            this.button_bit_B6.Margin = new System.Windows.Forms.Padding(0);
+            this.button_bit_B6.Name = "button_bit_B6";
+            this.button_bit_B6.Size = new System.Drawing.Size(40, 40);
+            this.button_bit_B6.TabIndex = 99;
+            this.button_bit_B6.Text = "0";
+            this.button_bit_B6.UseVisualStyleBackColor = true;
+            this.button_bit_B6.Click += new System.EventHandler(this.button_bit_B6_Click);
+            // 
+            // button_A1
+            // 
+            this.button_A1.Location = new System.Drawing.Point(1019, 63);
+            this.button_A1.Margin = new System.Windows.Forms.Padding(0);
+            this.button_A1.Name = "button_A1";
+            this.button_A1.Size = new System.Drawing.Size(40, 40);
+            this.button_A1.TabIndex = 80;
+            this.button_A1.UseVisualStyleBackColor = true;
+            this.button_A1.Click += new System.EventHandler(this.button_A1_Click);
+            // 
+            // button_bit_B5
+            // 
+            this.button_bit_B5.Location = new System.Drawing.Point(859, 218);
+            this.button_bit_B5.Margin = new System.Windows.Forms.Padding(0);
+            this.button_bit_B5.Name = "button_bit_B5";
+            this.button_bit_B5.Size = new System.Drawing.Size(40, 40);
+            this.button_bit_B5.TabIndex = 100;
+            this.button_bit_B5.Text = "0";
+            this.button_bit_B5.UseVisualStyleBackColor = true;
+            this.button_bit_B5.Click += new System.EventHandler(this.button_bit_B5_Click);
+            // 
+            // button_A2
+            // 
+            this.button_A2.Location = new System.Drawing.Point(979, 63);
+            this.button_A2.Margin = new System.Windows.Forms.Padding(0);
+            this.button_A2.Name = "button_A2";
+            this.button_A2.Size = new System.Drawing.Size(40, 40);
+            this.button_A2.TabIndex = 79;
+            this.button_A2.UseVisualStyleBackColor = true;
+            this.button_A2.Click += new System.EventHandler(this.button_A2_Click);
+            // 
+            // button_bit_B4
+            // 
+            this.button_bit_B4.Location = new System.Drawing.Point(899, 218);
+            this.button_bit_B4.Margin = new System.Windows.Forms.Padding(0);
+            this.button_bit_B4.Name = "button_bit_B4";
+            this.button_bit_B4.Size = new System.Drawing.Size(40, 40);
+            this.button_bit_B4.TabIndex = 101;
+            this.button_bit_B4.Text = "0";
+            this.button_bit_B4.UseVisualStyleBackColor = true;
+            this.button_bit_B4.Click += new System.EventHandler(this.button_bit_B4_Click);
+            // 
+            // button_A3
+            // 
+            this.button_A3.Location = new System.Drawing.Point(939, 63);
+            this.button_A3.Margin = new System.Windows.Forms.Padding(0);
+            this.button_A3.Name = "button_A3";
+            this.button_A3.Size = new System.Drawing.Size(40, 40);
+            this.button_A3.TabIndex = 78;
+            this.button_A3.UseVisualStyleBackColor = true;
+            this.button_A3.Click += new System.EventHandler(this.button_A3_Click);
+            // 
+            // button_bit_B3
+            // 
+            this.button_bit_B3.Location = new System.Drawing.Point(939, 218);
+            this.button_bit_B3.Margin = new System.Windows.Forms.Padding(0);
+            this.button_bit_B3.Name = "button_bit_B3";
+            this.button_bit_B3.Size = new System.Drawing.Size(40, 40);
+            this.button_bit_B3.TabIndex = 102;
+            this.button_bit_B3.Text = "0";
+            this.button_bit_B3.UseVisualStyleBackColor = true;
+            this.button_bit_B3.Click += new System.EventHandler(this.button_bit_B3_Click);
+            // 
+            // button_A5
+            // 
+            this.button_A5.Location = new System.Drawing.Point(859, 63);
+            this.button_A5.Margin = new System.Windows.Forms.Padding(0);
+            this.button_A5.Name = "button_A5";
+            this.button_A5.Size = new System.Drawing.Size(40, 40);
+            this.button_A5.TabIndex = 76;
+            this.button_A5.UseVisualStyleBackColor = true;
+            this.button_A5.Click += new System.EventHandler(this.button_A5_Click);
+            // 
+            // button_bit_B2
+            // 
+            this.button_bit_B2.Location = new System.Drawing.Point(979, 218);
+            this.button_bit_B2.Margin = new System.Windows.Forms.Padding(0);
+            this.button_bit_B2.Name = "button_bit_B2";
+            this.button_bit_B2.Size = new System.Drawing.Size(40, 40);
+            this.button_bit_B2.TabIndex = 103;
+            this.button_bit_B2.Text = "0";
+            this.button_bit_B2.UseVisualStyleBackColor = true;
+            this.button_bit_B2.Click += new System.EventHandler(this.button_bit_B2_Click);
+            // 
+            // button_A6
+            // 
+            this.button_A6.Location = new System.Drawing.Point(819, 63);
+            this.button_A6.Margin = new System.Windows.Forms.Padding(0);
+            this.button_A6.Name = "button_A6";
+            this.button_A6.Size = new System.Drawing.Size(40, 40);
+            this.button_A6.TabIndex = 75;
+            this.button_A6.UseVisualStyleBackColor = true;
+            this.button_A6.Click += new System.EventHandler(this.button_A6_Click);
+            // 
+            // button_bit_B1
+            // 
+            this.button_bit_B1.Location = new System.Drawing.Point(1019, 218);
+            this.button_bit_B1.Margin = new System.Windows.Forms.Padding(0);
+            this.button_bit_B1.Name = "button_bit_B1";
+            this.button_bit_B1.Size = new System.Drawing.Size(40, 40);
+            this.button_bit_B1.TabIndex = 104;
+            this.button_bit_B1.Text = "0";
+            this.button_bit_B1.UseVisualStyleBackColor = true;
+            this.button_bit_B1.Click += new System.EventHandler(this.button_bit_B1_Click);
+            // 
+            // button_A0
+            // 
+            this.button_A0.Location = new System.Drawing.Point(1059, 63);
+            this.button_A0.Margin = new System.Windows.Forms.Padding(0);
+            this.button_A0.Name = "button_A0";
+            this.button_A0.Size = new System.Drawing.Size(40, 40);
+            this.button_A0.TabIndex = 74;
+            this.button_A0.UseVisualStyleBackColor = true;
+            this.button_A0.Click += new System.EventHandler(this.button_A0_Click);
+            // 
+            // button_bit_B7
+            // 
+            this.button_bit_B7.Location = new System.Drawing.Point(779, 218);
+            this.button_bit_B7.Margin = new System.Windows.Forms.Padding(0);
+            this.button_bit_B7.Name = "button_bit_B7";
+            this.button_bit_B7.Size = new System.Drawing.Size(40, 40);
+            this.button_bit_B7.TabIndex = 105;
+            this.button_bit_B7.Text = "0";
+            this.button_bit_B7.UseVisualStyleBackColor = true;
+            this.button_bit_B7.Click += new System.EventHandler(this.button_bit_B7_Click);
+            // 
+            // button_A4
+            // 
+            this.button_A4.Location = new System.Drawing.Point(899, 63);
+            this.button_A4.Margin = new System.Windows.Forms.Padding(0);
+            this.button_A4.Name = "button_A4";
+            this.button_A4.Size = new System.Drawing.Size(40, 40);
+            this.button_A4.TabIndex = 77;
+            this.button_A4.UseVisualStyleBackColor = true;
+            this.button_A4.Click += new System.EventHandler(this.button_A4_Click);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(742, 77);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(34, 13);
+            this.label13.TabIndex = 106;
+            this.label13.Text = "Tris A";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(742, 117);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(36, 13);
+            this.label14.TabIndex = 107;
+            this.label14.Text = "Port A";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(742, 193);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(34, 13);
+            this.label15.TabIndex = 108;
+            this.label15.Text = "Tris B";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(742, 232);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(36, 13);
+            this.label16.TabIndex = 109;
+            this.label16.Text = "Port B";
             // 
             // SimulatorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(839, 693);
-            this.Controls.Add(this.label12);
-            this.Controls.Add(this.label11);
-            this.Controls.Add(this.text_WatchDogTimer);
+            this.ClientSize = new System.Drawing.Size(1264, 821);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.button_A4);
+            this.Controls.Add(this.button_bit_B7);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.button_A0);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.button_bit_B1);
+            this.Controls.Add(this.groupBox_Flags);
+            this.Controls.Add(this.button_A6);
+            this.Controls.Add(this.groupBox_SpecialRegs);
+            this.Controls.Add(this.button_bit_B2);
             this.Controls.Add(this.ms);
+            this.Controls.Add(this.button_A5);
             this.Controls.Add(this.label10);
+            this.Controls.Add(this.button_bit_B3);
             this.Controls.Add(this.text_Takt);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.text_Runtime);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.text_Tmr0);
+            this.Controls.Add(this.button_A3);
             this.Controls.Add(this.Button_Help);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox_Quarz);
+            this.Controls.Add(this.button_bit_B4);
             this.Controls.Add(this.button_Stop);
+            this.Controls.Add(this.button_A2);
             this.Controls.Add(this.dataGridView_Register);
+            this.Controls.Add(this.button_bit_B5);
             this.Controls.Add(this.button_Reset);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.text_DC);
-            this.Controls.Add(this.label_ZeroFlag);
-            this.Controls.Add(this.label_CarryFlag);
-            this.Controls.Add(this.textBox_ZeroFlag);
-            this.Controls.Add(this.textBox_CarryFlag);
-            this.Controls.Add(this.label_PC);
-            this.Controls.Add(this.dataGridView_RegB);
-            this.Controls.Add(this.dataGridView_RegA);
-            this.Controls.Add(this.text_Pc);
+            this.Controls.Add(this.button_A1);
+            this.Controls.Add(this.button_bit_B6);
+            this.Controls.Add(this.button_A7);
+            this.Controls.Add(this.button_bit_B0);
             this.Controls.Add(this.btn_Start);
+            this.Controls.Add(this.button_bit_A0);
             this.Controls.Add(this.btn_Step);
-            this.Controls.Add(this.label_W);
-            this.Controls.Add(this.text_W);
+            this.Controls.Add(this.button_B7);
             this.Controls.Add(this.dataGridView_prog);
+            this.Controls.Add(this.button_bit_A6);
             this.Controls.Add(this.Btn_Open);
+            this.Controls.Add(this.button_B1);
             this.Controls.Add(this.text_path);
+            this.Controls.Add(this.button_bit_A5);
+            this.Controls.Add(this.button_B0);
+            this.Controls.Add(this.button_B2);
+            this.Controls.Add(this.button_bit_A7);
+            this.Controls.Add(this.button_bit_A4);
+            this.Controls.Add(this.button_B6);
+            this.Controls.Add(this.button_B3);
+            this.Controls.Add(this.button_bit_A1);
+            this.Controls.Add(this.button_bit_A3);
+            this.Controls.Add(this.button_B5);
+            this.Controls.Add(this.button_B4);
+            this.Controls.Add(this.button_bit_A2);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "SimulatorForm";
             this.Text = "Simulator";
-            this.Load += new System.EventHandler(this.SimulatorForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_prog)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_RegA)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_RegB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Register)).EndInit();
+            this.groupBox_SpecialRegs.ResumeLayout(false);
+            this.groupBox_SpecialRegs.PerformLayout();
+            this.groupBox_Flags.ResumeLayout(false);
+            this.groupBox_Flags.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -777,26 +1087,6 @@ namespace MicroSimulator
         private System.Windows.Forms.DataGridView dataGridView_prog;
         private System.Windows.Forms.Button btn_Start;
         private System.Windows.Forms.TextBox text_Pc;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RegA_Bit0;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RegA_Bit1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RegA_Bit2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RegA_Bit3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RegA_Bit4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RegA_Bit5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RegA_Bit6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Reg1_bit7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RegA;
-        private System.Windows.Forms.DataGridView dataGridView_RegA;
-        private System.Windows.Forms.DataGridView dataGridView_RegB;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RegB;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RegB_Bit7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RegB_Bit6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RegB_Bit5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RegB_Bit4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RegB_Bit3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RegB_Bit2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RegB_Bit1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RegB_Bit0;
         private System.Windows.Forms.Label label_PC;
         private TextBox textBox_CarryFlag;
         private TextBox textBox_ZeroFlag;
@@ -817,12 +1107,10 @@ namespace MicroSimulator
         private TextBox textBox_Quarz;
         private Label label1;
         private Button Button_Help;
-        private Timer Timer_0;
         private TextBox text_Tmr0;
         private Label label2;
         private Timer Timer_Takt;
         private TextBox text_Runtime;
-        private Label label4;
         private Label label5;
         private Label label6;
         private Label label7;
@@ -838,6 +1126,48 @@ namespace MicroSimulator
         private TextBox text_WatchDogTimer;
         private Label label11;
         private Label label12;
+        private GroupBox groupBox_SpecialRegs;
+        private GroupBox groupBox_Flags;
+        private GroupBox groupBox1;
+        private GroupBox groupBox2;
+        private Label label4;
+        private TextBox text_Prescaler;
+        private Button button_B0;
+        private Button button_bit_A7;
+        private Button button_B6;
+        private Button button_bit_A1;
+        private Button button_B5;
+        private Button button_bit_A2;
+        private Button button_B4;
+        private Button button_bit_A3;
+        private Button button_B3;
+        private Button button_bit_A4;
+        private Button button_B2;
+        private Button button_bit_A5;
+        private Button button_B1;
+        private Button button_bit_A6;
+        private Button button_B7;
+        private Button button_bit_A0;
+        private Button button_bit_B0;
+        private Button button_A7;
+        private Button button_bit_B6;
+        private Button button_A1;
+        private Button button_bit_B5;
+        private Button button_A2;
+        private Button button_bit_B4;
+        private Button button_A3;
+        private Button button_bit_B3;
+        private Button button_A5;
+        private Button button_bit_B2;
+        private Button button_A6;
+        private Button button_bit_B1;
+        private Button button_A0;
+        private Button button_bit_B7;
+        private Button button_A4;
+        private Label label13;
+        private Label label14;
+        private Label label15;
+        private Label label16;
     }
 }
 
