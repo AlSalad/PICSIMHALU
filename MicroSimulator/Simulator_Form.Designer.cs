@@ -85,7 +85,6 @@ namespace MicroSimulator
             this.label2 = new System.Windows.Forms.Label();
             this.Timer_Takt = new System.Windows.Forms.Timer(this.components);
             this.text_Runtime = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -97,10 +96,21 @@ namespace MicroSimulator
             this.text_WatchDogTimer = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
+            this.groupBox_SpecialRegs = new System.Windows.Forms.GroupBox();
+            this.groupBox_Flags = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_prog)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_RegA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_RegB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Register)).BeginInit();
+            this.groupBox_SpecialRegs.SuspendLayout();
+            this.groupBox_Flags.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // text_path
@@ -138,7 +148,7 @@ namespace MicroSimulator
             this.dataGridView_prog.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView_prog.Name = "dataGridView_prog";
             this.dataGridView_prog.RowTemplate.Height = 28;
-            this.dataGridView_prog.Size = new System.Drawing.Size(362, 641);
+            this.dataGridView_prog.Size = new System.Drawing.Size(362, 769);
             this.dataGridView_prog.TabIndex = 8;
             // 
             // Column_BreakPoint
@@ -173,7 +183,7 @@ namespace MicroSimulator
             // text_W
             // 
             this.text_W.BackColor = System.Drawing.SystemColors.Info;
-            this.text_W.Location = new System.Drawing.Point(712, 233);
+            this.text_W.Location = new System.Drawing.Point(31, 39);
             this.text_W.Margin = new System.Windows.Forms.Padding(2);
             this.text_W.Name = "text_W";
             this.text_W.Size = new System.Drawing.Size(43, 20);
@@ -183,7 +193,7 @@ namespace MicroSimulator
             // label_W
             // 
             this.label_W.AutoSize = true;
-            this.label_W.Location = new System.Drawing.Point(693, 236);
+            this.label_W.Location = new System.Drawing.Point(12, 42);
             this.label_W.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_W.Name = "label_W";
             this.label_W.Size = new System.Drawing.Size(18, 13);
@@ -214,7 +224,7 @@ namespace MicroSimulator
             // 
             // text_Pc
             // 
-            this.text_Pc.Location = new System.Drawing.Point(712, 209);
+            this.text_Pc.Location = new System.Drawing.Point(31, 18);
             this.text_Pc.Margin = new System.Windows.Forms.Padding(2);
             this.text_Pc.Name = "text_Pc";
             this.text_Pc.Size = new System.Drawing.Size(43, 20);
@@ -299,7 +309,7 @@ namespace MicroSimulator
             this.RegA_Bit2,
             this.RegA_Bit1,
             this.RegA_Bit0});
-            this.dataGridView_RegA.Location = new System.Drawing.Point(527, 41);
+            this.dataGridView_RegA.Location = new System.Drawing.Point(824, 41);
             this.dataGridView_RegA.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView_RegA.Name = "dataGridView_RegA";
             this.dataGridView_RegA.ReadOnly = true;
@@ -322,7 +332,7 @@ namespace MicroSimulator
             this.RegB_Bit2,
             this.RegB_Bit1,
             this.RegB_Bit0});
-            this.dataGridView_RegB.Location = new System.Drawing.Point(527, 124);
+            this.dataGridView_RegB.Location = new System.Drawing.Point(824, 124);
             this.dataGridView_RegB.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView_RegB.Name = "dataGridView_RegB";
             this.dataGridView_RegB.ReadOnly = true;
@@ -396,7 +406,7 @@ namespace MicroSimulator
             // label_PC
             // 
             this.label_PC.AutoSize = true;
-            this.label_PC.Location = new System.Drawing.Point(690, 212);
+            this.label_PC.Location = new System.Drawing.Point(9, 18);
             this.label_PC.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_PC.Name = "label_PC";
             this.label_PC.Size = new System.Drawing.Size(21, 13);
@@ -405,7 +415,7 @@ namespace MicroSimulator
             // 
             // textBox_CarryFlag
             // 
-            this.textBox_CarryFlag.Location = new System.Drawing.Point(712, 257);
+            this.textBox_CarryFlag.Location = new System.Drawing.Point(31, 18);
             this.textBox_CarryFlag.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_CarryFlag.Name = "textBox_CarryFlag";
             this.textBox_CarryFlag.Size = new System.Drawing.Size(26, 20);
@@ -414,7 +424,7 @@ namespace MicroSimulator
             // 
             // textBox_ZeroFlag
             // 
-            this.textBox_ZeroFlag.Location = new System.Drawing.Point(712, 305);
+            this.textBox_ZeroFlag.Location = new System.Drawing.Point(31, 66);
             this.textBox_ZeroFlag.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_ZeroFlag.Name = "textBox_ZeroFlag";
             this.textBox_ZeroFlag.Size = new System.Drawing.Size(26, 20);
@@ -424,7 +434,7 @@ namespace MicroSimulator
             // label_CarryFlag
             // 
             this.label_CarryFlag.AutoSize = true;
-            this.label_CarryFlag.Location = new System.Drawing.Point(694, 260);
+            this.label_CarryFlag.Location = new System.Drawing.Point(13, 21);
             this.label_CarryFlag.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_CarryFlag.Name = "label_CarryFlag";
             this.label_CarryFlag.Size = new System.Drawing.Size(14, 13);
@@ -434,7 +444,7 @@ namespace MicroSimulator
             // label_ZeroFlag
             // 
             this.label_ZeroFlag.AutoSize = true;
-            this.label_ZeroFlag.Location = new System.Drawing.Point(694, 307);
+            this.label_ZeroFlag.Location = new System.Drawing.Point(13, 68);
             this.label_ZeroFlag.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_ZeroFlag.Name = "label_ZeroFlag";
             this.label_ZeroFlag.Size = new System.Drawing.Size(14, 13);
@@ -443,7 +453,7 @@ namespace MicroSimulator
             // 
             // text_DC
             // 
-            this.text_DC.Location = new System.Drawing.Point(712, 281);
+            this.text_DC.Location = new System.Drawing.Point(31, 42);
             this.text_DC.Margin = new System.Windows.Forms.Padding(2);
             this.text_DC.Name = "text_DC";
             this.text_DC.Size = new System.Drawing.Size(26, 20);
@@ -453,7 +463,7 @@ namespace MicroSimulator
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(689, 284);
+            this.label3.Location = new System.Drawing.Point(8, 45);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(22, 13);
@@ -481,11 +491,11 @@ namespace MicroSimulator
             this.Column_RegHex,
             this.Column_Value,
             this.Column_Bank2});
-            this.dataGridView_Register.Location = new System.Drawing.Point(475, 343);
+            this.dataGridView_Register.Location = new System.Drawing.Point(381, 343);
             this.dataGridView_Register.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView_Register.Name = "dataGridView_Register";
             this.dataGridView_Register.RowTemplate.Height = 28;
-            this.dataGridView_Register.Size = new System.Drawing.Size(354, 339);
+            this.dataGridView_Register.Size = new System.Drawing.Size(354, 467);
             this.dataGridView_Register.TabIndex = 50;
             // 
             // Column_Register
@@ -528,7 +538,7 @@ namespace MicroSimulator
             // 
             // textBox_Quarz
             // 
-            this.textBox_Quarz.Location = new System.Drawing.Point(559, 239);
+            this.textBox_Quarz.Location = new System.Drawing.Point(11, 61);
             this.textBox_Quarz.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_Quarz.Name = "textBox_Quarz";
             this.textBox_Quarz.Size = new System.Drawing.Size(43, 20);
@@ -538,7 +548,7 @@ namespace MicroSimulator
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(602, 242);
+            this.label1.Location = new System.Drawing.Point(55, 64);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(20, 13);
@@ -558,7 +568,7 @@ namespace MicroSimulator
             // 
             // text_Tmr0
             // 
-            this.text_Tmr0.Location = new System.Drawing.Point(559, 287);
+            this.text_Tmr0.Location = new System.Drawing.Point(45, 18);
             this.text_Tmr0.Margin = new System.Windows.Forms.Padding(2);
             this.text_Tmr0.Name = "text_Tmr0";
             this.text_Tmr0.Size = new System.Drawing.Size(68, 20);
@@ -568,7 +578,7 @@ namespace MicroSimulator
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(528, 290);
+            this.label2.Location = new System.Drawing.Point(14, 21);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(31, 13);
@@ -581,27 +591,17 @@ namespace MicroSimulator
             // 
             // text_Runtime
             // 
-            this.text_Runtime.Location = new System.Drawing.Point(559, 215);
+            this.text_Runtime.Location = new System.Drawing.Point(11, 21);
             this.text_Runtime.Margin = new System.Windows.Forms.Padding(2);
             this.text_Runtime.Name = "text_Runtime";
             this.text_Runtime.Size = new System.Drawing.Size(63, 20);
             this.text_Runtime.TabIndex = 57;
             this.text_Runtime.Text = "0";
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(507, 218);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(50, 13);
-            this.label4.TabIndex = 58;
-            this.label4.Text = "RunTime";
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(519, 242);
+            this.label5.Location = new System.Drawing.Point(9, 46);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(38, 13);
@@ -611,7 +611,7 @@ namespace MicroSimulator
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(759, 236);
+            this.label6.Location = new System.Drawing.Point(78, 42);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(13, 13);
@@ -621,7 +621,7 @@ namespace MicroSimulator
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(759, 212);
+            this.label7.Location = new System.Drawing.Point(78, 18);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(13, 13);
@@ -631,7 +631,7 @@ namespace MicroSimulator
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(626, 290);
+            this.label8.Location = new System.Drawing.Point(117, 21);
             this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(13, 13);
@@ -641,7 +641,7 @@ namespace MicroSimulator
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(621, 218);
+            this.label9.Location = new System.Drawing.Point(78, 25);
             this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(18, 13);
@@ -650,7 +650,7 @@ namespace MicroSimulator
             // 
             // text_Takt
             // 
-            this.text_Takt.Location = new System.Drawing.Point(559, 263);
+            this.text_Takt.Location = new System.Drawing.Point(1048, 211);
             this.text_Takt.Margin = new System.Windows.Forms.Padding(2);
             this.text_Takt.Name = "text_Takt";
             this.text_Takt.Size = new System.Drawing.Size(43, 20);
@@ -661,7 +661,7 @@ namespace MicroSimulator
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(528, 266);
+            this.label10.Location = new System.Drawing.Point(1015, 214);
             this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(29, 13);
@@ -671,7 +671,7 @@ namespace MicroSimulator
             // ms
             // 
             this.ms.AutoSize = true;
-            this.ms.Location = new System.Drawing.Point(602, 266);
+            this.ms.Location = new System.Drawing.Point(1095, 214);
             this.ms.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.ms.Name = "ms";
             this.ms.Size = new System.Drawing.Size(20, 13);
@@ -680,7 +680,7 @@ namespace MicroSimulator
             // 
             // text_WatchDogTimer
             // 
-            this.text_WatchDogTimer.Location = new System.Drawing.Point(559, 311);
+            this.text_WatchDogTimer.Location = new System.Drawing.Point(15, 115);
             this.text_WatchDogTimer.Margin = new System.Windows.Forms.Padding(2);
             this.text_WatchDogTimer.Name = "text_WatchDogTimer";
             this.text_WatchDogTimer.Size = new System.Drawing.Size(63, 20);
@@ -690,64 +690,134 @@ namespace MicroSimulator
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(524, 314);
+            this.label11.Location = new System.Drawing.Point(5, 100);
             this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(33, 13);
+            this.label11.Size = new System.Drawing.Size(83, 13);
             this.label11.TabIndex = 68;
-            this.label11.Text = "WDT";
+            this.label11.Text = "WatchdogTimer";
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(621, 314);
+            this.label12.Location = new System.Drawing.Point(77, 118);
             this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(20, 13);
             this.label12.TabIndex = 69;
             this.label12.Text = "ms";
             // 
+            // groupBox_SpecialRegs
+            // 
+            this.groupBox_SpecialRegs.Controls.Add(this.text_Pc);
+            this.groupBox_SpecialRegs.Controls.Add(this.text_W);
+            this.groupBox_SpecialRegs.Controls.Add(this.label_W);
+            this.groupBox_SpecialRegs.Controls.Add(this.label_PC);
+            this.groupBox_SpecialRegs.Controls.Add(this.label6);
+            this.groupBox_SpecialRegs.Controls.Add(this.label7);
+            this.groupBox_SpecialRegs.Location = new System.Drawing.Point(382, 266);
+            this.groupBox_SpecialRegs.Name = "groupBox_SpecialRegs";
+            this.groupBox_SpecialRegs.Size = new System.Drawing.Size(111, 72);
+            this.groupBox_SpecialRegs.TabIndex = 70;
+            this.groupBox_SpecialRegs.TabStop = false;
+            this.groupBox_SpecialRegs.Text = "Special Registers";
+            // 
+            // groupBox_Flags
+            // 
+            this.groupBox_Flags.Controls.Add(this.textBox_CarryFlag);
+            this.groupBox_Flags.Controls.Add(this.textBox_ZeroFlag);
+            this.groupBox_Flags.Controls.Add(this.label_CarryFlag);
+            this.groupBox_Flags.Controls.Add(this.label_ZeroFlag);
+            this.groupBox_Flags.Controls.Add(this.text_DC);
+            this.groupBox_Flags.Controls.Add(this.label3);
+            this.groupBox_Flags.Location = new System.Drawing.Point(499, 246);
+            this.groupBox_Flags.Name = "groupBox_Flags";
+            this.groupBox_Flags.Size = new System.Drawing.Size(87, 92);
+            this.groupBox_Flags.TabIndex = 71;
+            this.groupBox_Flags.TabStop = false;
+            this.groupBox_Flags.Text = "Flags";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.text_Runtime);
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.textBox_Quarz);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Location = new System.Drawing.Point(382, 165);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(111, 100);
+            this.groupBox1.TabIndex = 72;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Runtime";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.label13);
+            this.groupBox2.Controls.Add(this.label4);
+            this.groupBox2.Controls.Add(this.textBox1);
+            this.groupBox2.Controls.Add(this.text_Tmr0);
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Controls.Add(this.label8);
+            this.groupBox2.Controls.Add(this.text_WatchDogTimer);
+            this.groupBox2.Controls.Add(this.label12);
+            this.groupBox2.Controls.Add(this.label11);
+            this.groupBox2.Location = new System.Drawing.Point(592, 190);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(143, 148);
+            this.groupBox2.TabIndex = 73;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Timer";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(15, 70);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(63, 20);
+            this.textBox1.TabIndex = 70;
+            this.textBox1.Text = "0";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(5, 54);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(78, 13);
+            this.label4.TabIndex = 71;
+            this.label4.Text = "Tmr0 Prescaler";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(77, 74);
+            this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(20, 13);
+            this.label13.TabIndex = 72;
+            this.label13.Text = "ms";
+            // 
             // SimulatorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(839, 693);
-            this.Controls.Add(this.label12);
-            this.Controls.Add(this.label11);
-            this.Controls.Add(this.text_WatchDogTimer);
+            this.ClientSize = new System.Drawing.Size(1264, 821);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBox_Flags);
+            this.Controls.Add(this.groupBox_SpecialRegs);
             this.Controls.Add(this.ms);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.text_Takt);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.text_Runtime);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.text_Tmr0);
             this.Controls.Add(this.Button_Help);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox_Quarz);
             this.Controls.Add(this.button_Stop);
             this.Controls.Add(this.dataGridView_Register);
             this.Controls.Add(this.button_Reset);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.text_DC);
-            this.Controls.Add(this.label_ZeroFlag);
-            this.Controls.Add(this.label_CarryFlag);
-            this.Controls.Add(this.textBox_ZeroFlag);
-            this.Controls.Add(this.textBox_CarryFlag);
-            this.Controls.Add(this.label_PC);
             this.Controls.Add(this.dataGridView_RegB);
             this.Controls.Add(this.dataGridView_RegA);
-            this.Controls.Add(this.text_Pc);
             this.Controls.Add(this.btn_Start);
             this.Controls.Add(this.btn_Step);
-            this.Controls.Add(this.label_W);
-            this.Controls.Add(this.text_W);
             this.Controls.Add(this.dataGridView_prog);
             this.Controls.Add(this.Btn_Open);
             this.Controls.Add(this.text_path);
@@ -759,6 +829,14 @@ namespace MicroSimulator
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_RegA)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_RegB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Register)).EndInit();
+            this.groupBox_SpecialRegs.ResumeLayout(false);
+            this.groupBox_SpecialRegs.PerformLayout();
+            this.groupBox_Flags.ResumeLayout(false);
+            this.groupBox_Flags.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -822,7 +900,6 @@ namespace MicroSimulator
         private Label label2;
         private Timer Timer_Takt;
         private TextBox text_Runtime;
-        private Label label4;
         private Label label5;
         private Label label6;
         private Label label7;
@@ -838,6 +915,13 @@ namespace MicroSimulator
         private TextBox text_WatchDogTimer;
         private Label label11;
         private Label label12;
+        private GroupBox groupBox_SpecialRegs;
+        private GroupBox groupBox_Flags;
+        private GroupBox groupBox1;
+        private GroupBox groupBox2;
+        private Label label13;
+        private Label label4;
+        private TextBox textBox1;
     }
 }
 
