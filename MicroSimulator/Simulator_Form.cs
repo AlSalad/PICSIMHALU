@@ -13,13 +13,11 @@ namespace MicroSimulator
 {  
     public partial class SimulatorForm : Form
     {
-
-    
     #region Global fields ---------------------
 
         private readonly SerialPort _com1Port = new SerialPort("COM1", 9600);
 
-        private int _w;
+        private int _w; //test
         private int _l;
         private int _f;
 
@@ -52,7 +50,6 @@ namespace MicroSimulator
             }
             return 0;
         }
-
         /// <summary>
         /// 
         /// </summary>
@@ -68,7 +65,9 @@ namespace MicroSimulator
     #endregion
 
     #region Load Forms ---------------------
-        
+        /// <summary>
+        /// 
+        /// </summary>
         public SimulatorForm()
         {
             _com1Port.Open();
@@ -79,7 +78,7 @@ namespace MicroSimulator
 
 <<<<<<< HEAD
         /// <summary>
-        /// Simulator RA and RB Load
+        /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -117,10 +116,10 @@ namespace MicroSimulator
 
     #region Converter ---------------------
         /// <summary>
-        /// Hex to Int Converter
+        /// 
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>int value</returns>
+        /// <returns></returns>
         private static int Hex2Int(string value)
         {
             try
@@ -132,7 +131,7 @@ namespace MicroSimulator
 
     #region Handle Commands -------------------
         /// <summary>
-        /// finds out which function it is
+        /// 
         /// </summary>
         /// <param name="cmdValue"></param>
         private void HandleCmd(string cmdValue)
@@ -285,7 +284,9 @@ namespace MicroSimulator
                 _statusReg = _statusReg & ~4 & 0x000000FF;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
         private void WriteStatusReg()
         {
             foreach (DataGridViewRow row in dataGridView_Register.Rows)
@@ -296,7 +297,9 @@ namespace MicroSimulator
             }
         }
 
-        
+        /// <summary>
+        /// 
+        /// </summary>
         private void WriteFlags()
         {
             foreach (DataGridViewRow row in dataGridView_Register.Rows)
@@ -362,13 +365,18 @@ namespace MicroSimulator
     #endregion
 
     #region Commands -------------------
-        
+        /// <summary>
+        /// 
+        /// </summary>
         private void Nop()
         {
             _circles = 1;
         }
 
-       
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmdLit"></param>
         private void Goto(int cmdLit)
         {
             var hexVal = cmdLit.ToString("X");
@@ -397,7 +405,7 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// Move Literal to W Register
+        /// 
         /// </summary>
         /// <param name="cmdLit"></param>
         private void Movlw(int cmdLit)
@@ -423,7 +431,7 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// Move register f content to W register (if fOpt == 0) or another register (if fOpt == 1)
+        /// 
         /// </summary>
         /// <param name="cmdReg"></param>
         private void Movf(int cmdReg)
@@ -1296,7 +1304,7 @@ namespace MicroSimulator
 
     #region Button Control -------------------
         /// <summary>
-        /// Loads file into program
+        /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -1363,7 +1371,7 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// Executes next command
+        /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -1381,7 +1389,7 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// starts automated command execution
+        /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
