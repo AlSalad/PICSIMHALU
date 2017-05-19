@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO.Ports;
-using System.Linq;
 using System.Windows.Forms;
-using MicroSimulator;
 
-namespace PIC_Simulator.PIC
+namespace MicroSimulator
 {
     class Rs232Verbindung
     {

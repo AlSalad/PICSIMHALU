@@ -113,6 +113,10 @@ namespace MicroSimulator
             this.button_A0 = new System.Windows.Forms.Button();
             this.button_bit_B7 = new System.Windows.Forms.Button();
             this.button_A4 = new System.Windows.Forms.Button();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_prog)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Register)).BeginInit();
             this.groupBox_SpecialRegs.SuspendLayout();
@@ -624,7 +628,7 @@ namespace MicroSimulator
             // 
             // button_B0
             // 
-            this.button_B0.Location = new System.Drawing.Point(1021, 178);
+            this.button_B0.Location = new System.Drawing.Point(1059, 178);
             this.button_B0.Margin = new System.Windows.Forms.Padding(0);
             this.button_B0.Name = "button_B0";
             this.button_B0.Size = new System.Drawing.Size(40, 40);
@@ -634,7 +638,7 @@ namespace MicroSimulator
             // 
             // button_bit_A7
             // 
-            this.button_bit_A7.Location = new System.Drawing.Point(741, 103);
+            this.button_bit_A7.Location = new System.Drawing.Point(779, 103);
             this.button_bit_A7.Margin = new System.Windows.Forms.Padding(0);
             this.button_bit_A7.Name = "button_bit_A7";
             this.button_bit_A7.Size = new System.Drawing.Size(40, 40);
@@ -645,7 +649,7 @@ namespace MicroSimulator
             // 
             // button_B6
             // 
-            this.button_B6.Location = new System.Drawing.Point(781, 178);
+            this.button_B6.Location = new System.Drawing.Point(819, 178);
             this.button_B6.Margin = new System.Windows.Forms.Padding(0);
             this.button_B6.Name = "button_B6";
             this.button_B6.Size = new System.Drawing.Size(40, 40);
@@ -655,7 +659,7 @@ namespace MicroSimulator
             // 
             // button_bit_A1
             // 
-            this.button_bit_A1.Location = new System.Drawing.Point(981, 103);
+            this.button_bit_A1.Location = new System.Drawing.Point(1019, 103);
             this.button_bit_A1.Margin = new System.Windows.Forms.Padding(0);
             this.button_bit_A1.Name = "button_bit_A1";
             this.button_bit_A1.Size = new System.Drawing.Size(40, 40);
@@ -666,7 +670,7 @@ namespace MicroSimulator
             // 
             // button_B5
             // 
-            this.button_B5.Location = new System.Drawing.Point(821, 178);
+            this.button_B5.Location = new System.Drawing.Point(859, 178);
             this.button_B5.Margin = new System.Windows.Forms.Padding(0);
             this.button_B5.Name = "button_B5";
             this.button_B5.Size = new System.Drawing.Size(40, 40);
@@ -676,7 +680,7 @@ namespace MicroSimulator
             // 
             // button_bit_A2
             // 
-            this.button_bit_A2.Location = new System.Drawing.Point(941, 103);
+            this.button_bit_A2.Location = new System.Drawing.Point(979, 103);
             this.button_bit_A2.Margin = new System.Windows.Forms.Padding(0);
             this.button_bit_A2.Name = "button_bit_A2";
             this.button_bit_A2.Size = new System.Drawing.Size(40, 40);
@@ -687,7 +691,7 @@ namespace MicroSimulator
             // 
             // button_B4
             // 
-            this.button_B4.Location = new System.Drawing.Point(861, 178);
+            this.button_B4.Location = new System.Drawing.Point(899, 178);
             this.button_B4.Margin = new System.Windows.Forms.Padding(0);
             this.button_B4.Name = "button_B4";
             this.button_B4.Size = new System.Drawing.Size(40, 40);
@@ -697,7 +701,7 @@ namespace MicroSimulator
             // 
             // button_bit_A3
             // 
-            this.button_bit_A3.Location = new System.Drawing.Point(901, 103);
+            this.button_bit_A3.Location = new System.Drawing.Point(939, 103);
             this.button_bit_A3.Margin = new System.Windows.Forms.Padding(0);
             this.button_bit_A3.Name = "button_bit_A3";
             this.button_bit_A3.Size = new System.Drawing.Size(40, 40);
@@ -708,7 +712,7 @@ namespace MicroSimulator
             // 
             // button_B3
             // 
-            this.button_B3.Location = new System.Drawing.Point(901, 178);
+            this.button_B3.Location = new System.Drawing.Point(939, 178);
             this.button_B3.Margin = new System.Windows.Forms.Padding(0);
             this.button_B3.Name = "button_B3";
             this.button_B3.Size = new System.Drawing.Size(40, 40);
@@ -718,7 +722,7 @@ namespace MicroSimulator
             // 
             // button_bit_A4
             // 
-            this.button_bit_A4.Location = new System.Drawing.Point(861, 103);
+            this.button_bit_A4.Location = new System.Drawing.Point(899, 103);
             this.button_bit_A4.Margin = new System.Windows.Forms.Padding(0);
             this.button_bit_A4.Name = "button_bit_A4";
             this.button_bit_A4.Size = new System.Drawing.Size(40, 40);
@@ -729,7 +733,7 @@ namespace MicroSimulator
             // 
             // button_B2
             // 
-            this.button_B2.Location = new System.Drawing.Point(941, 178);
+            this.button_B2.Location = new System.Drawing.Point(979, 178);
             this.button_B2.Margin = new System.Windows.Forms.Padding(0);
             this.button_B2.Name = "button_B2";
             this.button_B2.Size = new System.Drawing.Size(40, 40);
@@ -739,7 +743,7 @@ namespace MicroSimulator
             // 
             // button_bit_A5
             // 
-            this.button_bit_A5.Location = new System.Drawing.Point(821, 103);
+            this.button_bit_A5.Location = new System.Drawing.Point(859, 103);
             this.button_bit_A5.Margin = new System.Windows.Forms.Padding(0);
             this.button_bit_A5.Name = "button_bit_A5";
             this.button_bit_A5.Size = new System.Drawing.Size(40, 40);
@@ -750,7 +754,7 @@ namespace MicroSimulator
             // 
             // button_B1
             // 
-            this.button_B1.Location = new System.Drawing.Point(981, 178);
+            this.button_B1.Location = new System.Drawing.Point(1019, 178);
             this.button_B1.Margin = new System.Windows.Forms.Padding(0);
             this.button_B1.Name = "button_B1";
             this.button_B1.Size = new System.Drawing.Size(40, 40);
@@ -760,7 +764,7 @@ namespace MicroSimulator
             // 
             // button_bit_A6
             // 
-            this.button_bit_A6.Location = new System.Drawing.Point(781, 103);
+            this.button_bit_A6.Location = new System.Drawing.Point(819, 103);
             this.button_bit_A6.Margin = new System.Windows.Forms.Padding(0);
             this.button_bit_A6.Name = "button_bit_A6";
             this.button_bit_A6.Size = new System.Drawing.Size(40, 40);
@@ -771,7 +775,7 @@ namespace MicroSimulator
             // 
             // button_B7
             // 
-            this.button_B7.Location = new System.Drawing.Point(741, 178);
+            this.button_B7.Location = new System.Drawing.Point(779, 178);
             this.button_B7.Margin = new System.Windows.Forms.Padding(0);
             this.button_B7.Name = "button_B7";
             this.button_B7.Size = new System.Drawing.Size(40, 40);
@@ -781,7 +785,7 @@ namespace MicroSimulator
             // 
             // button_bit_A0
             // 
-            this.button_bit_A0.Location = new System.Drawing.Point(1021, 103);
+            this.button_bit_A0.Location = new System.Drawing.Point(1059, 103);
             this.button_bit_A0.Margin = new System.Windows.Forms.Padding(0);
             this.button_bit_A0.Name = "button_bit_A0";
             this.button_bit_A0.Size = new System.Drawing.Size(40, 40);
@@ -792,7 +796,7 @@ namespace MicroSimulator
             // 
             // button_bit_B0
             // 
-            this.button_bit_B0.Location = new System.Drawing.Point(1021, 218);
+            this.button_bit_B0.Location = new System.Drawing.Point(1059, 218);
             this.button_bit_B0.Margin = new System.Windows.Forms.Padding(0);
             this.button_bit_B0.Name = "button_bit_B0";
             this.button_bit_B0.Size = new System.Drawing.Size(40, 40);
@@ -803,7 +807,7 @@ namespace MicroSimulator
             // 
             // button_A7
             // 
-            this.button_A7.Location = new System.Drawing.Point(741, 63);
+            this.button_A7.Location = new System.Drawing.Point(779, 63);
             this.button_A7.Margin = new System.Windows.Forms.Padding(0);
             this.button_A7.Name = "button_A7";
             this.button_A7.Size = new System.Drawing.Size(40, 40);
@@ -813,7 +817,7 @@ namespace MicroSimulator
             // 
             // button_bit_B6
             // 
-            this.button_bit_B6.Location = new System.Drawing.Point(781, 218);
+            this.button_bit_B6.Location = new System.Drawing.Point(819, 218);
             this.button_bit_B6.Margin = new System.Windows.Forms.Padding(0);
             this.button_bit_B6.Name = "button_bit_B6";
             this.button_bit_B6.Size = new System.Drawing.Size(40, 40);
@@ -824,7 +828,7 @@ namespace MicroSimulator
             // 
             // button_A1
             // 
-            this.button_A1.Location = new System.Drawing.Point(981, 63);
+            this.button_A1.Location = new System.Drawing.Point(1019, 63);
             this.button_A1.Margin = new System.Windows.Forms.Padding(0);
             this.button_A1.Name = "button_A1";
             this.button_A1.Size = new System.Drawing.Size(40, 40);
@@ -834,7 +838,7 @@ namespace MicroSimulator
             // 
             // button_bit_B5
             // 
-            this.button_bit_B5.Location = new System.Drawing.Point(821, 218);
+            this.button_bit_B5.Location = new System.Drawing.Point(859, 218);
             this.button_bit_B5.Margin = new System.Windows.Forms.Padding(0);
             this.button_bit_B5.Name = "button_bit_B5";
             this.button_bit_B5.Size = new System.Drawing.Size(40, 40);
@@ -845,7 +849,7 @@ namespace MicroSimulator
             // 
             // button_A2
             // 
-            this.button_A2.Location = new System.Drawing.Point(941, 63);
+            this.button_A2.Location = new System.Drawing.Point(979, 63);
             this.button_A2.Margin = new System.Windows.Forms.Padding(0);
             this.button_A2.Name = "button_A2";
             this.button_A2.Size = new System.Drawing.Size(40, 40);
@@ -855,7 +859,7 @@ namespace MicroSimulator
             // 
             // button_bit_B4
             // 
-            this.button_bit_B4.Location = new System.Drawing.Point(861, 218);
+            this.button_bit_B4.Location = new System.Drawing.Point(899, 218);
             this.button_bit_B4.Margin = new System.Windows.Forms.Padding(0);
             this.button_bit_B4.Name = "button_bit_B4";
             this.button_bit_B4.Size = new System.Drawing.Size(40, 40);
@@ -866,7 +870,7 @@ namespace MicroSimulator
             // 
             // button_A3
             // 
-            this.button_A3.Location = new System.Drawing.Point(901, 63);
+            this.button_A3.Location = new System.Drawing.Point(939, 63);
             this.button_A3.Margin = new System.Windows.Forms.Padding(0);
             this.button_A3.Name = "button_A3";
             this.button_A3.Size = new System.Drawing.Size(40, 40);
@@ -876,7 +880,7 @@ namespace MicroSimulator
             // 
             // button_bit_B3
             // 
-            this.button_bit_B3.Location = new System.Drawing.Point(901, 218);
+            this.button_bit_B3.Location = new System.Drawing.Point(939, 218);
             this.button_bit_B3.Margin = new System.Windows.Forms.Padding(0);
             this.button_bit_B3.Name = "button_bit_B3";
             this.button_bit_B3.Size = new System.Drawing.Size(40, 40);
@@ -887,7 +891,7 @@ namespace MicroSimulator
             // 
             // button_A5
             // 
-            this.button_A5.Location = new System.Drawing.Point(821, 63);
+            this.button_A5.Location = new System.Drawing.Point(859, 63);
             this.button_A5.Margin = new System.Windows.Forms.Padding(0);
             this.button_A5.Name = "button_A5";
             this.button_A5.Size = new System.Drawing.Size(40, 40);
@@ -897,7 +901,7 @@ namespace MicroSimulator
             // 
             // button_bit_B2
             // 
-            this.button_bit_B2.Location = new System.Drawing.Point(941, 218);
+            this.button_bit_B2.Location = new System.Drawing.Point(979, 218);
             this.button_bit_B2.Margin = new System.Windows.Forms.Padding(0);
             this.button_bit_B2.Name = "button_bit_B2";
             this.button_bit_B2.Size = new System.Drawing.Size(40, 40);
@@ -908,7 +912,7 @@ namespace MicroSimulator
             // 
             // button_A6
             // 
-            this.button_A6.Location = new System.Drawing.Point(781, 63);
+            this.button_A6.Location = new System.Drawing.Point(819, 63);
             this.button_A6.Margin = new System.Windows.Forms.Padding(0);
             this.button_A6.Name = "button_A6";
             this.button_A6.Size = new System.Drawing.Size(40, 40);
@@ -918,7 +922,7 @@ namespace MicroSimulator
             // 
             // button_bit_B1
             // 
-            this.button_bit_B1.Location = new System.Drawing.Point(981, 218);
+            this.button_bit_B1.Location = new System.Drawing.Point(1019, 218);
             this.button_bit_B1.Margin = new System.Windows.Forms.Padding(0);
             this.button_bit_B1.Name = "button_bit_B1";
             this.button_bit_B1.Size = new System.Drawing.Size(40, 40);
@@ -929,7 +933,7 @@ namespace MicroSimulator
             // 
             // button_A0
             // 
-            this.button_A0.Location = new System.Drawing.Point(1021, 63);
+            this.button_A0.Location = new System.Drawing.Point(1059, 63);
             this.button_A0.Margin = new System.Windows.Forms.Padding(0);
             this.button_A0.Name = "button_A0";
             this.button_A0.Size = new System.Drawing.Size(40, 40);
@@ -939,7 +943,7 @@ namespace MicroSimulator
             // 
             // button_bit_B7
             // 
-            this.button_bit_B7.Location = new System.Drawing.Point(741, 218);
+            this.button_bit_B7.Location = new System.Drawing.Point(779, 218);
             this.button_bit_B7.Margin = new System.Windows.Forms.Padding(0);
             this.button_bit_B7.Name = "button_bit_B7";
             this.button_bit_B7.Size = new System.Drawing.Size(40, 40);
@@ -950,7 +954,7 @@ namespace MicroSimulator
             // 
             // button_A4
             // 
-            this.button_A4.Location = new System.Drawing.Point(861, 63);
+            this.button_A4.Location = new System.Drawing.Point(899, 63);
             this.button_A4.Margin = new System.Windows.Forms.Padding(0);
             this.button_A4.Name = "button_A4";
             this.button_A4.Size = new System.Drawing.Size(40, 40);
@@ -958,12 +962,52 @@ namespace MicroSimulator
             this.button_A4.UseVisualStyleBackColor = true;
             this.button_A4.Click += new System.EventHandler(this.button_A4_Click);
             // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(742, 77);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(34, 13);
+            this.label13.TabIndex = 106;
+            this.label13.Text = "Tris A";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(742, 117);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(36, 13);
+            this.label14.TabIndex = 107;
+            this.label14.Text = "Port A";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(742, 193);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(34, 13);
+            this.label15.TabIndex = 108;
+            this.label15.Text = "Tris B";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(742, 232);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(36, 13);
+            this.label16.TabIndex = 109;
+            this.label16.Text = "Port B";
+            // 
             // SimulatorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1264, 821);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.label13);
             this.Controls.Add(this.button_A4);
             this.Controls.Add(this.button_bit_B7);
             this.Controls.Add(this.groupBox2);
@@ -1015,7 +1059,6 @@ namespace MicroSimulator
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "SimulatorForm";
             this.Text = "Simulator";
-            this.Load += new System.EventHandler(this.SimulatorForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_prog)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Register)).EndInit();
             this.groupBox_SpecialRegs.ResumeLayout(false);
@@ -1121,6 +1164,10 @@ namespace MicroSimulator
         private Button button_A0;
         private Button button_bit_B7;
         private Button button_A4;
+        private Label label13;
+        private Label label14;
+        private Label label15;
+        private Label label16;
     }
 }
 

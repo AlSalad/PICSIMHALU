@@ -85,15 +85,6 @@ namespace MicroSimulator
                 Controls[optNameB].BackColor = Color.White;
             } 
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void SimulatorForm_Load(object sender, EventArgs e)
-        {
-        }
         #endregion
 
     #region Serielle Schnittstelle
@@ -108,23 +99,7 @@ namespace MicroSimulator
             var row = ToInt32(indata.Split(';')[2]);
             var opt = indata.Split(';')[3];
 
-        }
-
-        private void Timer_Takt_Tick(object sender, EventArgs e)
-        {
-                for (var i = 0; i <= 7; i++)
-                {
-                    var optNameA = "button_A" + i;
-                    var optNameB = "button_B" + i;
-                    var bitNameA = "button_bit_A" + i;
-                    var bitNameB = "button_bit_B" + i;
-
-                    if (Controls[optNameA].BackColor == Color.IndianRed)
-                        Controls[bitNameA].Text = Controls[bitNameA].Text == "1" ? "0" : "1";
-                    if (Controls[optNameB].BackColor == Color.IndianRed)
-                        Controls[bitNameB].Text = Controls[bitNameB].Text == "1" ? "0" : "1";
-                }
-        }      
+        }  
         #endregion
 
     #region Converter ---------------------
@@ -1769,11 +1744,26 @@ namespace MicroSimulator
 
         }
 
+        private void Timer_Takt_Tick(object sender, EventArgs e)
+        {
+            for (var i = 0; i <= 7; i++)
+            {
+                var optNameA = "button_A" + i;
+                var optNameB = "button_B" + i;
+                var bitNameA = "button_bit_A" + i;
+                var bitNameB = "button_bit_B" + i;
+
+                if (Controls[optNameA].BackColor == Color.IndianRed)
+                    Controls[bitNameA].Text = Controls[bitNameA].Text == "1" ? "0" : "1";
+                if (Controls[optNameB].BackColor == Color.IndianRed)
+                    Controls[bitNameB].Text = Controls[bitNameB].Text == "1" ? "0" : "1";
+            }
+        }
 
 
         #endregion
 
-    #region Register Tris A und B -------------------
+        #region Register Tris A und B -------------------
         private void button_A0_Click(object sender, EventArgs e)
         {
             if (button_A0.BackColor == Color.White)
