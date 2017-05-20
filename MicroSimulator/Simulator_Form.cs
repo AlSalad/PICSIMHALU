@@ -146,6 +146,39 @@ namespace MicroSimulator
             }
             return result;
         }
+
+        public void SetPortA(uint value)
+        {
+            for (var i = 0; i <= 4; i++)
+            {
+                var bitValue = (int) Math.Pow(2, i);
+                var portNameA = "button_bit_A" + i;
+
+                //if input => 1
+                if ((value & bitValue) == bitValue)
+                    Controls[portNameA].Text = "1";
+                else
+                    Controls[portNameA].Text = "0";
+            }
+        }
+
+        public void SetPortB(uint value)
+        {
+            for (var i = 0; i <= 7; i++)
+            {
+                var bitValue = (int)Math.Pow(2, i);
+                var portNameB = "button_bit_B" + i;
+
+                //if input => 1
+                if ((value & bitValue) == bitValue)
+                    Controls[portNameB].Text = "1";
+                else
+                    Controls[portNameB].Text = "0";
+            }
+        }
+
+
+
         #endregion
 
         #region Converter ---------------------

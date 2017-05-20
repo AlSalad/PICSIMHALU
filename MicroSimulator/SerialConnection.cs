@@ -88,8 +88,8 @@ namespace MicroSimulator
 
                 if (v != null)
                 {
-                    //_simulator.SetRegisterOhneBank(PICProgramm.ADDR_PORT_A, v.Item1);
-                    //_simulator.SetRegisterOhneBank(PICProgramm.ADDR_PORT_B, v.Item2);
+                    simForm.SetPortA(v.Item1);
+                    simForm.SetPortB(v.Item2);
                 }
             }
 
