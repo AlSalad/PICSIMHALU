@@ -4,36 +4,32 @@ using System.Windows.Forms;
 
 namespace MicroSimulator
 {
-    class Rs232Verbindung
+    public class SerialConnection
     {
-        private SerialPort ComPort;
-        private SimulatorForm _simulator;
-        private TextBox TextBox;
-        //private Form1 Fenster;
+        private SerialPort _comPort;
+        private SimulatorForm simForm;
 
-        private Timer timer;
-
-        public Rs232Verbindung()
+        public SerialConnection()
         {
-            timer = new Timer();
-            timer.Tick += TimerOnTick;
-            timer.Interval = 500;
-            timer.Enabled = true;
+            var timerSync = new Timer();
+            timerSync.Tick += TimerSyncOnTick;
+            timerSync.Interval = 500;
+            timerSync.Enabled = true;
         }
 
-        private void TimerOnTick(object sender, EventArgs eventArgs)
+        private void TimerSyncOnTick(object sender, EventArgs eventArgs)
         {
-            if (ComPort == null) return;
-            if (!ComPort.IsOpen) return;
+            if (_comPort == null) return;
+            if (!_comPort.IsOpen) return;
 
             SendData();
             RecieveData();
         }
 
 
-        public void Connect(string port)
+        public void Connect(SimulatorForm sm)
         {
-            ComPort = new SerialPort
+            _comPort = new SerialPort
             {
                 PortName = "COM1",
                 BaudRate = 4800,
@@ -44,41 +40,39 @@ namespace MicroSimulator
 
             try
             {
-                ComPort.Open();
+                _comPort.Open();
+                simForm = sm;
             }
             catch (Exception)
             {
-                ComPort = null;
-                return;
+                _comPort = null;
             }
-
-            ComPort = null;
         }
 
         public void Disconnect()
         {
-            if (ComPort == null) return;
-            ComPort.Close();
-            ComPort = null;
+            if (_comPort == null) return;
+            _comPort.Close();
+            _comPort = null;
         }
 
         private void SendData()
         {
-            //var portA = encodeByte(_simulator.);
-            //var trisA = encodeByte(_simulator.GetRegisterOhneBank(PICProgramm.ADDR_TRIS_A));
-            //var portB = encodeByte(_simulator.GetRegisterOhneBank(PICProgramm.ADDR_PORT_B));
-            //var trisB = encodeByte(_simulator.GetRegisterOhneBank(PICProgramm.ADDR_TRIS_B));
+            var trisA = EncodeByte((uint)simForm.GetTrisA());
+            var portA = EncodeByte((uint)simForm.GetPortA());
+            var trisB = EncodeByte((uint)simForm.GetTrisB());
+            var portB = EncodeByte((uint)simForm.GetPortB());
 
-            //var send = t_a + p_a + t_b + p_b;
+            var send = trisA + portA + trisB + portB;
 
-            //Send_RS232(send);
+            Send_RS232(send);
         }
 
         private void Send_RS232(string txt)
         {
             if (txt != string.Empty)
             {
-                ComPort.Write(txt + '\r');
+                _comPort.Write(txt + '\r');
             }
         }
 
@@ -102,7 +96,7 @@ namespace MicroSimulator
             x = ReadDataSegment();
         }
 
-        private string encodeByte(uint b)
+        private string EncodeByte(uint b)
         {
             char c1 = (char)(0x30 + ((b & 0xF0) >> 4));
             char c2 = (char)(0x30 + (b & 0x0F));
@@ -134,14 +128,14 @@ namespace MicroSimulator
         {
             var s = "";
 
-            if (ComPort.BytesToRead >= 5)
+            if (_comPort.BytesToRead >= 5)
             {
                 char? c = null;
 
                 var idx = 5;
                 while (c != '\r' && idx > 0)
                 {
-                    c = (char)ComPort.ReadByte();
+                    c = (char)_comPort.ReadByte();
 
                     s += c;
 

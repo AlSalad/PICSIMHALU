@@ -117,6 +117,8 @@ namespace MicroSimulator
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
+            this.button_Connect = new System.Windows.Forms.Button();
+            this.text_Port = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_prog)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Register)).BeginInit();
             this.groupBox_SpecialRegs.SuspendLayout();
@@ -495,7 +497,7 @@ namespace MicroSimulator
             this.text_Takt.Name = "text_Takt";
             this.text_Takt.Size = new System.Drawing.Size(43, 20);
             this.text_Takt.TabIndex = 64;
-            this.text_Takt.Text = "0";
+            this.text_Takt.Text = "2000";
             this.text_Takt.TextChanged += new System.EventHandler(this.text_Takt_TextChanged);
             // 
             // label10
@@ -628,33 +630,34 @@ namespace MicroSimulator
             // 
             // button_B0
             // 
+            this.button_B0.BackColor = System.Drawing.Color.White;
             this.button_B0.Location = new System.Drawing.Point(1059, 178);
             this.button_B0.Margin = new System.Windows.Forms.Padding(0);
             this.button_B0.Name = "button_B0";
             this.button_B0.Size = new System.Drawing.Size(40, 40);
             this.button_B0.TabIndex = 90;
-            this.button_B0.UseVisualStyleBackColor = true;
+            this.button_B0.UseVisualStyleBackColor = false;
             this.button_B0.Click += new System.EventHandler(this.button_B0_Click);
             // 
             // button_bit_A7
             // 
+            this.button_bit_A7.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.button_bit_A7.Location = new System.Drawing.Point(779, 103);
             this.button_bit_A7.Margin = new System.Windows.Forms.Padding(0);
             this.button_bit_A7.Name = "button_bit_A7";
             this.button_bit_A7.Size = new System.Drawing.Size(40, 40);
             this.button_bit_A7.TabIndex = 89;
-            this.button_bit_A7.Text = "0";
-            this.button_bit_A7.UseVisualStyleBackColor = true;
-            this.button_bit_A7.Click += new System.EventHandler(this.button_bit_A7_Click);
+            this.button_bit_A7.UseVisualStyleBackColor = false;
             // 
             // button_B6
             // 
+            this.button_B6.BackColor = System.Drawing.Color.White;
             this.button_B6.Location = new System.Drawing.Point(819, 178);
             this.button_B6.Margin = new System.Windows.Forms.Padding(0);
             this.button_B6.Name = "button_B6";
             this.button_B6.Size = new System.Drawing.Size(40, 40);
             this.button_B6.TabIndex = 91;
-            this.button_B6.UseVisualStyleBackColor = true;
+            this.button_B6.UseVisualStyleBackColor = false;
             this.button_B6.Click += new System.EventHandler(this.button_B6_Click);
             // 
             // button_bit_A1
@@ -670,12 +673,13 @@ namespace MicroSimulator
             // 
             // button_B5
             // 
+            this.button_B5.BackColor = System.Drawing.Color.White;
             this.button_B5.Location = new System.Drawing.Point(859, 178);
             this.button_B5.Margin = new System.Windows.Forms.Padding(0);
             this.button_B5.Name = "button_B5";
             this.button_B5.Size = new System.Drawing.Size(40, 40);
             this.button_B5.TabIndex = 92;
-            this.button_B5.UseVisualStyleBackColor = true;
+            this.button_B5.UseVisualStyleBackColor = false;
             this.button_B5.Click += new System.EventHandler(this.button_B5_Click);
             // 
             // button_bit_A2
@@ -691,12 +695,13 @@ namespace MicroSimulator
             // 
             // button_B4
             // 
+            this.button_B4.BackColor = System.Drawing.Color.White;
             this.button_B4.Location = new System.Drawing.Point(899, 178);
             this.button_B4.Margin = new System.Windows.Forms.Padding(0);
             this.button_B4.Name = "button_B4";
             this.button_B4.Size = new System.Drawing.Size(40, 40);
             this.button_B4.TabIndex = 93;
-            this.button_B4.UseVisualStyleBackColor = true;
+            this.button_B4.UseVisualStyleBackColor = false;
             this.button_B4.Click += new System.EventHandler(this.button_B4_Click);
             // 
             // button_bit_A3
@@ -712,12 +717,13 @@ namespace MicroSimulator
             // 
             // button_B3
             // 
+            this.button_B3.BackColor = System.Drawing.Color.White;
             this.button_B3.Location = new System.Drawing.Point(939, 178);
             this.button_B3.Margin = new System.Windows.Forms.Padding(0);
             this.button_B3.Name = "button_B3";
             this.button_B3.Size = new System.Drawing.Size(40, 40);
             this.button_B3.TabIndex = 94;
-            this.button_B3.UseVisualStyleBackColor = true;
+            this.button_B3.UseVisualStyleBackColor = false;
             this.button_B3.Click += new System.EventHandler(this.button_B3_Click);
             // 
             // button_bit_A4
@@ -733,54 +739,55 @@ namespace MicroSimulator
             // 
             // button_B2
             // 
+            this.button_B2.BackColor = System.Drawing.Color.White;
             this.button_B2.Location = new System.Drawing.Point(979, 178);
             this.button_B2.Margin = new System.Windows.Forms.Padding(0);
             this.button_B2.Name = "button_B2";
             this.button_B2.Size = new System.Drawing.Size(40, 40);
             this.button_B2.TabIndex = 95;
-            this.button_B2.UseVisualStyleBackColor = true;
+            this.button_B2.UseVisualStyleBackColor = false;
             this.button_B2.Click += new System.EventHandler(this.button_B2_Click);
             // 
             // button_bit_A5
             // 
+            this.button_bit_A5.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.button_bit_A5.Location = new System.Drawing.Point(859, 103);
             this.button_bit_A5.Margin = new System.Windows.Forms.Padding(0);
             this.button_bit_A5.Name = "button_bit_A5";
             this.button_bit_A5.Size = new System.Drawing.Size(40, 40);
             this.button_bit_A5.TabIndex = 84;
-            this.button_bit_A5.Text = "0";
-            this.button_bit_A5.UseVisualStyleBackColor = true;
-            this.button_bit_A5.Click += new System.EventHandler(this.button_bit_A5_Click);
+            this.button_bit_A5.UseVisualStyleBackColor = false;
             // 
             // button_B1
             // 
+            this.button_B1.BackColor = System.Drawing.Color.White;
             this.button_B1.Location = new System.Drawing.Point(1019, 178);
             this.button_B1.Margin = new System.Windows.Forms.Padding(0);
             this.button_B1.Name = "button_B1";
             this.button_B1.Size = new System.Drawing.Size(40, 40);
             this.button_B1.TabIndex = 96;
-            this.button_B1.UseVisualStyleBackColor = true;
+            this.button_B1.UseVisualStyleBackColor = false;
             this.button_B1.Click += new System.EventHandler(this.button_B1_Click);
             // 
             // button_bit_A6
             // 
+            this.button_bit_A6.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.button_bit_A6.Location = new System.Drawing.Point(819, 103);
             this.button_bit_A6.Margin = new System.Windows.Forms.Padding(0);
             this.button_bit_A6.Name = "button_bit_A6";
             this.button_bit_A6.Size = new System.Drawing.Size(40, 40);
             this.button_bit_A6.TabIndex = 83;
-            this.button_bit_A6.Text = "0";
-            this.button_bit_A6.UseVisualStyleBackColor = true;
-            this.button_bit_A6.Click += new System.EventHandler(this.button_bit_A6_Click);
+            this.button_bit_A6.UseVisualStyleBackColor = false;
             // 
             // button_B7
             // 
+            this.button_B7.BackColor = System.Drawing.Color.White;
             this.button_B7.Location = new System.Drawing.Point(779, 178);
             this.button_B7.Margin = new System.Windows.Forms.Padding(0);
             this.button_B7.Name = "button_B7";
             this.button_B7.Size = new System.Drawing.Size(40, 40);
             this.button_B7.TabIndex = 97;
-            this.button_B7.UseVisualStyleBackColor = true;
+            this.button_B7.UseVisualStyleBackColor = false;
             this.button_B7.Click += new System.EventHandler(this.button_B7_Click);
             // 
             // button_bit_A0
@@ -807,13 +814,13 @@ namespace MicroSimulator
             // 
             // button_A7
             // 
+            this.button_A7.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.button_A7.Location = new System.Drawing.Point(779, 63);
             this.button_A7.Margin = new System.Windows.Forms.Padding(0);
             this.button_A7.Name = "button_A7";
             this.button_A7.Size = new System.Drawing.Size(40, 40);
             this.button_A7.TabIndex = 81;
-            this.button_A7.UseVisualStyleBackColor = true;
-            this.button_A7.Click += new System.EventHandler(this.button_A7_Click);
+            this.button_A7.UseVisualStyleBackColor = false;
             // 
             // button_bit_B6
             // 
@@ -828,12 +835,13 @@ namespace MicroSimulator
             // 
             // button_A1
             // 
+            this.button_A1.BackColor = System.Drawing.Color.White;
             this.button_A1.Location = new System.Drawing.Point(1019, 63);
             this.button_A1.Margin = new System.Windows.Forms.Padding(0);
             this.button_A1.Name = "button_A1";
             this.button_A1.Size = new System.Drawing.Size(40, 40);
             this.button_A1.TabIndex = 80;
-            this.button_A1.UseVisualStyleBackColor = true;
+            this.button_A1.UseVisualStyleBackColor = false;
             this.button_A1.Click += new System.EventHandler(this.button_A1_Click);
             // 
             // button_bit_B5
@@ -849,12 +857,13 @@ namespace MicroSimulator
             // 
             // button_A2
             // 
+            this.button_A2.BackColor = System.Drawing.Color.White;
             this.button_A2.Location = new System.Drawing.Point(979, 63);
             this.button_A2.Margin = new System.Windows.Forms.Padding(0);
             this.button_A2.Name = "button_A2";
             this.button_A2.Size = new System.Drawing.Size(40, 40);
             this.button_A2.TabIndex = 79;
-            this.button_A2.UseVisualStyleBackColor = true;
+            this.button_A2.UseVisualStyleBackColor = false;
             this.button_A2.Click += new System.EventHandler(this.button_A2_Click);
             // 
             // button_bit_B4
@@ -870,12 +879,13 @@ namespace MicroSimulator
             // 
             // button_A3
             // 
+            this.button_A3.BackColor = System.Drawing.Color.White;
             this.button_A3.Location = new System.Drawing.Point(939, 63);
             this.button_A3.Margin = new System.Windows.Forms.Padding(0);
             this.button_A3.Name = "button_A3";
             this.button_A3.Size = new System.Drawing.Size(40, 40);
             this.button_A3.TabIndex = 78;
-            this.button_A3.UseVisualStyleBackColor = true;
+            this.button_A3.UseVisualStyleBackColor = false;
             this.button_A3.Click += new System.EventHandler(this.button_A3_Click);
             // 
             // button_bit_B3
@@ -891,13 +901,13 @@ namespace MicroSimulator
             // 
             // button_A5
             // 
+            this.button_A5.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.button_A5.Location = new System.Drawing.Point(859, 63);
             this.button_A5.Margin = new System.Windows.Forms.Padding(0);
             this.button_A5.Name = "button_A5";
             this.button_A5.Size = new System.Drawing.Size(40, 40);
             this.button_A5.TabIndex = 76;
-            this.button_A5.UseVisualStyleBackColor = true;
-            this.button_A5.Click += new System.EventHandler(this.button_A5_Click);
+            this.button_A5.UseVisualStyleBackColor = false;
             // 
             // button_bit_B2
             // 
@@ -912,13 +922,13 @@ namespace MicroSimulator
             // 
             // button_A6
             // 
+            this.button_A6.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.button_A6.Location = new System.Drawing.Point(819, 63);
             this.button_A6.Margin = new System.Windows.Forms.Padding(0);
             this.button_A6.Name = "button_A6";
             this.button_A6.Size = new System.Drawing.Size(40, 40);
             this.button_A6.TabIndex = 75;
-            this.button_A6.UseVisualStyleBackColor = true;
-            this.button_A6.Click += new System.EventHandler(this.button_A6_Click);
+            this.button_A6.UseVisualStyleBackColor = false;
             // 
             // button_bit_B1
             // 
@@ -933,12 +943,13 @@ namespace MicroSimulator
             // 
             // button_A0
             // 
+            this.button_A0.BackColor = System.Drawing.Color.White;
             this.button_A0.Location = new System.Drawing.Point(1059, 63);
             this.button_A0.Margin = new System.Windows.Forms.Padding(0);
             this.button_A0.Name = "button_A0";
             this.button_A0.Size = new System.Drawing.Size(40, 40);
             this.button_A0.TabIndex = 74;
-            this.button_A0.UseVisualStyleBackColor = true;
+            this.button_A0.UseVisualStyleBackColor = false;
             this.button_A0.Click += new System.EventHandler(this.button_A0_Click);
             // 
             // button_bit_B7
@@ -954,12 +965,13 @@ namespace MicroSimulator
             // 
             // button_A4
             // 
+            this.button_A4.BackColor = System.Drawing.Color.White;
             this.button_A4.Location = new System.Drawing.Point(899, 63);
             this.button_A4.Margin = new System.Windows.Forms.Padding(0);
             this.button_A4.Name = "button_A4";
             this.button_A4.Size = new System.Drawing.Size(40, 40);
             this.button_A4.TabIndex = 77;
-            this.button_A4.UseVisualStyleBackColor = true;
+            this.button_A4.UseVisualStyleBackColor = false;
             this.button_A4.Click += new System.EventHandler(this.button_A4_Click);
             // 
             // label13
@@ -998,12 +1010,33 @@ namespace MicroSimulator
             this.label16.TabIndex = 109;
             this.label16.Text = "Port B";
             // 
+            // button_Connect
+            // 
+            this.button_Connect.Location = new System.Drawing.Point(819, 274);
+            this.button_Connect.Name = "button_Connect";
+            this.button_Connect.Size = new System.Drawing.Size(75, 23);
+            this.button_Connect.TabIndex = 110;
+            this.button_Connect.Text = "Connect";
+            this.button_Connect.UseVisualStyleBackColor = true;
+            this.button_Connect.Click += new System.EventHandler(this.button_Connect_Click);
+            // 
+            // text_Port
+            // 
+            this.text_Port.Location = new System.Drawing.Point(899, 276);
+            this.text_Port.Name = "text_Port";
+            this.text_Port.ReadOnly = true;
+            this.text_Port.Size = new System.Drawing.Size(38, 20);
+            this.text_Port.TabIndex = 111;
+            this.text_Port.Text = "COM1";
+            // 
             // SimulatorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1264, 821);
+            this.Controls.Add(this.text_Port);
+            this.Controls.Add(this.button_Connect);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.label14);
@@ -1078,10 +1111,7 @@ namespace MicroSimulator
         #endregion
         private System.Windows.Forms.TextBox text_path;
         private System.Windows.Forms.Button Btn_Open;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.TextBox text_W;
-        private System.Windows.Forms.Label reg_W;
         private System.Windows.Forms.Label label_W;
         private System.Windows.Forms.Button btn_Step;
         private System.Windows.Forms.DataGridView dataGridView_prog;
@@ -1168,6 +1198,8 @@ namespace MicroSimulator
         private Label label14;
         private Label label15;
         private Label label16;
+        private Button button_Connect;
+        private TextBox text_Port;
     }
 }
 

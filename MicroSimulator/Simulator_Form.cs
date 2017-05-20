@@ -16,7 +16,7 @@ namespace MicroSimulator
     #region Global fields ---------------------
 
         private readonly SerialPort _com1Port = new SerialPort("COM1", 9600);
-
+        private SerialConnection sc;
         private int _w; //test
         private int _l;
         private int _f;
@@ -70,39 +70,85 @@ namespace MicroSimulator
         /// </summary>
         public SimulatorForm()
         {
-            _com1Port.Open();
-            _com1Port.DataReceived += MyDataReceivedHandler;
             InitializeComponent();
+            sc = new SerialConnection();
             Timer_Takt.Interval = 2000;
             Timer_Takt.Start();
-
-            for (var i = 0; i <= 7; i++)
-            {
-                var optNameA = "button_A" + i;
-                var optNameB = "button_B" + i;
-
-                Controls[optNameA].BackColor = Color.White;
-                Controls[optNameB].BackColor = Color.White;
-            } 
         }
         #endregion
 
-    #region Serielle Schnittstelle
+        #region Serielle Schnittstelle
 
-        private void MyDataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
+        private void button_Connect_Click(object sender, EventArgs e)
         {
-            var indata = _com1Port.ReadExisting();
-            MessageBox.Show(indata);
+            sc.Connect(this);
+        }
 
-            var port = indata.Split(';')[0];
-            var bit = 8 - ToInt32(indata.Split(';')[1]);
-            var row = ToInt32(indata.Split(';')[2]);
-            var opt = indata.Split(';')[3];
+        public int GetTrisA()
+        {
+            var result = 0;
+            for (var i = 0; i <= 4; i++)
+            {
+                var trisNameA = "button_A" + i;
 
-        }  
+                //if input => 1
+                if (Controls[trisNameA].BackColor == Color.White)
+                {
+                    result += (int)Math.Pow(2, i);
+                }
+
+            }
+
+            return result;
+        }
+
+        public int GetTrisB()
+        {
+            var result = 0;
+            for (var i = 0; i <= 7; i++)
+            {
+                var trisNameB = "button_B" + i;
+
+                //if input => 1
+                if (Controls[trisNameB].BackColor == Color.White)
+                    result += (int)Math.Pow(2, i);
+
+            }
+
+            return result;
+        }
+
+        public int GetPortA()
+        {
+            var result = 0;
+            for (var i = 0; i <= 7; i++)
+            {
+                var portNameA = "button_bit_A" + i;
+
+                //if input => 1
+                if (Controls[portNameA].Text == "1")
+                    result += (int)Math.Pow(2, i);
+            }
+            return result;
+        }
+
+
+        public int GetPortB()
+        {
+            var result = 0;
+            for (var i = 0; i <= 7; i++)
+            {
+                var portNameB = "button_bit_B" + i;
+
+                //if input => 1
+                if (Controls[portNameB].Text == "1")
+                    result += (int)Math.Pow(2, i);
+            }
+            return result;
+        }
         #endregion
 
-    #region Converter ---------------------
+        #region Converter ---------------------
         /// <summary>
         /// 
         /// </summary>
@@ -1609,13 +1655,11 @@ namespace MicroSimulator
                 Timer_Takt.Start();
             }
             catch (FormatException)
-            {}
-            
-
+            { }
         }
-    #endregion
+        #endregion
 
-    #region Timer -------------------
+        #region Timer -------------------
 
         /// <summary>
         /// Program Timer läuft
@@ -1865,68 +1909,7 @@ namespace MicroSimulator
                 button_A4.BackColor = Color.White;
             }
 
-        }
-
-        private void button_A5_Click(object sender, EventArgs e)
-        {
-            if (button_A5.BackColor == Color.White)
-            {
-                button_A5.BackColor = Color.CornflowerBlue;
-                return;
-            }
-
-            if (button_A5.BackColor == Color.CornflowerBlue)
-            {
-                button_A5.BackColor = Color.IndianRed;
-                return;
-            }
-
-            if (button_A5.BackColor == Color.IndianRed)
-            {
-                button_A5.BackColor = Color.White;
-            }
-        }
-
-        private void button_A6_Click(object sender, EventArgs e)
-        {
-            if (button_A6.BackColor == Color.White)
-            {
-                button_A6.BackColor = Color.CornflowerBlue;
-                return;
-            }
-
-            if (button_A6.BackColor == Color.CornflowerBlue)
-            {
-                button_A6.BackColor = Color.IndianRed;
-                return;
-            }
-
-            if (button_A6.BackColor == Color.IndianRed)
-            {
-                button_A6.BackColor = Color.White;
-            }
-        }
-
-        private void button_A7_Click(object sender, EventArgs e)
-        {
-            if (button_A7.BackColor == Color.White)
-            {
-                button_A7.BackColor = Color.CornflowerBlue;
-                return;
-            }
-
-            if (button_A7.BackColor == Color.CornflowerBlue)
-            {
-                button_A7.BackColor = Color.IndianRed;
-                return;
-            }
-
-            if (button_A7.BackColor == Color.IndianRed)
-            {
-                button_A7.BackColor = Color.White;
-            }
-        }
-
+        }      
 
         //Bit teil von A
         private void button_bit_A0_Click(object sender, EventArgs e)
@@ -1991,44 +1974,6 @@ namespace MicroSimulator
                 button_bit_A4.Text = "0";
             }
         }
-
-        private void button_bit_A5_Click(object sender, EventArgs e)
-        {
-            if (button_bit_A5.Text == "0")
-            {
-                button_bit_A5.Text = "1";
-            }
-            else
-            {
-                button_bit_A5.Text = "0";
-            }
-
-        }
-
-        private void button_bit_A6_Click(object sender, EventArgs e)
-        {
-            if (button_bit_A6.Text == "0")
-            {
-                button_bit_A6.Text = "1";
-            }
-            else
-            {
-                button_bit_A6.Text = "0";
-            }
-        }
-
-        private void button_bit_A7_Click(object sender, EventArgs e)
-        {
-            if (button_bit_A7.Text == "0")
-            {
-                button_bit_A7.Text = "1";
-            }
-            else
-            {
-                button_bit_A7.Text = "0";
-            }
-        }
-
 
 
         // Button B mit Farben
@@ -2296,6 +2241,6 @@ namespace MicroSimulator
             }
         }
 
-    #endregion
+        #endregion
     }
 }
