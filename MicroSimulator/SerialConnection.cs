@@ -23,7 +23,7 @@ namespace MicroSimulator
             if (!_comPort.IsOpen) return;
 
             SendData();
-            RecieveData();
+            ReceiveData();
         }
 
 
@@ -76,7 +76,7 @@ namespace MicroSimulator
             }
         }
 
-        private void RecieveData()
+        private void ReceiveData()
         {
             var x = ReadDataSegment();
 
@@ -84,7 +84,7 @@ namespace MicroSimulator
 
             if (x.Length == 4)
             {
-                var v = decodeBytes(x);
+                var v = DecodeBytes(x);
 
                 if (v != null)
                 {
@@ -98,13 +98,13 @@ namespace MicroSimulator
 
         private string EncodeByte(uint b)
         {
-            char c1 = (char)(0x30 + ((b & 0xF0) >> 4));
-            char c2 = (char)(0x30 + (b & 0x0F));
+            var c1 = (char)(0x30 + ((b & 0xF0) >> 4));
+            var c2 = (char)(0x30 + (b & 0x0F));
 
             return "" + c1 + c2;
         }
 
-        private Tuple<uint, uint> decodeBytes(string s)
+        private Tuple<uint, uint> DecodeBytes(string s)
         {
             var i0 = s[0] - 0x30;
             var i1 = s[1] - 0x30;
@@ -113,15 +113,13 @@ namespace MicroSimulator
 
             if (i0 >= 0 && i1 >= 0 && i2 >= 0 && i3 >= 0 && i0 <= 0xF && i1 <= 0xF && i2 <= 0xF && i3 <= 0xF)
             {
-                uint a = (((uint)i0 & 0x0F) << 4) | ((uint)i1 & 0x0F);
-                uint b = (((uint)i2 & 0x0F) << 4) | ((uint)i3 & 0x0F);
+                var a = (((uint)i0 & 0x0F) << 4) | ((uint)i1 & 0x0F);
+                var b = (((uint)i2 & 0x0F) << 4) | ((uint)i3 & 0x0F);
 
                 return Tuple.Create(a, b);
             }
-            else
-            {
-                return null;
-            }
+
+            return null;
         }
 
         private string ReadDataSegment()
