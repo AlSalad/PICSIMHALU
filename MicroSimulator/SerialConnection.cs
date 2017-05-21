@@ -7,7 +7,7 @@ namespace MicroSimulator
     public class SerialConnection
     {
         private SerialPort _comPort;
-        private SimulatorForm simForm;
+        private SimulatorForm _simForm;
 
         public SerialConnection()
         {
@@ -41,7 +41,7 @@ namespace MicroSimulator
             try
             {
                 _comPort.Open();
-                simForm = sm;
+                _simForm = sm;
             }
             catch (Exception)
             {
@@ -58,10 +58,10 @@ namespace MicroSimulator
 
         private void SendData()
         {
-            var trisA = EncodeByte((uint)simForm.GetTrisA());
-            var portA = EncodeByte((uint)simForm.GetPortA());
-            var trisB = EncodeByte((uint)simForm.GetTrisB());
-            var portB = EncodeByte((uint)simForm.GetPortB());
+            var trisA = EncodeByte((uint)_simForm.GetTrisA());
+            var portA = EncodeByte((uint)_simForm.GetPortA());
+            var trisB = EncodeByte((uint)_simForm.GetTrisB());
+            var portB = EncodeByte((uint)_simForm.GetPortB());
 
             var send = trisA + portA + trisB + portB;
 
@@ -88,12 +88,10 @@ namespace MicroSimulator
 
                 if (v != null)
                 {
-                    simForm.SetPortA(v.Item1);
-                    simForm.SetPortB(v.Item2);
+                    _simForm.SetPortA(v.Item1);
+                    _simForm.SetPortB(v.Item2);
                 }
             }
-
-            x = ReadDataSegment();
         }
 
         private string EncodeByte(uint b)

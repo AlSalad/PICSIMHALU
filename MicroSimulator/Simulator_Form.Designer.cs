@@ -736,6 +736,7 @@ namespace MicroSimulator
             this.button_bit_A4.Text = "0";
             this.button_bit_A4.UseVisualStyleBackColor = true;
             this.button_bit_A4.Click += new System.EventHandler(this.button_bit_A4_Click);
+            this.button_bit_A4.TextChanged += new System.EventHandler(this.button_bit_A4_TextChanged);
             // 
             // button_B2
             // 
@@ -1034,7 +1035,7 @@ namespace MicroSimulator
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(1264, 821);
+            this.ClientSize = new System.Drawing.Size(1133, 821);
             this.Controls.Add(this.text_Port);
             this.Controls.Add(this.button_Connect);
             this.Controls.Add(this.label16);
