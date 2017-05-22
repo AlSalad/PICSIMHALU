@@ -1725,6 +1725,11 @@ namespace MicroSimulator
             _cycles = 2;
         }
 
+        /// <summary>
+        /// Interrupt bei B0 = 1
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button_bit_B0_TextChanged(object sender, EventArgs e)
         {
             var txt = (Button)sender;
