@@ -812,6 +812,7 @@ namespace MicroSimulator
             this.button_bit_B0.Text = "0";
             this.button_bit_B0.UseVisualStyleBackColor = true;
             this.button_bit_B0.Click += new System.EventHandler(this.button_bit_B0_Click);
+            this.button_bit_B0.TextChanged += new System.EventHandler(this.button_bit_B0_TextChanged);
             // 
             // button_A7
             // 

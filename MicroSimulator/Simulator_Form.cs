@@ -26,9 +26,11 @@ namespace MicroSimulator
 
         //Letzter RA0 wert für Flankenauswertung
         private string LastRa0TmrVal { get; set; }
+        private string LastB0Val { get; set; }
 
         //Tmr0 Zählerstand
         private int _tmr0Value;
+        
 
         //Durchläufe von Befehlen
         private int _cycles;
@@ -1657,7 +1659,6 @@ namespace MicroSimulator
 
             _programCounter = dataGridView_prog.CurrentRow.Index;
             text_Pc.Text = _programCounter.ToString();
-            _tmr0Value = 0;
 
             CheckInterrupt();
 
@@ -1690,7 +1691,7 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Schau ob Interrupt ausgelöst wurde
         /// </summary>
         private void CheckInterrupt()
         {
@@ -1714,7 +1715,7 @@ namespace MicroSimulator
                                 .Rows[row.Index - 2]
                                 .Cells[dataGridView_prog.CurrentCell.ColumnIndex];
                         dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
-                    }
+                    }                   
                 }
             }
             catch (Exception exc)
@@ -1724,8 +1725,27 @@ namespace MicroSimulator
             _cycles = 2;
         }
 
+        private void button_bit_B0_TextChanged(object sender, EventArgs e)
+        {
+            var txt = (Button)sender;
+            var intcon = GetIntcon();
+            if (LastB0Val == "0" && txt.Text == "1")
+            {               
+                intcon = intcon | 2;
+                SetIntcon(intcon);
+            }
+            // falling flank
+            if (LastB0Val == "1" && txt.Text == "0")
+            {
+                intcon = intcon & 0b1111_1101;
+                SetIntcon(intcon);
+            }
+
+            LastB0Val = button_bit_B0.Text;
+        }
+
         /// <summary>
-        /// 
+        /// Ändere Geschwindigkeit von Timer
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -1746,7 +1766,6 @@ namespace MicroSimulator
         #endregion
 
         #region Timer -------------------
-
         /// <summary>
         /// Program Timer läuft
         /// </summary>
@@ -1963,7 +1982,6 @@ namespace MicroSimulator
                         .Rows[0]
                         .Cells[dataGridView_prog.CurrentCell.ColumnIndex];
                 dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
-                _stop = true;
             }
 
         }
