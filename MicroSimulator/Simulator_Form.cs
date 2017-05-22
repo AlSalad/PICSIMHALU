@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
-using System.IO.Ports;
 using System.Linq;
 using System.Windows.Forms;
 using MicroSimulator.Properties;
@@ -160,7 +159,7 @@ namespace MicroSimulator
                 var portNameA = "button_bit_A" + i;
 
                 //if input => 1
-                if (Controls[portNameA].Text == "1")
+                if (Controls[portNameA].Text == @"1")
                     result += (int)Math.Pow(2, i);
             }
             return result;
@@ -178,7 +177,7 @@ namespace MicroSimulator
                 var portNameB = "button_bit_B" + i;
 
                 //if input => 1
-                if (Controls[portNameB].Text == "1")
+                if (Controls[portNameB].Text == @"1")
                     result += (int)Math.Pow(2, i);
             }
             return result;
@@ -197,9 +196,9 @@ namespace MicroSimulator
 
                 //if input => 1
                 if ((value & bitValue) == bitValue)
-                    Controls[portNameA].Text = "1";
+                    Controls[portNameA].Text = @"1";
                 else
-                    Controls[portNameA].Text = "0";
+                    Controls[portNameA].Text = @"0";
             }
         }
 
@@ -216,9 +215,9 @@ namespace MicroSimulator
 
                 //if input => 1
                 if ((value & bitValue) == bitValue)
-                    Controls[portNameB].Text = "1";
+                    Controls[portNameB].Text = @"1";
                 else
-                    Controls[portNameB].Text = "0";
+                    Controls[portNameB].Text = @"0";
             }
         }
         #endregion
@@ -1533,7 +1532,6 @@ namespace MicroSimulator
 
                 if (quartz == 0) return;
 
-                if (quartz > 4000) quartz = 4000;
                 Timer_prog.Interval = 1;
                 //Timer_0.Interval = 4000 / quartz * ReadTmrPrescaler();
             }
@@ -1582,7 +1580,6 @@ namespace MicroSimulator
         #endregion
 
         #region RunTime -------------------
-
         /// <summary>
         /// Setze alle Werte zurück auf Standard
         /// </summary>
@@ -1880,14 +1877,13 @@ namespace MicroSimulator
             if (CheckIfPrescale() == 0) prescaleopt = ReadTmrPrescaler() * 2;
             else prescaleopt = 1;
 
-            text_Prescaler.Text = @"1 / " + prescaleopt;
-
-            var prescaler = 1.0 / prescaleopt;
-            _prescaleCircle += prescaler;
+            text_Prescaler.Text = @"1 / " + prescaleopt;     
 
             // rising flank
             if (LastRa0TmrVal == "0" && txt.Text == "1" && ReadT0Se() == 0)
-            {  
+            {
+                var prescaler = 1.0 / prescaleopt;
+                _prescaleCircle += prescaler;
                 if (_prescaleCircle >= 1.0)
                 {
                     _tmr0Value += 1;
@@ -1898,6 +1894,8 @@ namespace MicroSimulator
             // falling flank
             if (LastRa0TmrVal == "1" && txt.Text == "0" && ReadT0Se() == 16)
             {
+                var prescaler = 1.0 / prescaleopt;
+                _prescaleCircle += prescaler;
                 if (_prescaleCircle >= 1.0)
                 {
                     _tmr0Value += 1;
@@ -2181,9 +2179,7 @@ namespace MicroSimulator
             }
         }
 
-
         // Button B mit Farben
-
         private void button_B0_Click(object sender, EventArgs e)
         {
 
@@ -2347,9 +2343,7 @@ namespace MicroSimulator
             }
         }
 
-
         //Bit Teil Button B
-
         private void button_bit_B0_Click(object sender, EventArgs e)
         {
             if (button_bit_B0.Text == "0")
@@ -2446,7 +2440,6 @@ namespace MicroSimulator
                 button_bit_B7.Text = "0";
             }
         }
-
         #endregion
     }
 }
