@@ -30,7 +30,6 @@ namespace MicroSimulator
         //Tmr0 Zählerstand
         private int _tmr0Value;
         
-
         //Durchläufe von Befehlen
         private int _cycles;
         //Durchlauf für Berechnung von Prescaler
@@ -103,6 +102,11 @@ namespace MicroSimulator
         private void button_Connect_Click(object sender, EventArgs e)
         {
             _sc.Connect(this);
+        }
+
+        private void button_Disconnect_Click(object sender, EventArgs e)
+        {
+            _sc.Disconnect();
         }
 
         /// <summary>
@@ -1655,7 +1659,8 @@ namespace MicroSimulator
             if (dataGridView_prog.CurrentRow == null) return;
 
             _programCounter = dataGridView_prog.CurrentRow.Index;
-            text_Pc.Text = _programCounter.ToString();
+            var pc = Hex2Int(dataGridView_prog.CurrentRow.Cells[1].Value.ToString());
+            text_Pc.Text = pc.ToString();
 
             CheckInterrupt();
 
@@ -1679,6 +1684,8 @@ namespace MicroSimulator
             }
             catch (FormatException)
             { return; }
+
+            if (_stack.Count != 0) text_Stack.Text = _stack.Peek().ToString();
 
             SetTmr0Cyclewise();
             WatchdogTimer();
@@ -1731,13 +1738,13 @@ namespace MicroSimulator
         {
             var txt = (Button)sender;
             var intcon = GetIntcon();
-            if (LastB0Val == "0" && txt.Text == "1")
+            if (LastB0Val == "0" && txt.Text == @"1")
             {               
                 intcon = intcon | 2;
                 SetIntcon(intcon);
             }
             // falling flank
-            if (LastB0Val == "1" && txt.Text == "0")
+            if (LastB0Val == "1" && txt.Text == @"0")
             {
                 intcon = intcon & 0b1111_1101;
                 SetIntcon(intcon);

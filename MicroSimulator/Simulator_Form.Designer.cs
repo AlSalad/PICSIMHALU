@@ -119,6 +119,9 @@ namespace MicroSimulator
             this.label16 = new System.Windows.Forms.Label();
             this.button_Connect = new System.Windows.Forms.Button();
             this.text_Port = new System.Windows.Forms.TextBox();
+            this.button_Disconnect = new System.Windows.Forms.Button();
+            this.text_Stack = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_prog)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Register)).BeginInit();
             this.groupBox_SpecialRegs.SuspendLayout();
@@ -735,8 +738,8 @@ namespace MicroSimulator
             this.button_bit_A4.TabIndex = 85;
             this.button_bit_A4.Text = "0";
             this.button_bit_A4.UseVisualStyleBackColor = true;
-            this.button_bit_A4.Click += new System.EventHandler(this.button_bit_A4_Click);
             this.button_bit_A4.TextChanged += new System.EventHandler(this.button_bit_A4_TextChanged);
+            this.button_bit_A4.Click += new System.EventHandler(this.button_bit_A4_Click);
             // 
             // button_B2
             // 
@@ -811,8 +814,8 @@ namespace MicroSimulator
             this.button_bit_B0.TabIndex = 98;
             this.button_bit_B0.Text = "0";
             this.button_bit_B0.UseVisualStyleBackColor = true;
-            this.button_bit_B0.Click += new System.EventHandler(this.button_bit_B0_Click);
             this.button_bit_B0.TextChanged += new System.EventHandler(this.button_bit_B0_TextChanged);
+            this.button_bit_B0.Click += new System.EventHandler(this.button_bit_B0_Click);
             // 
             // button_A7
             // 
@@ -1031,12 +1034,42 @@ namespace MicroSimulator
             this.text_Port.TabIndex = 111;
             this.text_Port.Text = "COM1";
             // 
+            // button_Disconnect
+            // 
+            this.button_Disconnect.Location = new System.Drawing.Point(943, 273);
+            this.button_Disconnect.Name = "button_Disconnect";
+            this.button_Disconnect.Size = new System.Drawing.Size(75, 23);
+            this.button_Disconnect.TabIndex = 112;
+            this.button_Disconnect.Text = "Disconnect";
+            this.button_Disconnect.UseVisualStyleBackColor = true;
+            this.button_Disconnect.Click += new System.EventHandler(this.button_Disconnect_Click);
+            // 
+            // text_Stack
+            // 
+            this.text_Stack.Location = new System.Drawing.Point(510, 217);
+            this.text_Stack.Name = "text_Stack";
+            this.text_Stack.Size = new System.Drawing.Size(76, 20);
+            this.text_Stack.TabIndex = 113;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(507, 201);
+            this.label17.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(35, 13);
+            this.label17.TabIndex = 64;
+            this.label17.Text = "Stack";
+            // 
             // SimulatorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1133, 821);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.text_Stack);
+            this.Controls.Add(this.button_Disconnect);
             this.Controls.Add(this.text_Port);
             this.Controls.Add(this.button_Connect);
             this.Controls.Add(this.label16);
@@ -1202,6 +1235,9 @@ namespace MicroSimulator
         private Label label16;
         private Button button_Connect;
         private TextBox text_Port;
+        private Button button_Disconnect;
+        private TextBox text_Stack;
+        private Label label17;
     }
 }
 
