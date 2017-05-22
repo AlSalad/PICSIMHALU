@@ -13,33 +13,46 @@ namespace MicroSimulator
 {  
     public partial class SimulatorForm : Form
     {
-    #region Global fields ---------------------
+        #region Global fields ---------------------
 
-        private readonly SerialPort _com1Port = new SerialPort("COM1", 9600);
+        //Klassenaufruf Verbindung mit Hardware
         private SerialConnection _sc;
-        private int _w; //test
+        //Arbeitsregister
+        private int _w;
+        //Literal
         private int _l;
+        //Register f
         private int _f;
 
+        //Letzter RA0 wert für Flankenauswertung
         private string LastRa0TmrVal { get; set; }
 
+        //Tmr0 Zählerstand
         private int _tmr0Value;
-        private int _cycles;
-        private double _prescaleCircle;
-        private double _runtime;
 
+        //Durchläufe von Befehlen
+        private int _cycles;
+        //Durchlauf für Berechnung von Prescaler
+        private double _prescaleCircle;
+        //Laufzeitzähler
+        private double _runtime;
+        
+        //Statusregister in Variable
         private int _statusReg;
+        //Programmcounter
         private int _programCounter;
 
+        //Stop für Programm START/STOP
         private bool _stop;
         
-
         // ReSharper disable once FieldCanBeMadeReadOnly.Local --> Stack wird beschrieben
         private Stack<int> _stack = new Stack<int>();
+
+        //Inhalt von Testfile
         private string[] _codeList;
 
         /// <summary>
-        /// 
+        /// Erhalte Wert von Intconregister
         /// </summary>
         /// <returns></returns>
         private int GetIntcon()
@@ -54,9 +67,9 @@ namespace MicroSimulator
             return 0;
         }
         /// <summary>
-        /// 
+        /// Schreibe Wert von Intconregister
         /// </summary>
-        /// <param name="val"></param>
+        /// <param name="val">Wert der in Intcon geschrieben wird</param>
         private void SetIntcon(int val)
         {
             foreach (DataGridViewRow row in dataGridView_Register.Rows)
@@ -65,11 +78,11 @@ namespace MicroSimulator
                     row.Cells[2].Value = val.ToString("X");
             }
         }
-    #endregion
+        #endregion
 
-    #region Load Forms ---------------------
+        #region Load Forms ---------------------
         /// <summary>
-        /// 
+        /// Form wird geladen, Serial Connection wird erstellt, Timer für Takt gestartet
         /// </summary>
         public SimulatorForm()
         {
@@ -81,12 +94,20 @@ namespace MicroSimulator
         #endregion
 
         #region Serielle Schnittstelle
-
+        /// <summary>
+        /// Com1 Verbindung wird geöffnet
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button_Connect_Click(object sender, EventArgs e)
         {
             _sc.Connect(this);
         }
 
+        /// <summary>
+        /// Werte von Buttons zu TrisA werden zu Int umgewandelt
+        /// </summary>
+        /// <returns>TrisA als Integer</returns>
         public int GetTrisA()
         {
             var result = 0;
@@ -105,6 +126,10 @@ namespace MicroSimulator
             return result;
         }
 
+        /// <summary>
+        /// Werte von Buttons zu TrisB werden zu Int umgewandelt
+        /// </summary>
+        /// <returns>TrisB als Integer</returns>
         public int GetTrisB()
         {
             var result = 0;
@@ -121,6 +146,10 @@ namespace MicroSimulator
             return result;
         }
 
+        /// <summary>
+        /// Werte von Buttons zu PortA werden zu Int umgewandelt
+        /// </summary>
+        /// <returns>PortA als Integer</returns>
         public int GetPortA()
         {
             var result = 0;
@@ -135,7 +164,10 @@ namespace MicroSimulator
             return result;
         }
 
-
+        /// <summary>
+        /// Werte von Buttons zu PortB werden zu Int umgewandelt
+        /// </summary>
+        /// <returns>PortB als Integer</returns>
         public int GetPortB()
         {
             var result = 0;
@@ -150,6 +182,10 @@ namespace MicroSimulator
             return result;
         }
 
+        /// <summary>
+        /// PortA als Integer wird auf Buttonreihe übertragen
+        /// </summary>
+        /// <param name="value">PortA als Integer</param>
         public void SetPortA(uint value)
         {
             for (var i = 0; i <= 4; i++)
@@ -165,6 +201,10 @@ namespace MicroSimulator
             }
         }
 
+        /// <summary>
+        /// PortB als Integer wird auf Buttonreihe übertragen
+        /// </summary>
+        /// <param name="value">PortB als Integer</param>
         public void SetPortB(uint value)
         {
             for (var i = 0; i <= 7; i++)
@@ -179,17 +219,14 @@ namespace MicroSimulator
                     Controls[portNameB].Text = "0";
             }
         }
-
-
-
         #endregion
 
         #region Converter ---------------------
         /// <summary>
-        /// 
+        /// String Hex wird zu Integer umgewandelt
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">Wert als Hex</param>
+        /// <returns>Wert als Integer</returns>
         private static int Hex2Int(string value)
         {
             try
@@ -197,13 +234,13 @@ namespace MicroSimulator
             catch (Exception)
             {return 0;}            
         }
-    #endregion
+        #endregion
 
-    #region Handle Commands -------------------
+        #region Handle Commands -------------------
         /// <summary>
-        /// 
+        /// Abfrage für jeden Befehl mittels Bitüberprüfung
         /// </summary>
-        /// <param name="cmdValue"></param>
+        /// <param name="cmdValue">Hexwert vom Befehl</param>
         private void HandleCmd(string cmdValue)
         {
             var cmd = Hex2Int(cmdValue);
@@ -338,13 +375,13 @@ namespace MicroSimulator
             if (cmd == 0b00_0000_0000_1001)
                 Retfie();
         }
-    #endregion
+        #endregion
 
-    #region Register control -------------------
+        #region Register control -------------------
         /// <summary>
-        /// 
+        /// Wenn Wert von Berechnung 0 ist setze ZeroFlag, wenn nicht resete es
         /// </summary>
-        /// <param name="val"></param>
+        /// <param name="val">Ergebnis einer Operations</param>
         private void SetZeroFlag(int val)
         {
             //Zero Flag
@@ -355,7 +392,7 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Schreibe das Status Register
         /// </summary>
         private void WriteStatusReg()
         {
@@ -368,7 +405,7 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Schreibe Werte von Statusregister in Flagboxen
         /// </summary>
         private void WriteFlags()
         {
@@ -394,9 +431,11 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Schreibe das benutzteRegister
+        /// Bank0 => i=2
+        /// Bank1 => i=3
         /// </summary>
-        /// <param name="cmdReg"></param>
+        /// <param name="cmdReg">Adresse von Register</param>
         private void WriteReg(int cmdReg)
         {
             var i = 2;
@@ -418,10 +457,10 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Lese aus Wert aus Register
         /// </summary>
-        /// <param name="cmdReg"></param>
-        /// <returns></returns>
+        /// <param name="cmdReg">Adresse von Register</param>
+        /// <returns>Wert von Register</returns>
         private int ReadReg(int cmdReg)
         {
             foreach (DataGridViewRow row in dataGridView_Register.Rows)
@@ -432,11 +471,11 @@ namespace MicroSimulator
             }
             return 0;
         }
-    #endregion
+        #endregion
 
-    #region Commands -------------------
+        #region Commands -------------------
         /// <summary>
-        /// 
+        /// No operation, 1c
         /// </summary>
         private void Nop()
         {
@@ -444,9 +483,9 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Spring zu Adressenliteral, 2c
         /// </summary>
-        /// <param name="cmdLit"></param>
+        /// <param name="cmdLit">Adresse</param>
         private void Goto(int cmdLit)
         {
             var hexVal = cmdLit.ToString("X");
@@ -475,9 +514,9 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Literal in Arbeitsregister, 1c
         /// </summary>
-        /// <param name="cmdLit"></param>
+        /// <param name="cmdLit">Literal</param>
         private void Movlw(int cmdLit)
         {
             _l = cmdLit;
@@ -487,9 +526,9 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Arbeitsregister in Register f bewegen
         /// </summary>
-        /// <param name="cmdReg"></param>
+        /// <param name="cmdReg">Register f</param>
         private void Movwf(int cmdReg)
         {
             if (cmdReg == 0)
@@ -501,9 +540,9 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Bewege Wert von f nach f oder w
         /// </summary>
-        /// <param name="cmdReg"></param>
+        /// <param name="cmdReg">Register f</param>
         private void Movf(int cmdReg)
         {
             var fReg = cmdReg & 127;
@@ -535,9 +574,9 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Inklusiv oder von Literal und W, speichern in W
         /// </summary>
-        /// <param name="cmdLit"></param>
+        /// <param name="cmdLit">Literal</param>
         private void Iorlw(int cmdLit)
         {
             _l = cmdLit;
@@ -548,9 +587,9 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Inklusiv ODER von W und F, speichern in W oder F
         /// </summary>
-        /// <param name="cmdReg"></param>
+        /// <param name="cmdReg">Register F</param>
         private void Iorwf(int cmdReg)
         {
             var fReg = cmdReg & 127;
@@ -583,9 +622,9 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// UND von L und W, speichern in W
         /// </summary>
-        /// <param name="cmdLit"></param>
+        /// <param name="cmdLit">Literal L</param>
         private void Andlw(int cmdLit)
         {
             _l = cmdLit;
@@ -596,9 +635,9 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// UND von W und F, speichern in W oder F
         /// </summary>
-        /// <param name="cmdReg"></param>
+        /// <param name="cmdReg">Register F</param>
         private void Andwf(int cmdReg)
         {
             var fReg = cmdReg & 127;
@@ -628,9 +667,9 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Exklusiv ODER von Literal und W, speichern in W
         /// </summary>
-        /// <param name="cmdLit"></param>
+        /// <param name="cmdLit">Literal</param>
         private void Xorlw(int cmdLit)
         {
             _l = cmdLit;
@@ -643,9 +682,9 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Exklusiv ODER von Wert von F und W, speichern in W oder F
         /// </summary>
-        /// <param name="cmdReg"></param>
+        /// <param name="cmdReg">Register F</param>
         private void Xorwf(int cmdReg)
         {
             var fReg = cmdReg & 127;
@@ -675,9 +714,9 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Subtraktion W von L, speicher in W
         /// </summary>
-        /// <param name="cmdLit"></param>
+        /// <param name="cmdLit">Literal</param>
         private void Sublw(int cmdLit)
         {
             _l = cmdLit;
@@ -711,9 +750,9 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Subtraktion W von Wert von F, speichern in W oder F
         /// </summary>
-        /// <param name="cmdReg"></param>
+        /// <param name="cmdReg">F</param>
         private void Subwf(int cmdReg)
         {
             var fReg = cmdReg & 127;
@@ -769,9 +808,9 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Addieren von L und W
         /// </summary>
-        /// <param name="cmdLit"></param>
+        /// <param name="cmdLit">L</param>
         private void Addlw(int cmdLit)
         {
             _l = cmdLit;
@@ -806,9 +845,9 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Addieren von Wert von F und W
         /// </summary>
-        /// <param name="cmdReg"></param>
+        /// <param name="cmdReg">Register F</param>
         private void Addwf(int cmdReg)
         {
             var fReg = cmdReg & 127;
@@ -864,9 +903,9 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Wert von F auf 0 setzen
         /// </summary>
-        /// <param name="cmdReg"></param>
+        /// <param name="cmdReg">Register F</param>
         private void Clrf(int cmdReg)
         {
             if (cmdReg == 0) { 
@@ -883,7 +922,7 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Arbeitsregister auf 0 setzen
         /// </summary>
         private void Clrw()
         {
@@ -895,9 +934,9 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Komplement von f, speichern in F oder W
         /// </summary>
-        /// <param name="cmdReg"></param>
+        /// <param name="cmdReg">Register F</param>
         private void Comf(int cmdReg)
         {
             var fReg = cmdReg & 127;
@@ -927,9 +966,9 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Inkrement von f, speichern in F oder w
         /// </summary>
-        /// <param name="cmdReg"></param>
+        /// <param name="cmdReg">Register F</param>
         private void Incf(int cmdReg)
         {
             var fReg = cmdReg & 127;
@@ -963,9 +1002,9 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Inkrement von f, wenn 255->0 Überspringe nächste Zeile
         /// </summary>
-        /// <param name="cmdReg"></param>
+        /// <param name="cmdReg">Register F</param>
         private void Incfsz(int cmdReg)
         {
             var fReg = cmdReg & 127;
@@ -1006,9 +1045,9 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Dekrement von f, speichern in F oder W
         /// </summary>
-        /// <param name="cmdReg"></param>
+        /// <param name="cmdReg">Register F</param>
         private void Decf(int cmdReg)
         {
             var fReg = cmdReg & 127;
@@ -1042,9 +1081,9 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Dekrement von f, wenn 0->255 Überspringe nächste Zeile
         /// </summary>
-        /// <param name="cmdReg"></param>
+        /// <param name="cmdReg">Register f</param>
         private void Decfsz(int cmdReg)
         {
             var fReg = cmdReg & 127;
@@ -1079,9 +1118,9 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Tausche oberes Halfbyte mit unterem halfbyte von Wert von f
         /// </summary>
-        /// <param name="cmdReg"></param>
+        /// <param name="cmdReg">Register f</param>
         private void Swapf(int cmdReg)
         {
             var fReg = cmdReg & 127;
@@ -1115,9 +1154,9 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Rotiere den Wert von f nach links durch das Carryflag
         /// </summary>
-        /// <param name="cmdReg"></param>
+        /// <param name="cmdReg">Register f</param>
         private void Rlf(int cmdReg)
         {
             var fReg = cmdReg & 127;
@@ -1152,9 +1191,9 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Rotiere den Wert von f nach rechts durch das Carryflag
         /// </summary>
-        /// <param name="cmdReg"></param>
+        /// <param name="cmdReg">Register f</param>
         private void Rrf(int cmdReg)
         {
             var fReg = cmdReg & 127;
@@ -1195,9 +1234,9 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Setze das jeweilige Bit auf 0 vom Register f
         /// </summary>
-        /// <param name="cmdReg"></param>
+        /// <param name="cmdReg">Register f</param>
         private void Bcf(int cmdReg)
         {
             var fReg = cmdReg & 127;
@@ -1219,7 +1258,7 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Setze das jeweilige Bit auf 1 vom Register f
         /// </summary>
         /// <param name="cmdReg"></param>
         private void Bsf(int cmdReg)
@@ -1242,9 +1281,9 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Bittest if set clear
         /// </summary>
-        /// <param name="cmdReg"></param>
+        /// <param name="cmdReg">Register f</param>
         private void Btfsc(int cmdReg)
         {
             var fReg = cmdReg & 127;
@@ -1269,7 +1308,7 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Bit test if set skip
         /// </summary>
         /// <param name="cmdReg"></param>
         private void Btfss(int cmdReg)
@@ -1294,9 +1333,9 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Springe in Subroutine
         /// </summary>
-        /// <param name="cmdLit"></param>
+        /// <param name="cmdLit">Adresse an die gesprungen werden soll</param>
         private void CallSub(int cmdLit)
         {
             _stack.Push(_programCounter);
@@ -1326,7 +1365,7 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Schau auf Stack, spring an diese Adresse
         /// </summary>
         private void ReturnToCall()
         {
@@ -1339,9 +1378,9 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Schau auf Stack, spring an diese Adresse und schreibe Literal in W
         /// </summary>
-        /// <param name="cmdLit"></param>
+        /// <param name="cmdLit">Literal</param>
         private void Retlw(int cmdLit)
         {
             _cycles = 2;
@@ -1356,6 +1395,9 @@ namespace MicroSimulator
             text_W.Text = _w.ToString("X");          
         }
 
+        /// <summary>
+        /// Gehe aus Interupt subrouting, lese von Stack
+        /// </summary>
         private void Retfie()
         {
             _cycles = 2;
@@ -1371,9 +1413,9 @@ namespace MicroSimulator
         }
         #endregion
 
-    #region Button Control -------------------
+        #region Button Control -------------------
         /// <summary>
-        /// 
+        /// Öffne Test file
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -1413,7 +1455,7 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Fülle Daten in Tabelle 
         /// </summary>
         private void FillDataTable()
         {
@@ -1440,7 +1482,7 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Führe einen Befehl aus und gehe eine Zeile weiter
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -1458,7 +1500,7 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Starte Timer und führe Befehle alle ms aus
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -1478,7 +1520,7 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Starte Timer für Program
         /// </summary>
         private void Start()
         {
@@ -1537,10 +1579,10 @@ namespace MicroSimulator
 
         #endregion
 
-    #region RunTime -------------------
+        #region RunTime -------------------
 
         /// <summary>
-        /// 
+        /// Setze alle Werte zurück auf Standard
         /// </summary>
         private void ResetParam()
         {
@@ -1573,8 +1615,9 @@ namespace MicroSimulator
 
             ResetRegValues();
         }
+
         /// <summary>
-        /// 
+        /// Setze Werte von Register zurück
         /// </summary>
         private void ResetRegValues()
         {
@@ -1728,9 +1771,9 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Schau ob ein Prescaler gesetzt ist oder WDT aktiviert ist
         /// </summary>
-        /// <returns></returns>
+        /// <returns>0 = kein Prescaler, 8 = WDT</returns>
         private int? CheckIfPrescale()
         {
             foreach (DataGridViewRow row in dataGridView_Register.Rows)
@@ -1744,9 +1787,9 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Lese den Wert vom Prescaler aus
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Prescalerwert</returns>
         private int ReadTmrPrescaler()
         {
             foreach (DataGridViewRow row in dataGridView_Register.Rows)
@@ -1843,7 +1886,7 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Setze Tmr0 abhängig von Programmlaufzeit
         /// </summary>
         private void SetTmr0Cyclewise()
         {
@@ -1870,7 +1913,7 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Setze Werte von Tmr0
         /// </summary>
         private void SetTmr0Value()
         {
@@ -1897,7 +1940,7 @@ namespace MicroSimulator
         }
 
         /// <summary>
-        /// 
+        /// Setze WatchdogTimer, wenn Watchdogtimer erreicht, dann reset
         /// </summary>
         private void WatchdogTimer()
         {
@@ -1920,10 +1963,16 @@ namespace MicroSimulator
                         .Rows[0]
                         .Cells[dataGridView_prog.CurrentCell.ColumnIndex];
                 dataGridView_prog.Rows[dataGridView_prog.CurrentCell.RowIndex].Selected = true;
+                _stop = true;
             }
 
         }
 
+        /// <summary>
+        /// Timer für Takt
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Timer_Takt_Tick(object sender, EventArgs e)
         {
             for (var i = 0; i <= 7; i++)
