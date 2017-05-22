@@ -1576,7 +1576,7 @@ namespace MicroSimulator
         /// <param name="e"></param>
         private void Button_Help_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(@"C:\Users\Koopa\Documents\DHBW\Semester 4\Rechnertechnik\Pflichtenheft_Rechnertechnik.pdf");
+            System.Diagnostics.Process.Start(@"""D:\Workspace\PICSIMHALU\Pflichtenheft_Rechnertechnik.pdf""");
         }
 
         #endregion
