@@ -1659,8 +1659,12 @@ namespace MicroSimulator
             if (dataGridView_prog.CurrentRow == null) return;
 
             _programCounter = dataGridView_prog.CurrentRow.Index;
-            var pc = Hex2Int(dataGridView_prog.CurrentRow.Cells[1].Value.ToString());
-            text_Pc.Text = pc.ToString();
+
+            if (dataGridView_prog.CurrentRow.Cells[1].Value.ToString() != "")
+            {
+                var pc = Hex2Int(dataGridView_prog.CurrentRow.Cells[1].Value.ToString());
+                text_Pc.Text = pc.ToString("X");
+            }
 
             CheckInterrupt();
 
@@ -1887,7 +1891,7 @@ namespace MicroSimulator
             text_Prescaler.Text = @"1 / " + prescaleopt;     
 
             // rising flank
-            if (LastRa0TmrVal == "0" && txt.Text == "1" && ReadT0Se() == 0)
+            if (LastRa0TmrVal == "0" && txt.Text == @"1" && ReadT0Se() == 0)
             {
                 var prescaler = 1.0 / prescaleopt;
                 _prescaleCircle += prescaler;
@@ -1899,7 +1903,7 @@ namespace MicroSimulator
             }
 
             // falling flank
-            if (LastRa0TmrVal == "1" && txt.Text == "0" && ReadT0Se() == 16)
+            if (LastRa0TmrVal == "1" && txt.Text == @"0" && ReadT0Se() == 16)
             {
                 var prescaler = 1.0 / prescaleopt;
                 _prescaleCircle += prescaler;
@@ -2011,7 +2015,7 @@ namespace MicroSimulator
                 var bitNameB = "button_bit_B" + i;
 
                 if (Controls[optNameA].BackColor == Color.IndianRed)
-                    Controls[bitNameA].Text = Controls[bitNameA].Text == "1" ? "0" : "1";
+                    Controls[bitNameA].Text = Controls[bitNameA].Text == @"1" ? "0" : "1";
                 if (Controls[optNameB].BackColor == Color.IndianRed)
                     Controls[bitNameB].Text = Controls[bitNameB].Text == "1" ? "0" : "1";
             }
